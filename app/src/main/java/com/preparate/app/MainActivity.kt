@@ -2,21 +2,18 @@ package com.preparate.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.preparate.app.ui.PantallaCrearEstudiante
+import com.preparate.app.ui.PantallaDetalleEstudiante
+import com.preparate.app.ui.PantallaEntrar
+import com.preparate.app.ui.PantallaInicio
+import com.preparate.app.ui.PantallaKiwi
+import com.preparate.app.ui.PantallaLeccion
+import com.preparate.app.ui.PantallaPractica
 import com.preparate.app.ui.TemaPreparate
 
 class MainActivity : ComponentActivity() {
@@ -25,28 +22,23 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TemaPreparate {
-                PantallaInicial()
+                App(viewModel())
             }
         }
     }
 }
 
 @Composable
-fun PantallaInicial() {
-    Scaffold { relleno ->
-        Column(
-            modifier = Modifier.fillMaxSize().padding(relleno).padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.displaySmall)
-            Text(stringResource(R.string.bienvenida), style = MaterialTheme.typography.bodyLarge)
-        }
+fun App(vm: AppViewModel) {
+    val pantalla = vm.pantalla
+    BackHandler(enabled = pantalla != Pantalla.Inicio && pantalla != Pantalla.Entrar) { vm.volverAlInicio() }
+    when (pantalla) {
+        Pantalla.Entrar -> PantallaEntrar(vm)
+        Pantalla.Inicio -> PantallaInicio(vm)
+        Pantalla.Leccion -> PantallaLeccion(vm)
+        Pantalla.Practica -> PantallaPractica(vm)
+        Pantalla.Kiwi -> PantallaKiwi(vm)
+        Pantalla.CrearEstudiante -> PantallaCrearEstudiante(vm)
+        is Pantalla.DetalleEstudiante -> PantallaDetalleEstudiante(vm, pantalla)
     }
-}
-
-@Preview(widthDp = 800, heightDp = 1280)
-@Composable
-private fun VistaTablet() {
-    TemaPreparate { PantallaInicial() }
 }

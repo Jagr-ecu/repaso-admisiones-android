@@ -1,0 +1,23 @@
+rules_version = '2';
+
+// Reglas de seguridad de Firestore (PLAN-MIGRACION.md, sección 4).
+// Se copian a mano en la consola de Firebase: Firestore → Reglas → Publicar.
+// Una cuenta sin documento en usuarios/ no puede leer ni escribir nada.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function rol() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol;
+    }
+
+    match /usuarios/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || rol() == 'admin');
+      allow write: if request.auth != null && rol() == 'admin';
+    }
+
+    match /estudiantes/{uid}/{doc=**} {
+      allow read: if request.auth != null && (request.auth.uid == uid || rol() == 'admin');
+      allow write: if request.auth != null && request.auth.uid == uid && rol() == 'estudiante';
+    }
+  }
+}

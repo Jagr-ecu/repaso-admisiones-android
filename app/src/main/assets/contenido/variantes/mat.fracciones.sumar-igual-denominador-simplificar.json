@@ -1,0 +1,699 @@
+{
+ "id": "mat.fracciones.sumar-igual-denominador-simplificar",
+ "tipo": "abierta",
+ "verificador": "sympy",
+ "forma_irreducible": true,
+ "ignorar_tildes": false,
+ "variantes": [
+  {
+   "semilla": 0,
+   "enunciado": "Isabella usó $\\frac{1}{12}$ de una cartulina para un regalo y $\\frac{3}{12}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "1/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{12} + \\frac{3}{12} = \\frac{4}{12} = \\frac{1}{3}$. Arriba y abajo se dividen para 4.",
+   "errores": [
+    {
+     "valor": "4/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 1,
+   "enunciado": "Samuel usó $\\frac{4}{10}$ de una cinta para un regalo y $\\frac{1}{10}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/2",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{10} + \\frac{1}{10} = \\frac{5}{10} = \\frac{1}{2}$. Arriba y abajo se dividen para 5.",
+   "errores": [
+    {
+     "valor": "5/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 2,
+   "enunciado": "Ana usó $\\frac{1}{6}$ de una cinta para un regalo y $\\frac{3}{6}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "2/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{6} + \\frac{3}{6} = \\frac{4}{6} = \\frac{2}{3}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "4/12",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/6",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 3,
+   "enunciado": "Samuel usó $\\frac{6}{12}$ de una cinta para un regalo y $\\frac{4}{12}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "5/6",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{6}{12} + \\frac{4}{12} = \\frac{10}{12} = \\frac{5}{6}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "10/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "24/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 4,
+   "enunciado": "Martín usó $\\frac{1}{4}$ de una cinta para un regalo y $\\frac{1}{4}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/2",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{4} + \\frac{1}{4} = \\frac{2}{4} = \\frac{1}{2}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "2/8",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/4",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 5,
+   "enunciado": "Emilio usó $\\frac{6}{12}$ de una cartulina para un regalo y $\\frac{3}{12}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{6}{12} + \\frac{3}{12} = \\frac{9}{12} = \\frac{3}{4}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "9/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "18/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 6,
+   "enunciado": "Samuel usó $\\frac{4}{12}$ de una tela para un regalo y $\\frac{5}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{12} + \\frac{5}{12} = \\frac{9}{12} = \\frac{3}{4}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "9/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "20/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 7,
+   "enunciado": "Sofía usó $\\frac{1}{10}$ de una cinta para un regalo y $\\frac{1}{10}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{10} + \\frac{1}{10} = \\frac{2}{10} = \\frac{1}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "2/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 8,
+   "enunciado": "Camila usó $\\frac{4}{10}$ de una tela para un regalo y $\\frac{4}{10}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "4/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{10} + \\frac{4}{10} = \\frac{8}{10} = \\frac{4}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "8/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "16/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 9,
+   "enunciado": "Valentina usó $\\frac{1}{12}$ de una tela para un regalo y $\\frac{3}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "1/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{12} + \\frac{3}{12} = \\frac{4}{12} = \\frac{1}{3}$. Arriba y abajo se dividen para 4.",
+   "errores": [
+    {
+     "valor": "4/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 10,
+   "enunciado": "Samuel usó $\\frac{3}{10}$ de una tela para un regalo y $\\frac{1}{10}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "2/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{3}{10} + \\frac{1}{10} = \\frac{4}{10} = \\frac{2}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "4/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 11,
+   "enunciado": "Martín usó $\\frac{4}{12}$ de una tela para un regalo y $\\frac{4}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "2/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{12} + \\frac{4}{12} = \\frac{8}{12} = \\frac{2}{3}$. Arriba y abajo se dividen para 4.",
+   "errores": [
+    {
+     "valor": "8/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "16/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 12,
+   "enunciado": "Ana usó $\\frac{2}{12}$ de una tela para un regalo y $\\frac{1}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "1/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{2}{12} + \\frac{1}{12} = \\frac{3}{12} = \\frac{1}{4}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "3/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "2/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 13,
+   "enunciado": "Valentina usó $\\frac{3}{9}$ de una tela para un regalo y $\\frac{3}{9}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "2/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{3}{9} + \\frac{3}{9} = \\frac{6}{9} = \\frac{2}{3}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "6/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "9/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 14,
+   "enunciado": "Joaquín usó $\\frac{3}{12}$ de una cartulina para un regalo y $\\frac{3}{12}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "1/2",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{3}{12} + \\frac{3}{12} = \\frac{6}{12} = \\frac{1}{2}$. Arriba y abajo se dividen para 6.",
+   "errores": [
+    {
+     "valor": "6/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "9/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 15,
+   "enunciado": "Valentina usó $\\frac{1}{6}$ de una cinta para un regalo y $\\frac{1}{6}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{6} + \\frac{1}{6} = \\frac{2}{6} = \\frac{1}{3}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "2/12",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/6",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 16,
+   "enunciado": "Samuel usó $\\frac{3}{10}$ de una cartulina para un regalo y $\\frac{3}{10}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "3/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{3}{10} + \\frac{3}{10} = \\frac{6}{10} = \\frac{3}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "6/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "9/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 17,
+   "enunciado": "Sofía usó $\\frac{3}{8}$ de una cartulina para un regalo y $\\frac{3}{8}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{3}{8} + \\frac{3}{8} = \\frac{6}{8} = \\frac{3}{4}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "6/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "9/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 18,
+   "enunciado": "Samuel usó $\\frac{6}{12}$ de una cinta para un regalo y $\\frac{3}{12}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{6}{12} + \\frac{3}{12} = \\frac{9}{12} = \\frac{3}{4}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "9/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "18/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 19,
+   "enunciado": "Emilio usó $\\frac{1}{10}$ de una cartulina para un regalo y $\\frac{3}{10}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "2/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{10} + \\frac{3}{10} = \\frac{4}{10} = \\frac{2}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "4/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 20,
+   "enunciado": "Isabella usó $\\frac{1}{9}$ de una cinta para un regalo y $\\frac{2}{9}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{9} + \\frac{2}{9} = \\frac{3}{9} = \\frac{1}{3}$. Arriba y abajo se dividen para 3.",
+   "errores": [
+    {
+     "valor": "3/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "2/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 21,
+   "enunciado": "Emilio usó $\\frac{1}{12}$ de una tela para un regalo y $\\frac{1}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "1/6",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{12} + \\frac{1}{12} = \\frac{2}{12} = \\frac{1}{6}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "2/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 22,
+   "enunciado": "Ana usó $\\frac{1}{8}$ de una tela para un regalo y $\\frac{5}{8}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{8} + \\frac{5}{8} = \\frac{6}{8} = \\frac{3}{4}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "6/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "5/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 23,
+   "enunciado": "Camila usó $\\frac{1}{8}$ de una cinta para un regalo y $\\frac{5}{8}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "3/4",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{8} + \\frac{5}{8} = \\frac{6}{8} = \\frac{3}{4}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "6/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "5/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 24,
+   "enunciado": "Joaquín usó $\\frac{4}{12}$ de una tela para un regalo y $\\frac{4}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "2/3",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{12} + \\frac{4}{12} = \\frac{8}{12} = \\frac{2}{3}$. Arriba y abajo se dividen para 4.",
+   "errores": [
+    {
+     "valor": "8/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "16/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 25,
+   "enunciado": "Ana usó $\\frac{1}{10}$ de una cartulina para un regalo y $\\frac{3}{10}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "2/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{10} + \\frac{3}{10} = \\frac{4}{10} = \\frac{2}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "4/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 26,
+   "enunciado": "Samuel usó $\\frac{2}{12}$ de una tela para un regalo y $\\frac{4}{12}$ para otro. ¿Qué parte de la tela usó en total? Simplifica el resultado.",
+   "respuesta": "1/2",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de tela son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{2}{12} + \\frac{4}{12} = \\frac{6}{12} = \\frac{1}{2}$. Arriba y abajo se dividen para 6.",
+   "errores": [
+    {
+     "valor": "6/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "8/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 27,
+   "enunciado": "Martín usó $\\frac{5}{12}$ de una cartulina para un regalo y $\\frac{1}{12}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "1/2",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{5}{12} + \\frac{1}{12} = \\frac{6}{12} = \\frac{1}{2}$. Arriba y abajo se dividen para 6.",
+   "errores": [
+    {
+     "valor": "6/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "5/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 28,
+   "enunciado": "Isabella usó $\\frac{1}{10}$ de una cinta para un regalo y $\\frac{1}{10}$ para otro. ¿Qué parte de la cinta usó en total? Simplifica el resultado.",
+   "respuesta": "1/5",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cinta son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{1}{10} + \\frac{1}{10} = \\frac{2}{10} = \\frac{1}{5}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "2/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  },
+  {
+   "semilla": 29,
+   "enunciado": "Samuel usó $\\frac{4}{12}$ de una cartulina para un regalo y $\\frac{6}{12}$ para otro. ¿Qué parte de la cartulina usó en total? Simplifica el resultado.",
+   "respuesta": "5/6",
+   "aceptadas": [],
+   "opciones": [],
+   "pistas": [
+    "¿Los dos pedazos de cartulina son del mismo tamaño? Mira los números de abajo.",
+    "Suma solo los de arriba. Después, ¿puedes dividir arriba y abajo por el mismo número?",
+    "Ejemplo: $\\frac{1}{8} + \\frac{3}{8} = \\frac{4}{8} = \\frac{4 \\div 4}{8 \\div 4} = \\frac{1}{2}$."
+   ],
+   "solucion": "$\\frac{4}{12} + \\frac{6}{12} = \\frac{10}{12} = \\frac{5}{6}$. Arriba y abajo se dividen para 2.",
+   "errores": [
+    {
+     "valor": "10/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "24/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    }
+   ]
+  }
+ ]
+}

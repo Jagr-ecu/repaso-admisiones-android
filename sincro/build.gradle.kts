@@ -16,7 +16,8 @@ android {
 
 dependencies {
     implementation(project(":datos"))
-    implementation(project(":dominio"))
+    api(project(":dominio"))
+    implementation(libs.coroutines.play.services)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)

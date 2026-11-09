@@ -1,0 +1,6512 @@
+[
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "5/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": " 5 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "10/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "15/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "-5/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "0,56",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "0.5555555555555556",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "5/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "4/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 0,
+  "entrada": "5/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "8/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": " 8 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "16/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "24/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "-8/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "0,73",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "0.7272727272727273",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "8/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "12/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 1,
+  "entrada": "8/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "8/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": " 8 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "16/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "24/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "-8/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "0,73",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "0.7272727272727273",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "8/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "12/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 2,
+  "entrada": "8/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "5/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": " 5 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "10/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "15/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "-5/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "0,56",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "0.5555555555555556",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "5/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "4/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 3,
+  "entrada": "5/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "4/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": " 4 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "8/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "12/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "-4/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "0,36",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "0.36363636363636365",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "4/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "4/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "3/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 4,
+  "entrada": "4/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "9/10",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": " 9 / 10 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "18/20",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "27/30",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "-9/10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "0,90",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "0.9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "9/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "9/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "18/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 5,
+  "entrada": "9/100",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "5/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": " 5 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "10/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "15/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "-5/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "0,45",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "0.45454545454545453",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "5/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "4/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 7,
+  "entrada": "5/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "7/8",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": " 7 / 8 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "14/16",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "21/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "-7/8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "0,88",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "0.875",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "7/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "10/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 8,
+  "entrada": "7/64",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "8/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": " 8 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "16/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "24/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "-8/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "0,89",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "0.8888888888888888",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "8/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "15/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 9,
+  "entrada": "8/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "5/12",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": " 5 / 12 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "10/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "15/36",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "-5/12",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "0,42",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "0.4166666666666667",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "5/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "4/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 10,
+  "entrada": "5/144",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3/8",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": " 3 / 8 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "6/16",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "9/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "-3/8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "0,38",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "0.375",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "2/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 11,
+  "entrada": "3/64",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "9/10",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": " 9 / 10 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "18/20",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "27/30",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "-9/10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "0,90",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "0.9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "9/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "9/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "18/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 12,
+  "entrada": "9/100",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3/8",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": " 3 / 8 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "6/16",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "9/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "-3/8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "0,38",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "0.375",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "2/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 13,
+  "entrada": "3/64",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "10/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": " 10 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "20/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "30/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "-10/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "0,91",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "0.9090909090909091",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "10/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "10/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "24/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 14,
+  "entrada": "10/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "7/10",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": " 7 / 10 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "14/20",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "21/30",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "-7/10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "0,70",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "0.7",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "7/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "12/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 15,
+  "entrada": "7/100",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "8/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": " 8 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "16/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "24/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "-8/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "0,89",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "0.8888888888888888",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "8/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "16/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 16,
+  "entrada": "8/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "7/10",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": " 7 / 10 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "14/20",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "21/30",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "-7/10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "0,70",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "0.7",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "7/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "12/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 17,
+  "entrada": "7/100",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "7/12",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": " 7 / 12 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "14/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "21/36",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "-7/12",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "0,58",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "0.5833333333333334",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "7/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "6/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 18,
+  "entrada": "7/144",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "8/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": " 8 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "16/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "24/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "-8/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "0,89",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "0.8888888888888888",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "8/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "15/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 19,
+  "entrada": "8/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "5/6",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": " 5 / 6 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "10/12",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "15/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "-5/6",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "0,83",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "0.8333333333333334",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "5/12",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "4/6",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 20,
+  "entrada": "5/36",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "10/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": " 10 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "20/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "30/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "-10/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "0,91",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "0.9090909090909091",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "10/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "10/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "24/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 21,
+  "entrada": "10/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "7/10",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": " 7 / 10 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "14/20",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "21/30",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "-7/10",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "0,70",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "0.7",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "7/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "6/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 22,
+  "entrada": "7/100",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "2/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": " 2 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "4/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "6/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "-2/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "0,22",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "0.2222222222222222",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "2/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "1/9",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 23,
+  "entrada": "2/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "7/8",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": " 7 / 8 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "14/16",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "21/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "-7/8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "0,88",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "0.875",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "7/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "7",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "7/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "10/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 24,
+  "entrada": "7/64",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "8/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": " 8 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "16/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "24/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "-8/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "0,73",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "0.7272727272727273",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "8/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "15/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 25,
+  "entrada": "8/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "8/11",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": " 8 / 11 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "16/22",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "24/33",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "-8/11",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "0,73",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "0.7272727272727273",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "8/22",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "12/11",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 26,
+  "entrada": "8/121",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "2/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": " 2 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "4/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "6/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "-2/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "0,22",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "0.2222222222222222",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "2/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "1/9",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 27,
+  "entrada": "2/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "5/8",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": " 5 / 8 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "10/16",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "15/24",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "-5/8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "0,62",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "0.625",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "5/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "4/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 28,
+  "entrada": "5/64",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "4/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": " 4 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "8/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "12/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "-4/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "0,44",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "0.4444444444444444",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "4/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "4/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "3/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 29,
+  "entrada": "4/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "8/9",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": " 8 / 9 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "16/18",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "24/27",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "-8/9",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "0,89",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "0.8888888888888888",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "8/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "8",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "8/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "12/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador",
+  "semilla": 30,
+  "entrada": "8/81",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "1/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": " 1 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "2/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "3/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "-1/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "0,33",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "0.3333333333333333",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "4/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 0,
+  "entrada": "3/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "1/2",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": " 1 / 2 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "2/4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "3/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "-1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "0,50",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "0.5",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "5/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 1,
+  "entrada": "4/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "2/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": " 2 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "4/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "6/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "-2/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "0,67",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "0.6666666666666666",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "4/12",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 2,
+  "entrada": "3/6",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "5/6",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": " 5 / 6 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "10/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "15/18",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "-5/6",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "0,83",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "0.8333333333333334",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "10/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 3,
+  "entrada": "24/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "1/2",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": " 1 / 2 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "2/4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "3/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "-1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "0,50",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "0.5",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "2/8",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 4,
+  "entrada": "1/4",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "9/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 5,
+  "entrada": "18/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "9/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 6,
+  "entrada": "20/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "1/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": " 1 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "2/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "3/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "-1/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "0,20",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "0.2",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "2/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 7,
+  "entrada": "1/10",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "4/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": " 4 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "8/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "12/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "-4/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "0,80",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "0.8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "4/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "8/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 8,
+  "entrada": "16/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "1/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": " 1 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "2/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "3/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "-1/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "0,33",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "0.3333333333333333",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "4/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 9,
+  "entrada": "3/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "2/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": " 2 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "4/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "6/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "-2/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "0,40",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "0.4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "4/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 10,
+  "entrada": "3/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "2/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": " 2 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "4/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "6/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "-2/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "0,67",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "0.6666666666666666",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "8/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 11,
+  "entrada": "16/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "1/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": " 1 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "2/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "3/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "-1/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "0,25",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "0.25",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "3/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 12,
+  "entrada": "2/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "2/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": " 2 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "4/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "6/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "-2/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "0,67",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "0.6666666666666666",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "6/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 13,
+  "entrada": "9/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "1/2",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": " 1 / 2 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "2/4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "3/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "-1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "0,50",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "0.5",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "6/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 14,
+  "entrada": "9/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "1/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": " 1 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "2/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "3/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "-1/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "0,33",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "0.3333333333333333",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "2/12",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 15,
+  "entrada": "1/6",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "3/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": " 3 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "6/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "9/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "-3/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "0,60",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "0.6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "6/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 16,
+  "entrada": "9/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "6/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 17,
+  "entrada": "9/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "9/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 18,
+  "entrada": "18/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "2/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": " 2 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "4/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "6/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "-2/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "0,40",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "0.4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "4/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 19,
+  "entrada": "3/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "1/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": " 1 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "2/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "3/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "-1/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "0,33",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "0.3333333333333333",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "3/18",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 20,
+  "entrada": "2/9",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "1/6",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": " 1 / 6 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "2/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "3/18",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "-1/6",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "0,17",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "0.16666666666666666",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "2/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 21,
+  "entrada": "1/12",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "6/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 22,
+  "entrada": "5/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "3/4",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": " 3 / 4 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "6/8",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "9/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "-3/4",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "0,75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "0.75",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "3/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "6/16",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 23,
+  "entrada": "5/8",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "2/3",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": " 2 / 3 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "4/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "6/9",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "-2/3",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "0,67",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "0.6666666666666666",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "8/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 24,
+  "entrada": "16/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "2/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": " 2 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "4/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "6/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "-2/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "0,40",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "0.4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "2/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "4/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 25,
+  "entrada": "3/10",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "1/2",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": " 1 / 2 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "2/4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "3/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "-1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "0,50",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "0.5",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "6/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 26,
+  "entrada": "8/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "1/2",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": " 1 / 2 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "2/4",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "3/6",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "-1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "0,50",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "0.5",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "6/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 27,
+  "entrada": "5/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "1/5",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": " 1 / 5 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "2/10",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "3/15",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "-1/5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "0,20",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "0.2",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "1/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "1",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "2/20",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 28,
+  "entrada": "1/10",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "5/6",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": " 5 / 6 ",
+  "estado": "correcta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "10/12",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "15/18",
+  "estado": "forma_incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "-5/6",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "0,83",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "0.8333333333333334",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "5/0",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "5",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "abc",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "",
+  "estado": "formato_invalido",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "1 1/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "3/2",
+  "estado": "incorrecta",
+  "error_comun": null
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "10/24",
+  "estado": "incorrecta",
+  "error_comun": "Sumaste también los números de abajo. Esos no cambian."
+ },
+ {
+  "plantilla": "mat.fracciones.sumar-igual-denominador-simplificar",
+  "semilla": 29,
+  "entrada": "24/12",
+  "estado": "incorrecta",
+  "error_comun": "Multiplicaste los números de arriba. Hay que sumarlos."
+ }
+]
