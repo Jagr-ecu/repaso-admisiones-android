@@ -28,6 +28,30 @@ Estado al 2026-11-09. La migración aún no empieza. La base es el commit `0cdff
 - **El APK vacío se instala y funciona en la MatePad: fase 0 cerrada.** Firebase se inicia al abrir la app sin cerrarla, aunque no haya servicios de Google.
 - En el proyecto web se hizo el commit `a4ee32a`, que añade `.codegraph/` al `.gitignore`. Va después de la etiqueta base, así que no la cambia.
 
+**Fase 1: código listo, falta probarla en la MatePad (2026-11-09)**
+Hecho y comprobado en el emulador (Android 17):
+- Tema de prueba: "Sumar fracciones con el mismo denominador", con 30 variantes por plantilla. Lo genera `herramientas/exportar_prueba.py` (provisional, lo reemplaza `exportar-paquete` en la fase 2).
+- KaTeX 0.19 y marked en WebView, sin Internet. La lección, los enunciados y las opciones se ven como en la web.
+- Verificador portado a `:dominio`. Pasa 930 casos de referencia generados por Python.
+- Corrige, detecta errores comunes, muestra la pista de la lista tras un fallo y permite ver la solución.
+- Pantallas: entrar, inicio del estudiante (con contador de respuestas sin subir), panel de admin (lista y detalle con la hora de respuesta y la hora de llegada a la nube), crear estudiante y Kiwi.
+- `herramientas/cuentas.py` (`crear-admin`, `cambiar-clave`) y `firestore.rules`.
+- El APK de depuración tiene un botón "Vista previa del tema" para probar sin cuenta. No guarda nada.
+
+Atajos de la fase 1 que se corrigen después:
+- Los intentos van directo a Firestore y su caché sin conexión los guarda hasta que vuelve Internet. Room y la cola de subida llegan en las fases 4 y 5.
+- Kiwi solo saluda desde su pantalla de prueba. No aparece en los ejercicios hasta portar la guardia (fase 6).
+- Faltan la regla de 3 errores y la repetición de lo fallado (fase 3).
+- Los textos de las pantallas están escritos en el código, no en `strings.xml` (fase 4).
+
+Pasos del usuario para probar la fase 1:
+- [ ] Publicar `firestore.rules` en la consola de Firebase.
+- [ ] Descargar la credencial de la cuenta de servicio en `herramientas/credencial-firebase.json`, instalar `firebase-admin` y crear el admin con `cuentas.py crear-admin`.
+- [ ] En la MatePad: entrar como admin, crear un estudiante y entrar con él.
+- [ ] Responder en modo avión, volver a conectar y ver la respuesta en el panel de admin desde otro dispositivo.
+- [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app.
+- [ ] Cambiar la clave del estudiante con `cuentas.py cambiar-clave` y entrar con la nueva.
+
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
 - marca, modelo, versión de Android y nivel de API reales;

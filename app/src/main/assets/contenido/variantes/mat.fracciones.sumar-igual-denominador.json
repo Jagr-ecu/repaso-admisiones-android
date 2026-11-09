@@ -1,0 +1,967 @@
+{
+ "id": "mat.fracciones.sumar-igual-denominador",
+ "tipo": "opcion_multiple",
+ "verificador": "sympy",
+ "forma_irreducible": false,
+ "ignorar_tildes": false,
+ "variantes": [
+  {
+   "semilla": 0,
+   "enunciado": "Isabella pintó $\\frac{4}{9}$ de una pared en la mañana y $\\frac{1}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/9",
+   "aceptadas": [],
+   "opciones": [
+    "5/9",
+    "4/9",
+    "5/18",
+    "5/81"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{4}{9} + \\frac{1}{9} = \\frac{4 + 1}{9} = \\frac{5}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 1,
+   "enunciado": "Isabella pintó $\\frac{6}{11}$ de una pared en la mañana y $\\frac{2}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/11",
+   "aceptadas": [],
+   "opciones": [
+    "8/22",
+    "8/121",
+    "12/11",
+    "8/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{11} + \\frac{2}{11} = \\frac{6 + 2}{11} = \\frac{8}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 2,
+   "enunciado": "Emilio pintó $\\frac{6}{11}$ de una pared en la mañana y $\\frac{2}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/11",
+   "aceptadas": [],
+   "opciones": [
+    "8/11",
+    "8/22",
+    "12/11",
+    "8/121"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{11} + \\frac{2}{11} = \\frac{6 + 2}{11} = \\frac{8}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 3,
+   "enunciado": "Emilio pintó $\\frac{1}{9}$ de una pared en la mañana y $\\frac{4}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/9",
+   "aceptadas": [],
+   "opciones": [
+    "4/9",
+    "5/81",
+    "5/9",
+    "5/18"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{9} + \\frac{4}{9} = \\frac{1 + 4}{9} = \\frac{5}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 4,
+   "enunciado": "Samuel pintó $\\frac{3}{11}$ de una pared en la mañana y $\\frac{1}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "4/11",
+   "aceptadas": [],
+   "opciones": [
+    "4/22",
+    "3/11",
+    "4/11",
+    "4/121"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{3}{11} + \\frac{1}{11} = \\frac{3 + 1}{11} = \\frac{4}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "4/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "4/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 5,
+   "enunciado": "Emilio pintó $\\frac{3}{10}$ de una pared en la mañana y $\\frac{6}{10}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "9/10",
+   "aceptadas": [],
+   "opciones": [
+    "18/10",
+    "9/100",
+    "9/20",
+    "9/10"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{3}{10} + \\frac{6}{10} = \\frac{3 + 6}{10} = \\frac{9}{10}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "9/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "18/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "9/100",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 7,
+   "enunciado": "Ana pintó $\\frac{1}{11}$ de una pared en la mañana y $\\frac{4}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/11",
+   "aceptadas": [],
+   "opciones": [
+    "5/22",
+    "4/11",
+    "5/121",
+    "5/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{11} + \\frac{4}{11} = \\frac{1 + 4}{11} = \\frac{5}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 8,
+   "enunciado": "Valentina pintó $\\frac{2}{8}$ de una pared en la mañana y $\\frac{5}{8}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/8",
+   "aceptadas": [],
+   "opciones": [
+    "7/16",
+    "7/8",
+    "10/8",
+    "7/64"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{2}{8} + \\frac{5}{8} = \\frac{2 + 5}{8} = \\frac{7}{8}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "10/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/64",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 9,
+   "enunciado": "Martín pintó $\\frac{5}{9}$ de una pared en la mañana y $\\frac{3}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/9",
+   "aceptadas": [],
+   "opciones": [
+    "8/81",
+    "15/9",
+    "8/9",
+    "8/18"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{5}{9} + \\frac{3}{9} = \\frac{5 + 3}{9} = \\frac{8}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "15/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 10,
+   "enunciado": "Emilio pintó $\\frac{1}{12}$ de una pared en la mañana y $\\frac{4}{12}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/12",
+   "aceptadas": [],
+   "opciones": [
+    "4/12",
+    "5/24",
+    "5/144",
+    "5/12"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{12} + \\frac{4}{12} = \\frac{1 + 4}{12} = \\frac{5}{12}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/144",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 11,
+   "enunciado": "Ana pintó $\\frac{1}{8}$ de una pared en la mañana y $\\frac{2}{8}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "3/8",
+   "aceptadas": [],
+   "opciones": [
+    "3/64",
+    "2/8",
+    "3/16",
+    "3/8"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{8} + \\frac{2}{8} = \\frac{1 + 2}{8} = \\frac{3}{8}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "3/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "2/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "3/64",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 12,
+   "enunciado": "Martín pintó $\\frac{3}{10}$ de una pared en la mañana y $\\frac{6}{10}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "9/10",
+   "aceptadas": [],
+   "opciones": [
+    "18/10",
+    "9/10",
+    "9/100",
+    "9/20"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{3}{10} + \\frac{6}{10} = \\frac{3 + 6}{10} = \\frac{9}{10}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "9/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "18/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "9/100",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 13,
+   "enunciado": "Valentina pintó $\\frac{2}{8}$ de una pared en la mañana y $\\frac{1}{8}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "3/8",
+   "aceptadas": [],
+   "opciones": [
+    "3/64",
+    "3/16",
+    "3/8",
+    "2/8"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{2}{8} + \\frac{1}{8} = \\frac{2 + 1}{8} = \\frac{3}{8}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "3/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "2/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "3/64",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 14,
+   "enunciado": "Martín pintó $\\frac{6}{11}$ de una pared en la mañana y $\\frac{4}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "10/11",
+   "aceptadas": [],
+   "opciones": [
+    "24/11",
+    "10/121",
+    "10/22",
+    "10/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{11} + \\frac{4}{11} = \\frac{6 + 4}{11} = \\frac{10}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "10/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "24/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "10/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 15,
+   "enunciado": "Mateo pintó $\\frac{3}{10}$ de una pared en la mañana y $\\frac{4}{10}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/10",
+   "aceptadas": [],
+   "opciones": [
+    "7/10",
+    "7/100",
+    "7/20",
+    "12/10"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{3}{10} + \\frac{4}{10} = \\frac{3 + 4}{10} = \\frac{7}{10}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/100",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 16,
+   "enunciado": "Joaquín pintó $\\frac{4}{9}$ de una pared en la mañana y $\\frac{4}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/9",
+   "aceptadas": [],
+   "opciones": [
+    "16/9",
+    "8/18",
+    "8/9",
+    "8/81"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{4}{9} + \\frac{4}{9} = \\frac{4 + 4}{9} = \\frac{8}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "16/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 17,
+   "enunciado": "Sofía pintó $\\frac{4}{10}$ de una pared en la mañana y $\\frac{3}{10}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/10",
+   "aceptadas": [],
+   "opciones": [
+    "7/100",
+    "7/20",
+    "7/10",
+    "12/10"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{4}{10} + \\frac{3}{10} = \\frac{4 + 3}{10} = \\frac{7}{10}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/100",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 18,
+   "enunciado": "Valentina pintó $\\frac{1}{12}$ de una pared en la mañana y $\\frac{6}{12}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/12",
+   "aceptadas": [],
+   "opciones": [
+    "7/24",
+    "7/144",
+    "7/12",
+    "6/12"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{12} + \\frac{6}{12} = \\frac{1 + 6}{12} = \\frac{7}{12}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/24",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "6/12",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/144",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 19,
+   "enunciado": "Isabella pintó $\\frac{3}{9}$ de una pared en la mañana y $\\frac{5}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/9",
+   "aceptadas": [],
+   "opciones": [
+    "8/9",
+    "8/81",
+    "15/9",
+    "8/18"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{3}{9} + \\frac{5}{9} = \\frac{3 + 5}{9} = \\frac{8}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "15/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 20,
+   "enunciado": "Isabella pintó $\\frac{4}{6}$ de una pared en la mañana y $\\frac{1}{6}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/6",
+   "aceptadas": [],
+   "opciones": [
+    "5/6",
+    "4/6",
+    "5/36",
+    "5/12"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{4}{6} + \\frac{1}{6} = \\frac{4 + 1}{6} = \\frac{5}{6}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/12",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/6",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/36",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 21,
+   "enunciado": "Valentina pintó $\\frac{4}{11}$ de una pared en la mañana y $\\frac{6}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "10/11",
+   "aceptadas": [],
+   "opciones": [
+    "10/121",
+    "10/11",
+    "10/22",
+    "24/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{4}{11} + \\frac{6}{11} = \\frac{4 + 6}{11} = \\frac{10}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "10/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "24/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "10/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 22,
+   "enunciado": "Valentina pintó $\\frac{6}{10}$ de una pared en la mañana y $\\frac{1}{10}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/10",
+   "aceptadas": [],
+   "opciones": [
+    "6/10",
+    "7/20",
+    "7/100",
+    "7/10"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{10} + \\frac{1}{10} = \\frac{6 + 1}{10} = \\frac{7}{10}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/20",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "6/10",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/100",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 23,
+   "enunciado": "Camila pintó $\\frac{1}{9}$ de una pared en la mañana y $\\frac{1}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "2/9",
+   "aceptadas": [],
+   "opciones": [
+    "2/9",
+    "2/81",
+    "2/18"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{9} + \\frac{1}{9} = \\frac{1 + 1}{9} = \\frac{2}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "2/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "2/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 24,
+   "enunciado": "Isabella pintó $\\frac{5}{8}$ de una pared en la mañana y $\\frac{2}{8}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "7/8",
+   "aceptadas": [],
+   "opciones": [
+    "7/64",
+    "10/8",
+    "7/8",
+    "7/16"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{5}{8} + \\frac{2}{8} = \\frac{5 + 2}{8} = \\frac{7}{8}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "7/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "10/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "7/64",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 25,
+   "enunciado": "Emilio pintó $\\frac{5}{11}$ de una pared en la mañana y $\\frac{3}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/11",
+   "aceptadas": [],
+   "opciones": [
+    "8/22",
+    "8/121",
+    "8/11",
+    "15/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{5}{11} + \\frac{3}{11} = \\frac{5 + 3}{11} = \\frac{8}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "15/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 26,
+   "enunciado": "Samuel pintó $\\frac{6}{11}$ de una pared en la mañana y $\\frac{2}{11}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/11",
+   "aceptadas": [],
+   "opciones": [
+    "12/11",
+    "8/22",
+    "8/121",
+    "8/11"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{11} + \\frac{2}{11} = \\frac{6 + 2}{11} = \\frac{8}{11}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/22",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/11",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/121",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 27,
+   "enunciado": "Samuel pintó $\\frac{1}{9}$ de una pared en la mañana y $\\frac{1}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "2/9",
+   "aceptadas": [],
+   "opciones": [
+    "2/9",
+    "2/18",
+    "2/81"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{9} + \\frac{1}{9} = \\frac{1 + 1}{9} = \\frac{2}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "2/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "1/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "2/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 28,
+   "enunciado": "Samuel pintó $\\frac{1}{8}$ de una pared en la mañana y $\\frac{4}{8}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "5/8",
+   "aceptadas": [],
+   "opciones": [
+    "4/8",
+    "5/16",
+    "5/64",
+    "5/8"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{8} + \\frac{4}{8} = \\frac{1 + 4}{8} = \\frac{5}{8}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "5/16",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "4/8",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "5/64",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 29,
+   "enunciado": "Sofía pintó $\\frac{1}{9}$ de una pared en la mañana y $\\frac{3}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "4/9",
+   "aceptadas": [],
+   "opciones": [
+    "4/81",
+    "4/18",
+    "3/9",
+    "4/9"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{1}{9} + \\frac{3}{9} = \\frac{1 + 3}{9} = \\frac{4}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "4/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "3/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "4/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  },
+  {
+   "semilla": 30,
+   "enunciado": "Emilio pintó $\\frac{6}{9}$ de una pared en la mañana y $\\frac{2}{9}$ en la tarde. ¿Qué parte de la pared pintó en total?",
+   "respuesta": "8/9",
+   "aceptadas": [],
+   "opciones": [
+    "8/81",
+    "12/9",
+    "8/18",
+    "8/9"
+   ],
+   "pistas": [
+    "¿Los pedazos de la mañana y los de la tarde son del mismo tamaño?",
+    "¿Cuántos pedazos pintó en total? ¿Cambió el tamaño de cada pedazo?",
+    "Ejemplo: $\\frac{1}{5} + \\frac{2}{5} = \\frac{1 + 2}{5} = \\frac{3}{5}$."
+   ],
+   "solucion": "$\\frac{6}{9} + \\frac{2}{9} = \\frac{6 + 2}{9} = \\frac{8}{9}$. Pintó esa parte de la pared.",
+   "errores": [
+    {
+     "valor": "8/18",
+     "explicacion": "Sumaste también los números de abajo. Esos no cambian."
+    },
+    {
+     "valor": "12/9",
+     "explicacion": "Multiplicaste los números de arriba. Hay que sumarlos."
+    },
+    {
+     "valor": "8/81",
+     "explicacion": "Multiplicaste los números de abajo. Esos no cambian."
+    }
+   ]
+  }
+ ]
+}

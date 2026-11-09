@@ -16,4 +16,5 @@ android {
 
 dependencies {
     implementation(project(":dominio"))
+    implementation(libs.coroutines.android)
 }

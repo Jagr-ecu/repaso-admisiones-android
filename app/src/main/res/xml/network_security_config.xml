@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LM Studio en el PC de la casa solo habla HTTP sin cifrar, y su IP la elige el admin
+  (no se puede listar de antemano). Por eso se permite HTTP. Firebase sigue usando HTTPS.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
