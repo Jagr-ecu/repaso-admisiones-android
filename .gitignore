@@ -1,0 +1,25 @@
+# Gradle y compilación
+.gradle/
+.kotlin/
+build/
+local.properties
+captures/
+*.apk
+*.aab
+
+# Android Studio
+.idea/
+*.iml
+.cxx/
+
+# Secretos: nunca en git
+google-services.json
+*.jks
+*.keystore
+keystore.properties
+herramientas/credencial*.json
+
+# APK de prueba de compatibilidad (descartado)
+prueba-compatibilidad/
+
+.codegraph/
