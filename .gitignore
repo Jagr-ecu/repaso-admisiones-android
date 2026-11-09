@@ -6,6 +6,7 @@ local.properties
 captures/
 *.apk
 *.aab
+.codegraph/
 
 # Android Studio
 .idea/

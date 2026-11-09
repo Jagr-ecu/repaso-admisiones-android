@@ -25,7 +25,8 @@ Estado al 2026-11-09. La migración aún no empieza. La base es el commit `0cdff
 - `:dominio` ya tiene `TipoSesion` y `ayudaPermitida()`, con sus tests.
 - Repositorio git creado, con el remoto `https://github.com/Jagr-ecu/repaso-admisiones-android.git`. `google-services.json` está en `.gitignore`.
 - En el proyecto web, el commit `0cdff9f` tiene la etiqueta `base-migracion-android`.
-- Falta instalar el APK vacío en la MatePad para cerrar la fase 0.
+- **El APK vacío se instala y funciona en la MatePad: fase 0 cerrada.** Firebase se inicia al abrir la app sin cerrarla, aunque no haya servicios de Google.
+- En el proyecto web se hizo el commit `a4ee32a`, que añade `.codegraph/` al `.gitignore`. Va después de la etiqueta base, así que no la cambia.
 
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
@@ -52,7 +53,7 @@ Para continuar:
 - [ ] Crear el repositorio Android con Gradle, los cinco módulos y su `CLAUDE.md`. Usar `applicationId` `com.preparate.app`, `minSdk` 29 y `targetSdk` 36. No subir `google-services.json` al repositorio.
 
 **Otros arreglos en el proyecto web**
-- [ ] Hacer commit de `.codegraph/` en `.gitignore`. Ya está añadido en el archivo, pero sin commit.
+- [x] Hacer commit de `.codegraph/` en `.gitignore` (`a4ee32a`).
 - [ ] Ampliar `ing.daily-routines.significado-frecuencia`, que solo tiene 4 variantes distintas, antes de publicar el contenido.
 
 ## 1. Objetivo y decisiones
