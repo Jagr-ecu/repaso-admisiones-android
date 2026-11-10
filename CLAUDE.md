@@ -5,7 +5,7 @@ App Android nativa para preparar a varios estudiantes de 11–12 años para el e
 Cada estudiante tiene su propia cuenta y su propio progreso.
 Es la migración de la web `D:\Archivos\Proyectos\repaso-admisiones`. La base es el commit `0cdff9f`, etiquetado como `base-migracion-android`.
 El plan completo está en `PLAN-MIGRACION.md`.
-Tres materias independientes: Lengua y Literatura, Matemática e Inglés.
+Todo va dentro de un **curso**. Hoy solo existe **Admisiones** (`id: admisiones`), con tres materias independientes: Lengua y Literatura, Matemática e Inglés. Más adelante se pueden añadir otros cursos.
 Cada materia tiene un camino de secciones, temas de menos de 5 minutos, una prueba por sección y un examen final de 20 minutos como máximo.
 Objetivo pedagógico: que el estudiante razone, no que memorice respuestas.
 
@@ -60,6 +60,7 @@ app/       pantallas Compose y navegación
 - Solo hay dos roles: `estudiante` y `admin`. No hay registro público.
 - Se entra con usuario y clave. Por dentro, `ana` se convierte en `ana@preparate.invalid`.
 - Toda consulta local filtra por `usuario_id`, el UID de Firebase, porque varios estudiantes pueden compartir un dispositivo.
+- Los cursos nunca se mezclan. Los ids de temas y plantillas solo son únicos dentro de su curso, así que todo el progreso guarda también el `curso_id`.
 - Las conversaciones con Kiwi no se guardan nunca, ni en Room ni en Firestore.
 - Los datos son de menores: solo se guarda el nombre, sin apellidos.
 
