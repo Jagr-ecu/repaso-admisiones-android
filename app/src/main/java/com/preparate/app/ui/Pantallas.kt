@@ -25,12 +25,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.preparate.app.AppViewModel
+import com.preparate.app.R
 import com.preparate.app.BuildConfig
 import com.preparate.app.EstadoKiwi
 import com.preparate.app.Pantalla
@@ -76,28 +78,25 @@ fun PantallaEntrar(vm: AppViewModel) {
 
 @Composable
 fun PantallaInicio(vm: AppViewModel) {
-    val sesion = vm.sesion ?: return
-    if (sesion.rol == Rol.ADMIN) {
+    val sesion = vm.sesion
+    if (sesion?.rol == Rol.ADMIN) {
         InicioAdmin(vm)
         return
     }
+    val estudio = vm.estudio ?: return
     val pendientes by vm.pendientes.collectAsStateWithLifecycle()
-    Marco("Hola, ${sesion.nombre.ifEmpty { sesion.usuario }}") {
-        Text("Matemática · Fracciones", style = MaterialTheme.typography.labelLarge)
-        Card(Modifier.fillMaxWidth().clickable { vm.abrirLeccion() }) {
-            Column(Modifier.padding(20.dp)) {
-                Text("Sumar fracciones con el mismo denominador", style = MaterialTheme.typography.titleMedium)
-                Text("Tema de prueba", style = MaterialTheme.typography.bodyMedium)
-            }
+    val nombre = sesion?.let { it.nombre.ifEmpty { it.usuario } } ?: "vista previa"
+    InicioEstudiante(vm, estudio, nombre) {
+        if (sesion != null) {
+            Text(
+                if (pendientes == 0) stringResource(R.string.todo_subido) else stringResource(R.string.sin_subir, pendientes),
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
-        Text(
-            if (pendientes == 0) "Todo tu progreso está guardado en la nube."
-            else "Respuestas esperando Internet: $pendientes",
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        HorizontalDivider()
-        OutlinedButton(onClick = { vm.ir(Pantalla.Kiwi) }, modifier = Modifier.fillMaxWidth()) { Text("Probar a Kiwi") }
-        OutlinedButton(onClick = { vm.salir() }, modifier = Modifier.fillMaxWidth()) { Text("Salir") }
+        OutlinedButton(onClick = { vm.ir(Pantalla.Kiwi) }, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.probar_kiwi))
+        }
+        OutlinedButton(onClick = { vm.salir() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
     }
 }
 

@@ -2,7 +2,6 @@ package com.preparate.dominio
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.random.Random
 
 /*
  * Modelos del paquete de contenido que genera `exportar-paquete` en el proyecto web
@@ -202,14 +201,3 @@ data class Cuenta(
     /** Lo que va en cada casilla. Nunca se muestra antes de responder. */
     val esperadas: List<String>,
 )
-
-/**
- * PROVISIONAL (fase 1): los ejercicios de un tema, en el orden de la lección.
- * La selección real (scheduler/seleccion.py) se porta en la fase 3.
- */
-fun armarTema(leccion: Leccion, variantes: Map<String, List<Variante>>, azar: Random = Random.Default): List<Variante> =
-    leccion.ejercicios.flatMap { ref ->
-        val disponibles = variantes[ref.plantilla].orEmpty()
-        require(disponibles.isNotEmpty()) { "no hay variantes de ${ref.plantilla}" }
-        disponibles.shuffled(azar).take(ref.cantidad)
-    }

@@ -1,4 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Prepárate</string>
+
+    <!-- Comunes -->
+    <string name="volver">‹ Volver</string>
+    <string name="cargando">Cargando…</string>
+    <string name="salir">Salir</string>
+    <string name="puntos">%1$d puntos</string>
+    <string name="error_inesperado">Algo salió mal: %1$s</string>
+
+    <!-- Inicio del estudiante -->
+    <string name="hola">Hola, %1$s</string>
+    <string name="tus_cursos">Tus cursos</string>
+    <string name="temas_hechos">%1$d de %2$d temas</string>
+    <string name="probar_kiwi">Probar a Kiwi</string>
+    <string name="sin_subir">Respuestas esperando Internet: %1$d</string>
+    <string name="todo_subido">Tu progreso está guardado en la tablet y en la nube.</string>
+
+    <!-- Camino de una materia -->
+    <string name="repasar_ahora">Repasar ahora (%1$d temas)</string>
+    <string name="repaso_explicacion">Es momento de repasar lo que aprendiste.</string>
+    <string name="prueba_de_seccion">Prueba de la sección</string>
+    <string name="prueba_bloqueada">Termina todos los temas para abrirla.</string>
+    <string name="prueba_disponible">Lista para darla. Son 10 preguntas.</string>
+    <string name="prueba_repaso">Primero haz el repaso de lo que fallaste.</string>
+    <string name="prueba_pendiente">Espera la nota de tu Writing.</string>
+    <string name="prueba_aprobada">¡Aprobada!</string>
+    <string name="hacer_repaso">Hacer el repaso</string>
+    <string name="examen_final">Examen final</string>
+    <string name="examen_bloqueado">Aprueba todas las secciones para abrirlo.</string>
+    <string name="examen_disponible">15 preguntas en 20 minutos.</string>
+    <string name="examen_pendiente">Espera la nota de tu Writing.</string>
+    <string name="examen_aprobado">¡Aprobado!</string>
+    <string name="continuar">Continuar</string>
+    <string name="empezar">Empezar</string>
+    <string name="tema_hecho">Hecho</string>
+    <string name="tema_bloqueado">Bloqueado</string>
+
+    <!-- Motivos para no poder empezar -->
+    <string name="bloqueo_tema">Este tema se abre al terminar el anterior.</string>
+    <string name="bloqueo_prueba">Termina todos los temas de la sección para abrir la prueba.</string>
+    <string name="bloqueo_prueba_pendiente">Tu prueba anterior espera la nota del Writing.</string>
+    <string name="bloqueo_seccion_aprobada">Ya aprobaste esta sección.</string>
+    <string name="bloqueo_repaso_requerido">Primero haz el repaso de los temas que fallaste.</string>
+    <string name="bloqueo_sin_repaso">Esta sección no tiene un repaso pendiente.</string>
+    <string name="bloqueo_examen">El examen final se abre al aprobar todas las secciones.</string>
+    <string name="bloqueo_examen_pendiente">Tu examen anterior espera la nota del Writing.</string>
+    <string name="bloqueo_nada_repasar">No hay temas para repasar ahora.</string>
+    <string name="bloqueo_sin_ejercicios">Todavía no hay ejercicios para esto.</string>
+
+    <!-- Ejercicios -->
+    <string name="practicar">Practicar</string>
+    <string name="pregunta_n">Pregunta %1$d</string>
+    <string name="pregunta_n_de">Pregunta %1$d de %2$d</string>
+    <string name="errores_tema">Errores: %1$d de 3</string>
+    <string name="tiempo_restante">Quedan %1$d:%2$02d</string>
+    <string name="tu_respuesta">Tu respuesta</string>
+    <string name="ejemplo_numero">Por ejemplo: 3/4</string>
+    <string name="tu_texto">Escribe tu texto en inglés</string>
+    <string name="ordenar_ayuda">Toca las palabras en orden. Toca una de arriba para quitarla.</string>
+    <string name="cuaderno_ayuda">Escribe una cifra en cada casilla.</string>
+    <string name="cuaderno_paso_mal">Revisa el paso marcado en rojo.</string>
+    <string name="comprobar">Comprobar</string>
+    <string name="enviar">Enviar</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="terminar">Terminar</string>
+    <string name="muy_bien">¡Muy bien!</string>
+    <string name="todavia_no">Todavía no.</string>
+    <string name="casi_simplificar">¡Casi! El valor está bien, pero falta simplificar.</string>
+    <string name="no_entendi_numero">No entendí tu respuesta. Escríbela con números, por ejemplo 3/4.</string>
+    <string name="no_entendi_texto">Escribe una respuesta para comprobarla.</string>
+    <string name="writing_corto">Escribe al menos una oración completa.</string>
+    <string name="writing_guardado">¡Listo! Kiwi revisará tu texto cuando esté encendido.</string>
+    <string name="pedir_pista">Pedir una pista</string>
+    <string name="otra_pista">Otra pista</string>
+    <string name="ver_solucion">Ver la solución</string>
+    <string name="pista_n">Pista %1$d</string>
+    <string name="solucion">Solución</string>
+    <string name="por_que">¿Por qué está bien?</string>
+    <string name="respuesta_guardada">Respuesta guardada.</string>
+    <string name="tiempo_agotado">Se acabó el tiempo del examen.</string>
+
+    <!-- Fin de un tema o repaso -->
+    <string name="tema_terminado">¡Terminaste el tema!</string>
+    <string name="ganaste_puntos">Ganaste %1$d puntos.</string>
+    <string name="ya_tenias_puntos">Ya tenías los puntos de este tema. ¡Buen repaso!</string>
+    <string name="tema_perdido">Tuviste 4 errores. Lee otra vez la explicación y vuelve a empezar.</string>
+    <string name="volver_a_empezar">Volver a empezar</string>
+    <string name="repaso_terminado">¡Terminaste el repaso!</string>
+    <string name="repaso_incompleto">El repaso quedó sin terminar.</string>
+    <string name="volver_al_camino">Volver al camino</string>
+
+    <!-- Resultado de una prueba -->
+    <string name="tu_nota">Tu nota: %1$s de 10</string>
+    <string name="aprobaste">¡Aprobaste!</string>
+    <string name="reprobaste">Esta vez no alcanzó. Necesitas 7 para aprobar.</string>
+    <string name="nota_pendiente">Tu nota sale cuando Kiwi revise tu Writing.</string>
+    <string name="repasa_estos">Repasa estos temas antes de intentarlo otra vez:</string>
+    <string name="respondiste">Respondiste: %1$s</string>
+    <string name="sin_responder">No alcanzaste a responder.</string>
+    <string name="respuesta_correcta">Respuesta correcta: %1$s</string>
+    <string name="bien_marca">✓ Bien</string>
+    <string name="mal_marca">✗ Mal</string>
 </resources>
