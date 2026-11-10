@@ -150,6 +150,42 @@ Pendiente para después (lo hace el usuario, con LM Studio de verdad):
 - Revisar en el PC si LM Studio guarda registros de las conversaciones y desactivarlos o limpiarlos.
 - Ver si Kiwi responde bien con el concepto de material más largo.
 
+**Fase 6: cerrada en código (commit `5353e35`).**
+
+**Fase 7: preparada (2026-11-10)**
+- **Traspaso** (`herramientas/traspasar.py`): lee `data/app.db` en solo lectura y por defecto solo muestra lo que subiría. Con `--subir`:
+  - respalda `app.db` en `data/respaldos/`;
+  - escribe en Firestore con el formato de `sincro/Documentos.kt`;
+  - vuelve a leer lo subido y compara sesiones, intentos, temas completados, notas y puntos.
+- Detalles del traspaso:
+  - los ids pasan a UUID fijos, así que correrlo dos veces no duplica nada;
+  - no sube `memoria` (la app la recalcula al bajar) ni `mensajes_tutor`;
+  - tampoco pasan la justificación, la confianza ni los segundos, que la app no tiene.
+- **Semillas:** la web elegía semillas al azar y el paquete trae un conjunto fijo, así que ninguna coincide. Se usa la huella cuando el ejercicio está en el paquete (16 de 37) y, si no, se deja la semilla original.
+  - Por eso los temas a medias se cierran sin completar, como "Volver a empezar".
+  - Las pruebas a medias no pasan.
+  - Si una prueba cerrada tuviera ejercicios fuera del paquete, el script se detiene, porque su resultado no se podría abrir. Hoy no hay ninguna.
+- **Datos de la web:** 1 estudiante, 10 sesiones (todas temas), 37 ejercicios respondidos, 5 temas completados y 50 puntos. Ninguna prueba ni examen.
+- **Probado con la cuenta de prueba `prueba5`:** subió, la comprobación coincidió y correrlo otra vez no duplicó nada. Al entrar en el emulador, la app bajó los 5 temas (4 de Matemática y 1 de Inglés) y los 50 puntos, y recalculó el repaso ("Repasar ahora (4 temas)").
+- **Firma:** `app/build.gradle.kts` lee `keystore.properties` (fuera de git). Release sin ofuscar. Sin ese archivo, `assembleRelease` da un APK sin firmar.
+- **Skill `estudiante-de-prueba`** (en `~/.claude/skills`, que es su propio repositorio): ahora prueba la app Android en el emulador.
+  - Usa la vista previa de depuración, que nunca sube a Firebase.
+  - Trae `pantalla.sh` para leer, tocar y capturar con `adb`.
+  - Busca los hallazgos en `strings.xml` y en `app/.../ui`.
+- **Contenido:** sigue todo en borrador (48 lecciones y 127 plantillas). Publicarlo es una revisión del usuario.
+
+Pasos del usuario para el uso real:
+1. **Clave de firma**, una sola vez, guardada fuera del proyecto y con copia:
+   `"C:\Program Files\Android\Android Studio\jbr\bin\keytool" -genkeypair -v -keystore C:\ruta\segura\preparate.jks -alias preparate -keyalg RSA -keysize 4096 -validity 10000`
+   y luego `keystore.properties` en la raíz del proyecto (ver `app/build.gradle.kts`).
+2. **Contenido:** revisar y pasar a `revisado` en el proyecto web. Mientras haya borradores, el paquete se exporta con `--borradores`. Ampliar antes `ing.daily-routines.significado-frecuencia`, que tiene solo 4 variantes distintas.
+3. **Cuentas reales:** crear desde el panel de admin la cuenta de cada estudiante. El rol `adulto` de la web ya es `admin` (`papa`); cambiarle la clave por una fuerte con `cuentas.py cambiar-clave papa` y borrar `herramientas/cuentas-pruebas.local`.
+4. **Traspaso:** `python herramientas/traspasar.py --usuario <estudiante>`, revisar lo que muestra y repetirlo con `--subir`.
+5. **APK firmado:** `./gradlew :app:assembleRelease` e instalarlo en la MatePad. El APK de depuración tiene otra firma, así que hay que desinstalarlo antes.
+6. **Limpiar Firebase:** borrar `prueba5` (Authentication y `usuarios/` y `estudiantes/` en Firestore) y los documentos de la fase 1 de `emi`.
+7. **Dejar de usar la web** para estudiar, para que no se creen dos historiales.
+8. Fase 7 cerrada cuando los estudiantes terminen una semana real sin perder progreso.
+
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
 - marca, modelo, versión de Android y nivel de API reales;
