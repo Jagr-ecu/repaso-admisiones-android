@@ -125,6 +125,8 @@ data class Plantilla(
     val dificultad: Int = 1,
     /** Solo en escritura (Writing), que califica Kiwi. */
     val rubrica: List<CriterioRubrica> = emptyList(),
+    /** Las opciones fijas de la plantilla, iguales en todas sus variantes; vacía si salen de los errores comunes. */
+    @SerialName("opciones_fijas") val opcionesFijas: List<String> = emptyList(),
 )
 
 @Serializable
