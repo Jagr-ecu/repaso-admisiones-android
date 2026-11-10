@@ -83,6 +83,24 @@ Todo vive en `:dominio`, en Kotlin puro y con tests en la JVM. Coincide con Pyth
 - Los tests de `:dominio` y `:datos` declaran el paquete como entrada de Gradle: si cambia el contenido, se vuelven a correr.
 - **Para la fase 4:** la pantalla de práctica de la fase 1 todavía usa `armarTema` (provisional, sin la regla de 3 errores). Se reemplaza por `Estudio` al hacer las pantallas reales. La guardia de Kiwi se porta en la fase 6; sus casos de referencia ya existen.
 
+**Fase 4: en curso (2026-11-09, noche)**
+Hecho:
+- Room 2.8.4 con KSP 2.3.12, la primera versión de KSP que funciona con el Kotlin integrado de AGP 9. Tablas `sesiones`, `intentos`, `memoria` y `puntos`, todas con `usuario_id` y `curso_id`. El esquema de la versión 1 está en `datos/schemas/`, y cada cambio futuro llevará su migración probada.
+- `Estudios` (`:datos`) es el puerto de `estudio.py` sobre Room y usa la lógica de `:dominio`. El historial del camino sale de `Estudio.historial()`, que es una función pura.
+- Pantallas: inicio con los cursos → curso con sus materias y avance → camino → explicación → ejercicio → fin del tema o resultado de la prueba. Hay entrada para todos los tipos: abierta, opción múltiple, completar, ordenar (con palabras para tocar), Writing y cuaderno (con casillas y el paso equivocado en rojo). Las pruebas no muestran si estuvo bien ni dan pistas, y el examen tiene reloj.
+- Los textos de las pantallas nuevas están en `strings.xml`. Los motivos de bloqueo son un `enum` y se traducen en la interfaz.
+- Se quitaron la práctica provisional de la fase 1 y `armarTema`.
+- Tests en el dispositivo (`./gradlew :datos:connectedDebugAndroidTest`, con el emulador abierto): 8 de `EstudiosTest` y los 19 622 casos del verificador, corridos con el motor de Android.
+- **Error encontrado al probar en el emulador:** el motor de expresiones de Android (ICU) no acepta `(?U)`, y el verificador fallaba en toda respuesta de texto (Inglés y Lengua). Los tests de la JVM no lo veían. Se corrigió con clases de espacios explícitas, y por eso ahora el verificador también se prueba en el dispositivo.
+- Probado a mano en el emulador: el camino, un tema completo (error, pista automática, "¡Casi!" sin simplificar, repetición con la misma variante, explicación al acertar y 10 puntos), el tema que se retoma tras salir, el corte al 4.º error con "Volver a empezar", el cuaderno de la división y ordenar en Inglés.
+
+Falta:
+- Probar a mano una prueba de sección, el examen final, el resultado, el repaso y un Writing.
+- Probar a tamaño tablet, con el teclado abierto y en modo avión en la MatePad.
+- Adaptar al celular con `WindowSizeClass`.
+- Pasar a `strings.xml` los textos que quedan en las pantallas de admin, entrar y Kiwi.
+- Mientras no exista la cola de subida (fase 5), cada respuesta se sigue enviando directo a Firestore, como en la fase 1. La vista previa de depuración guarda solo en la tablet.
+
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
 - marca, modelo, versión de Android y nivel de API reales;
