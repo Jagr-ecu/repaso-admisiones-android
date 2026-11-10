@@ -47,13 +47,23 @@ class Racional private constructor(val num: BigInteger, val den: BigInteger) {
     }
 }
 
+/**
+ * Los espacios que reconoce `\s` de Python en un texto (`str.isspace`). Se escriben a mano porque
+ * `\s` cambia según el motor: en la JVM solo cubre ASCII, y el de Android (ICU) no acepta la
+ * opción `(?U)`. Así el código corrige igual en Python, en los tests y en la tablet.
+ * Por lo mismo, las cifras van como `[0-9]` y no como `\d`.
+ */
+internal const val ESPACIO =
+    """[\t\n\u000B\f\r\u001C-\u001F \u0085   -     　]"""
+
 object Verificador {
+    private const val C = "[0-9]+"
     private val NUMERO = Regex(
-        "^(?<signo>[-+−])?\\s*(?:" +
-            "(?<mixto>\\d+)\\s+(?<mnum>\\d+)\\s*/\\s*(?<mden>\\d+)" + // 1 1/2
-            "|(?<num>\\d+)\\s*/\\s*(?<den>\\d+)" + // 3/4
-            "|(?<decimal>\\d+[.,]\\d+)" + // 0,75
-            "|(?<entero>\\d+)" +
+        "^(?<signo>[-+−])?$ESPACIO*(?:" +
+            "(?<mixto>$C)$ESPACIO+(?<mnum>$C)$ESPACIO*/$ESPACIO*(?<mden>$C)" + // 1 1/2
+            "|(?<num>$C)$ESPACIO*/$ESPACIO*(?<den>$C)" + // 3/4
+            "|(?<decimal>$C[.,]$C)" + // 0,75
+            "|(?<entero>$C)" +
             ")$",
     )
 
@@ -145,11 +155,13 @@ object Verificador {
     // Aguda, grave y diéresis; la virgulilla de la ñ se conserva.
     private val TILDES = setOf('́', '̀', '̈')
     private const val BORDES = "¿¡.?!,;: "
+    private val GUION = Regex("$ESPACIO*-$ESPACIO*")
+    private val ESPACIOS = Regex("$ESPACIO+")
 
     fun normalizar(texto: String, ignorarTildes: Boolean = false): String {
         var t = Normalizer.normalize(texto, Normalizer.Form.NFC).lowercase().trim().replace('’', '\'')
-        t = t.replace(Regex("(?U)\\s*-\\s*"), "-")
-        t = t.replace(Regex("(?U)\\s+"), " ")
+        t = t.replace(GUION, "-")
+        t = t.replace(ESPACIOS, " ")
         t = t.trim { it in BORDES }
         if (ignorarTildes) {
             t = Normalizer.normalize(t, Normalizer.Form.NFD).filterNot { it in TILDES }
