@@ -46,6 +46,11 @@ data class Intento(
     val correcta: Boolean? = null,
     val errorComun: String? = null,
     val pistasUsadas: Int = 0,
+    /**
+     * Pistas que llevaba al responder. Tras responder se pueden pedir más (la solución), pero el
+     * repaso espaciado cuenta solo estas; así `memoria` se reconstruye igual en otro dispositivo.
+     */
+    val pistasAlResponder: Int? = null,
     /** Nota del Writing que puso Kiwi con la rúbrica. */
     val puntaje: Double? = null,
 )
@@ -297,6 +302,7 @@ object Estudio {
             estado = resultado.estado,
             correcta = if (resultado.estado == EstadoRespuesta.PENDIENTE) null else resultado.correcta,
             errorComun = resultado.errorComun,
+            pistasAlResponder = intento.pistasUsadas,
         )
     }
 

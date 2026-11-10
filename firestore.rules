@@ -2,22 +2,47 @@ rules_version = '2';
 
 // Reglas de seguridad de Firestore (PLAN-MIGRACION.md, sección 4).
 // Se copian a mano en la consola de Firebase: Firestore → Reglas → Publicar.
-// Una cuenta sin documento en usuarios/ no puede leer ni escribir nada.
+// Se prueban con el emulador: ver pruebas-reglas/README.md.
+//
+// - Una cuenta sin documento en usuarios/ no puede leer ni escribir nada. Así una cuenta creada
+//   desde fuera con la API pública de Firebase no sirve para nada.
+// - El estudiante escribe solo su propio progreso, y nunca lo borra.
+// - El admin lee a todos y crea perfiles, pero no escribe progreso.
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    function entro() {
+      return request.auth != null;
+    }
 
     function rol() {
       return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol;
     }
 
-    match /usuarios/{uid} {
-      allow read: if request.auth != null && (request.auth.uid == uid || rol() == 'admin');
-      allow write: if request.auth != null && rol() == 'admin';
+    function esAdmin() {
+      return entro() && rol() == 'admin';
     }
 
-    match /estudiantes/{uid}/{doc=**} {
-      allow read: if request.auth != null && (request.auth.uid == uid || rol() == 'admin');
-      allow write: if request.auth != null && request.auth.uid == uid && rol() == 'estudiante';
+    function esElEstudiante(uid) {
+      return entro() && request.auth.uid == uid && rol() == 'estudiante';
+    }
+
+    match /usuarios/{uid} {
+      allow read: if entro() && (request.auth.uid == uid || rol() == 'admin');
+      // Solo perfiles de estudiante, con nombre y usuario. Los admins se crean desde la consola.
+      allow create, update: if esAdmin()
+        && request.resource.data.keys().hasOnly(['nombre', 'usuario', 'rol'])
+        && request.resource.data.rol == 'estudiante'
+        && request.resource.data.nombre is string
+        && request.resource.data.usuario is string;
+      allow delete: if false;
+    }
+
+    match /estudiantes/{uid}/{coleccion}/{doc} {
+      allow read: if esElEstudiante(uid) || esAdmin();
+      allow create, update: if esElEstudiante(uid)
+        && coleccion in ['sesiones', 'intentos', 'puntos', 'resumen'];
+      allow delete: if false;
     }
   }
 }

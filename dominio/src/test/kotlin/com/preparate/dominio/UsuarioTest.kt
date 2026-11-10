@@ -25,5 +25,8 @@ class UsuarioTest {
         assertEquals("ana@preparate.invalid", Usuario.aCorreo("ana"))
         assertEquals("ana", Usuario.desdeCorreo("ana@preparate.invalid"))
         assertNull(Usuario.problema("ana"))
+        assertEquals(ProblemaUsuario.MUY_CORTO, Usuario.problema("al"))
+        assertEquals(ProblemaUsuario.MUY_LARGO, Usuario.problema("x".repeat(21)))
+        assertEquals(ProblemaUsuario.CARACTERES, Usuario.problema("niño"))
     }
 }

@@ -102,9 +102,25 @@ Hecho después (misma noche):
 - `WindowSizeClass`: en pantalla amplia (la tablet en horizontal) el contenido es más ancho, las materias van en 3 columnas y el camino en 2. En el celular todo va en una columna. Probado en el emulador con pantalla de 11,5".
 - Todos los textos de las pantallas están en `strings.xml`. Quedan en código los mensajes de error de `:sincro` (cuentas), que se rehacen en la fase 5, y los atajos de depuración.
 
-Falta (lo hace el usuario en la MatePad):
-- Jugar en modo avión y con el teclado abierto en la tablet real. Si funciona, la fase 4 queda cerrada.
-- Mientras no exista la cola de subida (fase 5), cada respuesta se sigue enviando directo a Firestore, como en la fase 1. La vista previa de depuración guarda solo en la tablet.
+**Fase 4: cerrada (2026-11-10).** El usuario la probó en la MatePad, en modo avión y con el teclado abierto.
+
+**Fase 5: hecha en código (2026-11-10)**
+- Room pasa a la versión 2, con migración probada (`MIGRACION_1_2`). Tabla nueva `cola_subida`, que se llena con **triggers de SQLite** en cada cambio de `sesiones`, `intentos` y `puntos`: queda en la misma transacción que el cambio y `Estudios` no tuvo que cambiar. La migración pone en la cola todo lo guardado antes. La vista previa de depuración (`vista-previa`) nunca entra en la cola. Las columnas `subida` de la versión 1 quedan sin uso.
+- Columna nueva `pistas_al_responder`: el repaso espaciado cuenta solo las pistas pedidas antes de responder. Así `memoria` se reconstruye igual en otro dispositivo aunque después mire la solución.
+- `:dominio`: `Union` (reglas de unión por campo y reconstrucción de `memoria` en orden) y `Panel` (puerto de `panel.py` sin las conversaciones: tiempo por día y materia, avance, notas, temas con más errores y Writing pendientes). Tests en la JVM.
+- `:datos`: `AlmacenSincro` arma los lotes de la cola, confirma lo subido (lo que entra durante la subida se queda) y une lo que baja. Si lo unido es igual a lo de la nube, sale de la cola; si cambió un intento, reconstruye `memoria`. `BaseDatos.abrir` devuelve una sola base por proceso.
+- `:sincro`: `Sincronizacion` (baja lo cambiado desde la última vez con el campo `actualizado` del servidor y un margen de 2 min, sube por lotes de 200 con `merge` y sin campos vacíos, y sube el resumen), `SubidaWorker` (WorkManager con red y reintentos; solo sube al estudiante con la sesión iniciada) y `PanelAdmin`. Los documentos de la fase 1 no tienen el formato nuevo y se ignoran al bajar.
+- El resumen del panel va en `estudiantes/{uid}/resumen/panel` como JSON: el admin gasta 2 lecturas por estudiante en la lista. Se rehace al sincronizar y, mientras estudia, como mucho cada 10 minutos.
+- Pantallas: cambiar la clave propia (estudiante y admin), aviso al salir con cambios sin subir ("Subir y salir" o "Salir igual", nunca se borra nada), estado de la nube en el inicio, lista del admin con última actividad, minutos y Writing pendientes, y detalle del estudiante con el resumen y las últimas respuestas.
+- Los errores de cuentas son un `enum` (`MotivoCuenta`, `ProblemaUsuario`) y sus textos están en `strings.xml`.
+- `firestore.rules` más estrictas: el estudiante escribe solo en `sesiones`, `intentos`, `puntos` y `resumen` y nunca borra; el admin solo crea perfiles de estudiante. 11 casos en `pruebas-reglas/` con el emulador de Firebase, todos pasan. El usuario las publicó en la consola el 2026-11-10.
+- Tests: `:dominio` en la JVM, y 16 en el dispositivo (`SincroTest` con 7, incluida la migración; `EstudiosTest` y el verificador).
+- Probado en el emulador contra Firebase real, con el admin `admin` y el estudiante de prueba `estudiante-prueba` (creado desde la app; su clave está en `herramientas/cuentas-pruebas.local`): crear estudiante, entrar, responder y subir en segundos, responder en modo avión (contador y aviso al salir), volver a conectar y subir solo, borrar los datos de la app y entrar de nuevo (el historial baja y el tema sigue con sus errores), y ver el resumen en el panel.
+- El script para cambiar una clave olvidada es `herramientas/cuentas.py cambiar-clave`, ya probado en la fase 1.
+
+Pendiente para después, por decisión del usuario (no bloquea la fase 6):
+- En la MatePad y un segundo dispositivo: dos dispositivos sin conexión que luego se unen, dos estudiantes en la misma tablet, días sin Internet y cerrar la app durante una subida.
+- Borrar `estudiante-prueba` y los documentos de la fase 1 de `ana` cuando ya no hagan falta.
 
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:

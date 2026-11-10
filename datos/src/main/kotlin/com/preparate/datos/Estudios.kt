@@ -484,6 +484,7 @@ internal fun IntentoFila.aDominio() = Intento(
     correcta = correcta,
     errorComun = errorComun,
     pistasUsadas = pistasUsadas,
+    pistasAlResponder = pistasAlResponder,
     puntaje = puntaje,
 )
 
@@ -507,5 +508,6 @@ internal fun Intento.aFila(usuarioId: String, sesion: Sesion, orden: Int) = Inte
     correcta = correcta,
     errorComun = errorComun,
     pistasUsadas = pistasUsadas,
+    pistasAlResponder = pistasAlResponder,
     puntaje = puntaje,
 )
