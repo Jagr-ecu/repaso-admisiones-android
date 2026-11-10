@@ -29,7 +29,7 @@ object Paquete {
 
 /** <curso>/variantes/<plantilla>.json: los datos de la plantilla y sus variantes, sin repetir la plantilla en cada una. */
 @Serializable
-internal data class ArchivoPlantilla(
+data class ArchivoPlantilla(
     val id: String,
     val version: String,
     val concepto: String,
@@ -62,7 +62,7 @@ internal data class ArchivoPlantilla(
 }
 
 @Serializable
-internal data class VarianteJson(
+data class VarianteJson(
     val semilla: Int,
     val huella: String,
     val enunciado: String,

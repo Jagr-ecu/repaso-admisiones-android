@@ -19,6 +19,8 @@ android {
     sourceSets {
         named("androidTest") {
             assets.directories.add(rootProject.file("app/src/main/assets").path)
+            // Los casos de referencia de Python: el verificador se prueba también con el motor de Android.
+            assets.directories.add(rootProject.file("dominio/src/test/resources").path)
         }
     }
 }

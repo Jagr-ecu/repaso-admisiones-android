@@ -28,7 +28,7 @@ fun Cuenta.aTexto(entradas: List<String>): String = grupos.joinToString(" ") { i
 
 /** Lo contrario de `aTexto`. null si el texto no tiene la forma de esta cuenta. */
 fun Cuenta.desdeTexto(texto: String): List<String>? {
-    val partes = texto.trim().split(Regex("\\s+")).filter { it.isNotEmpty() }
+    val partes = texto.trim().split(Regex("$ESPACIO+")).filter { it.isNotEmpty() }
     if (partes.size != grupos.size) return null
     val entradas = MutableList(esperadas.size) { "" }
     for ((grupo, parte) in grupos.zip(partes)) {
