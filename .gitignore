@@ -19,6 +19,7 @@ google-services.json
 *.keystore
 keystore.properties
 herramientas/credencial*.json
+herramientas/cuentas-pruebas.local
 
 # APK de prueba de compatibilidad (descartado)
 prueba-compatibilidad/

@@ -48,7 +48,7 @@ Pasos del usuario para probar la fase 1:
 - [x] Publicar `firestore.rules` en la consola de Firebase.
 - [x] Descargar la credencial de la cuenta de servicio en `herramientas/credencial-firebase.json`, instalar `firebase-admin` y crear el admin con `cuentas.py crear-admin`.
 - [x] En la MatePad: entrar como admin, crear un estudiante y entrar con él. Hecho el 2026-11-09 a las 21:42 con `papa` y el estudiante `emi`. Los 5 intentos del tema llegaron a Firestore unos 2 s después de responder. **Firebase Auth y Firestore funcionan en HarmonyOS 4.3 sin servicios de Google, y acepta `@preparate.invalid`.**
-- [ ] Responder en modo avión, volver a conectar y ver la respuesta en el panel de admin desde otro dispositivo.
+- [x] Responder en modo avión y volver a conectar. Los 5 intentos respondidos sin red entre las 21:49:04 y las 21:49:19 llegaron juntos a Firestore a las 21:49:36, al volver la conexión. Falta confirmar que el panel de admin los muestra desde otro dispositivo.
 - [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app.
 - [x] Cambiar una clave con `cuentas.py cambiar-clave` y entrar con la nueva. Se hizo con `papa`, que entró en la MatePad justo después: **el script funciona en el plan Spark.**
 
