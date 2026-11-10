@@ -1,0 +1,411 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "984e1419c44362e9bf991d25be524f7f",
+    "entities": [
+      {
+        "tableName": "sesiones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `usuario_id` TEXT NOT NULL, `curso_id` TEXT NOT NULL, `materia_id` TEXT NOT NULL, `tipo` TEXT NOT NULL, `seccion_id` TEXT, `leccion_id` TEXT, `conceptos` TEXT NOT NULL, `inicio` INTEGER NOT NULL, `fin` INTEGER, `nota` REAL, `aprobada` INTEGER, `subida` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cursoId",
+            "columnName": "curso_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "materiaId",
+            "columnName": "materia_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seccionId",
+            "columnName": "seccion_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "leccionId",
+            "columnName": "leccion_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "conceptos",
+            "columnName": "conceptos",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inicio",
+            "columnName": "inicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fin",
+            "columnName": "fin",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nota",
+            "columnName": "nota",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "aprobada",
+            "columnName": "aprobada",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "subida",
+            "columnName": "subida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sesiones_usuario_id_curso_id_materia_id_tipo",
+            "unique": false,
+            "columnNames": [
+              "usuario_id",
+              "curso_id",
+              "materia_id",
+              "tipo"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sesiones_usuario_id_curso_id_materia_id_tipo` ON `${TABLE_NAME}` (`usuario_id`, `curso_id`, `materia_id`, `tipo`)"
+          }
+        ]
+      },
+      {
+        "tableName": "intentos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `usuario_id` TEXT NOT NULL, `curso_id` TEXT NOT NULL, `materia_id` TEXT NOT NULL, `sesion_id` TEXT NOT NULL, `orden` INTEGER NOT NULL, `plantilla_id` TEXT NOT NULL, `concepto` TEXT NOT NULL, `plantilla_version` TEXT NOT NULL, `semilla` INTEGER NOT NULL, `huella` TEXT NOT NULL, `mostrado` INTEGER NOT NULL, `repite` TEXT, `respondido` INTEGER, `respuesta` TEXT, `estado` TEXT, `correcta` INTEGER, `error_comun` TEXT, `pistas_usadas` INTEGER NOT NULL, `puntaje` REAL, `subida` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`sesion_id`) REFERENCES `sesiones`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cursoId",
+            "columnName": "curso_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "materiaId",
+            "columnName": "materia_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sesionId",
+            "columnName": "sesion_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orden",
+            "columnName": "orden",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantillaId",
+            "columnName": "plantilla_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "concepto",
+            "columnName": "concepto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantillaVersion",
+            "columnName": "plantilla_version",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "semilla",
+            "columnName": "semilla",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "huella",
+            "columnName": "huella",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mostrado",
+            "columnName": "mostrado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repite",
+            "columnName": "repite",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "respondido",
+            "columnName": "respondido",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "respuesta",
+            "columnName": "respuesta",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "correcta",
+            "columnName": "correcta",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "errorComun",
+            "columnName": "error_comun",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pistasUsadas",
+            "columnName": "pistas_usadas",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "puntaje",
+            "columnName": "puntaje",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "subida",
+            "columnName": "subida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_intentos_sesion_id",
+            "unique": false,
+            "columnNames": [
+              "sesion_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_intentos_sesion_id` ON `${TABLE_NAME}` (`sesion_id`)"
+          },
+          {
+            "name": "index_intentos_usuario_id_curso_id_plantilla_id",
+            "unique": false,
+            "columnNames": [
+              "usuario_id",
+              "curso_id",
+              "plantilla_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_intentos_usuario_id_curso_id_plantilla_id` ON `${TABLE_NAME}` (`usuario_id`, `curso_id`, `plantilla_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "sesiones",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sesion_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "memoria",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usuario_id` TEXT NOT NULL, `curso_id` TEXT NOT NULL, `materia_id` TEXT NOT NULL, `concepto` TEXT NOT NULL, `estado` INTEGER NOT NULL, `paso` INTEGER, `estabilidad` REAL, `dificultad` REAL, `vence` INTEGER NOT NULL, `ultimo_repaso` INTEGER, `subida` INTEGER NOT NULL, PRIMARY KEY(`usuario_id`, `curso_id`, `concepto`))",
+        "fields": [
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cursoId",
+            "columnName": "curso_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "materiaId",
+            "columnName": "materia_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "concepto",
+            "columnName": "concepto",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paso",
+            "columnName": "paso",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "estabilidad",
+            "columnName": "estabilidad",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "dificultad",
+            "columnName": "dificultad",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "vence",
+            "columnName": "vence",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ultimoRepaso",
+            "columnName": "ultimo_repaso",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "subida",
+            "columnName": "subida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "usuario_id",
+            "curso_id",
+            "concepto"
+          ]
+        }
+      },
+      {
+        "tableName": "puntos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`usuario_id` TEXT NOT NULL, `curso_id` TEXT NOT NULL, `motivo` TEXT NOT NULL, `referencia` TEXT NOT NULL, `cantidad` INTEGER NOT NULL, `creado` INTEGER NOT NULL, `subida` INTEGER NOT NULL, PRIMARY KEY(`usuario_id`, `curso_id`, `motivo`, `referencia`))",
+        "fields": [
+          {
+            "fieldPath": "usuarioId",
+            "columnName": "usuario_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cursoId",
+            "columnName": "curso_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "motivo",
+            "columnName": "motivo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "referencia",
+            "columnName": "referencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cantidad",
+            "columnName": "cantidad",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creado",
+            "columnName": "creado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subida",
+            "columnName": "subida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "usuario_id",
+            "curso_id",
+            "motivo",
+            "referencia"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '984e1419c44362e9bf991d25be524f7f')"
+    ]
+  }
+}
