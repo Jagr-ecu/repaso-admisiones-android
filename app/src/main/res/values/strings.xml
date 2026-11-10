@@ -18,7 +18,10 @@
     <string name="todo_subido">Tu progreso está guardado en la tablet y en la nube.</string>
 
     <!-- Camino de una materia -->
-    <string name="repasar_ahora">Repasar ahora (%1$d temas)</string>
+    <plurals name="repasar_ahora">
+        <item quantity="one">Repasar ahora (%1$d tema)</item>
+        <item quantity="other">Repasar ahora (%1$d temas)</item>
+    </plurals>
     <string name="repaso_explicacion">Es momento de repasar lo que aprendiste.</string>
     <string name="prueba_de_seccion">Prueba de la sección</string>
     <string name="prueba_bloqueada">Termina todos los temas para abrirla.</string>

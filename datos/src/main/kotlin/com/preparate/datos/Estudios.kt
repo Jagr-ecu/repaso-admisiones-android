@@ -279,6 +279,25 @@ class Estudios(
         return ResultadoPrueba(cierre, preguntas, repasar)
     }
 
+    // --- Solo depuración ---------------------------------------------------------------
+
+    /**
+     * SOLO para probar en el APK de depuración (vista previa): da por hechos los temas de una sección
+     * y, con `aprobar`, también su prueba. La app real nunca lo llama.
+     */
+    suspend fun depuracionCompletar(cursoId: String, materiaId: String, seccionId: String, aprobar: Boolean) {
+        val seccion = contenido.curso(cursoId).materias.single { it.id == materiaId }.secciones.single { it.id == seccionId }
+        val ahora = reloj()
+        db.withTransaction {
+            for (l in seccion.lecciones) {
+                dao.insertarSesion(Sesion(nuevoId(), TipoSesion.LECCION, cursoId, materiaId, seccionId, l.id, inicio = ahora, fin = ahora, aprobada = true).aFila(usuarioId))
+            }
+            if (aprobar) {
+                dao.insertarSesion(Sesion(nuevoId(), TipoSesion.PRUEBA_SECCION, cursoId, materiaId, seccionId, inicio = ahora, fin = ahora, nota = 10.0, aprobada = true).aFila(usuarioId))
+            }
+        }
+    }
+
     // --- Internos --------------------------------------------------------------------
 
     private suspend fun sesionesDe(cursoId: String, materiaId: String) =

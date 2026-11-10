@@ -104,6 +104,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun crearEstudio(uid: String, subir: Boolean) = EstudioVm(
         estudios = Estudios(db, contenido, uid),
+        depuracion = BuildConfig.DEBUG && uid == USUARIO_VISTA_PREVIA,
         alcance = viewModelScope,
         ir = ::ir,
         alGuardar = { ej, texto, resultado, pistas ->
