@@ -94,11 +94,16 @@ Hecho:
 - **Error encontrado al probar en el emulador:** el motor de expresiones de Android (ICU) no acepta `(?U)`, y el verificador fallaba en toda respuesta de texto (Inglés y Lengua). Los tests de la JVM no lo veían. Se corrigió con clases de espacios explícitas, y por eso ahora el verificador también se prueba en el dispositivo.
 - Probado a mano en el emulador: el camino, un tema completo (error, pista automática, "¡Casi!" sin simplificar, repetición con la misma variante, explicación al acertar y 10 puntos), el tema que se retoma tras salir, el corte al 4.º error con "Volver a empezar", el cuaderno de la división y ordenar en Inglés.
 
-Falta:
-- Probar a mano una prueba de sección, el examen final, el resultado, el repaso y un Writing.
-- Probar a tamaño tablet, con el teclado abierto y en modo avión en la MatePad.
-- Adaptar al celular con `WindowSizeClass`.
-- Pasar a `strings.xml` los textos que quedan en las pantallas de admin, entrar y Kiwi.
+Hecho después (misma noche):
+- Probado en el emulador: prueba de sección (sin pistas ni aviso de bien o mal, nota 1/10, temas para repasar), resultado pregunta por pregunta, repaso obligatorio que vuelve a abrir la prueba, examen final con reloj que se retoma tras cerrar la app y Writing (lo corto no cuenta y lo válido queda pendiente).
+- Atajos solo para la vista previa de depuración: dar por hechos los temas de una sección o aprobar todas. La app real no los muestra.
+- Cuaderno: al escribir una cifra se pasa a la casilla siguiente en el orden de la cuenta, y la pantalla se achica con el teclado abierto (`imePadding`).
+- Las opciones largas van una por fila. Antes salían como círculos.
+- `WindowSizeClass`: en pantalla amplia (la tablet en horizontal) el contenido es más ancho, las materias van en 3 columnas y el camino en 2. En el celular todo va en una columna. Probado en el emulador con pantalla de 11,5".
+- Todos los textos de las pantallas están en `strings.xml`. Quedan en código los mensajes de error de `:sincro` (cuentas), que se rehacen en la fase 5, y los atajos de depuración.
+
+Falta (lo hace el usuario en la MatePad):
+- Jugar en modo avión y con el teclado abierto en la tablet real. Si funciona, la fase 4 queda cerrada.
 - Mientras no exista la cola de subida (fase 5), cada respuesta se sigue enviando directo a Firestore, como en la fase 1. La vista previa de depuración guarda solo en la tablet.
 
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**

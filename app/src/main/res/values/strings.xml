@@ -105,4 +105,41 @@
     <string name="respuesta_correcta">Respuesta correcta: %1$s</string>
     <string name="bien_marca">✓ Bien</string>
     <string name="mal_marca">✗ Mal</string>
+
+    <!-- Entrar, panel de admin y Kiwi -->
+    <string name="entrar_titulo">Prepárate</string>
+    <string name="entrar_ayuda">Entra con tu usuario y tu clave.</string>
+    <string name="usuario">Usuario</string>
+    <string name="clave">Clave</string>
+    <string name="entrando">Entrando…</string>
+    <string name="entrar">Entrar</string>
+    <string name="version">Versión %1$s</string>
+    <string name="vista_previa">Vista previa del tema (solo depuración)</string>
+    <string name="panel_de">Panel de %1$s</string>
+    <string name="crear_estudiante">Crear estudiante</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="estudiantes">Estudiantes</string>
+    <string name="sin_estudiantes">Todavía no hay estudiantes.</string>
+    <string name="usuario_es">Usuario: %1$s</string>
+    <string name="kiwi_direccion_pc">Kiwi: dirección del PC</string>
+    <string name="solo_nombre">Solo el nombre, sin apellidos.</string>
+    <string name="nombre">Nombre</string>
+    <string name="usuario_reglas">De 3 a 20: letras sin tilde, números, punto, guion o guion bajo.</string>
+    <string name="clave_reglas">Al menos 6 caracteres.</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="creando">Creando…</string>
+    <string name="crear">Crear</string>
+    <string name="estudiante_creado">Listo: %1$s ya puede entrar con el usuario %2$s.</string>
+    <string name="sin_respuestas">Todavía no hay respuestas.</string>
+    <string name="detalle_intento">Pistas: %1$d · Respondió: %2$s · Llegó a la nube: %3$s</string>
+    <string name="kiwi">Kiwi</string>
+    <string name="kiwi_ayuda">Dirección de LM Studio en el PC de la casa, con su puerto. Por ejemplo: http://192.168.1.50:1234</string>
+    <string name="direccion">Dirección</string>
+    <string name="guardar_probar">Guardar y probar</string>
+    <string name="kiwi_buscando">Buscando a Kiwi…</string>
+    <string name="kiwi_apagado">Kiwi no responde. Revisa que LM Studio esté encendido, que acepte conexiones de la red local y que la tablet esté en el mismo wifi.</string>
+    <string name="kiwi_activo">Kiwi está activo. Modelo: %1$s</string>
+    <string name="kiwi_dice">Kiwi: %1$s</string>
+    <string name="kiwi_pensando">Kiwi está pensando…</string>
+    <string name="kiwi_no_contesta">LM Studio responde, pero no pudo contestar: %1$s</string>
 </resources>
