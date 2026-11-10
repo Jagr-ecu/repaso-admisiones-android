@@ -45,12 +45,12 @@ Atajos de la fase 1 que se corrigen después:
 - Los textos de las pantallas están escritos en el código, no en `strings.xml` (fase 4).
 
 Pasos del usuario para probar la fase 1:
-- [ ] Publicar `firestore.rules` en la consola de Firebase.
-- [ ] Descargar la credencial de la cuenta de servicio en `herramientas/credencial-firebase.json`, instalar `firebase-admin` y crear el admin con `cuentas.py crear-admin`.
-- [ ] En la MatePad: entrar como admin, crear un estudiante y entrar con él.
+- [x] Publicar `firestore.rules` en la consola de Firebase.
+- [x] Descargar la credencial de la cuenta de servicio en `herramientas/credencial-firebase.json`, instalar `firebase-admin` y crear el admin con `cuentas.py crear-admin`.
+- [x] En la MatePad: entrar como admin, crear un estudiante y entrar con él. Hecho el 2026-11-09 a las 21:42 con `admin` y el estudiante `ana`. Los 5 intentos del tema llegaron a Firestore unos 2 s después de responder. **Firebase Auth y Firestore funcionan en HarmonyOS 4.3 sin servicios de Google, y acepta `@preparate.invalid`.**
 - [ ] Responder en modo avión, volver a conectar y ver la respuesta en el panel de admin desde otro dispositivo.
 - [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app.
-- [ ] Cambiar la clave del estudiante con `cuentas.py cambiar-clave` y entrar con la nueva.
+- [x] Cambiar una clave con `cuentas.py cambiar-clave` y entrar con la nueva. Se hizo con `admin`, que entró en la MatePad justo después: **el script funciona en el plan Spark.**
 
 **Fase 2: hecha en código (2026-11-09, noche)**
 Se hizo mientras siguen pendientes las pruebas de la fase 1 en la MatePad. No depende de ellas: si la sincronización falla, el paquete sirve igual.
