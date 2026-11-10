@@ -65,6 +65,8 @@ data class FinPractica(val cierre: Cierre, val tipo: TipoSesion, val cursoId: St
  */
 class EstudioVm(
     val estudios: Estudios,
+    /** Vista previa del APK de depuración: muestra los atajos para probar. */
+    val depuracion: Boolean = false,
     private val alcance: CoroutineScope,
     private val ir: (Pantalla) -> Unit,
     private val alGuardar: (Ejercicio, String, Resultado, Int) -> Unit,
@@ -139,6 +141,14 @@ class EstudioVm(
     fun empezarExamen(cursoId: String, materiaId: String) = tarea { jugar(estudios.empezarExamen(cursoId, materiaId)) }
 
     fun retomar(sesion: Sesion) = tarea { jugar(sesion) }
+
+    /** Solo en la vista previa de depuración: atajos para probar pruebas y el examen. */
+    fun depuracionCompletar(cursoId: String, materiaId: String, seccionId: String?, aprobar: Boolean) = tarea {
+        val secciones = estudios.curso(cursoId).materias.single { it.id == materiaId }.secciones
+        for (s in secciones) {
+            if (seccionId == null || s.id == seccionId) estudios.depuracionCompletar(cursoId, materiaId, s.id, aprobar)
+        }
+    }
 
     // --- Ejercicios ------------------------------------------------------------------
 

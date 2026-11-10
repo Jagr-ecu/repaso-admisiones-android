@@ -41,7 +41,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -141,7 +145,7 @@ fun PantallaMateria(vm: AppViewModel, e: EstudioVm, cursoId: String, materiaId: 
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(stringResource(R.string.repaso_explicacion))
                     Button(onClick = { e.empezarRepaso(cursoId, materiaId) }, enabled = !e.ocupado) {
-                        Text(stringResource(R.string.repasar_ahora, e.vencidos.size))
+                        Text(pluralStringResource(R.plurals.repasar_ahora, e.vencidos.size, e.vencidos.size))
                     }
                 }
             }
@@ -152,12 +156,22 @@ fun PantallaMateria(vm: AppViewModel, e: EstudioVm, cursoId: String, materiaId: 
                 val abierta = e.abiertas.any { it.tipo == TipoSesion.LECCION && it.leccionId == pl.leccion.id }
                 NodoTema(pl.leccion.titulo, pl.estado, abierta) { e.abrirTema(cursoId, pl.leccion.id) }
             }
+            if (e.depuracion) {
+                TextButton(onClick = { e.depuracionCompletar(cursoId, materiaId, s.seccion.id, aprobar = false) }) {
+                    Text("Depuración: dar por hechos los temas")
+                }
+            }
             NodoPrueba(s.prueba, e.abiertas.any { it.tipo == TipoSesion.PRUEBA_SECCION && it.seccionId == s.seccion.id },
                 alEmpezar = { e.empezarPrueba(cursoId, materiaId, s.seccion.id) },
                 alRepasar = { e.empezarRepaso(cursoId, materiaId, s.seccion.id) },
                 ocupado = e.ocupado)
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        if (e.depuracion) {
+            TextButton(onClick = { e.depuracionCompletar(cursoId, materiaId, null, aprobar = true) }) {
+                Text("Depuración: aprobar todas las secciones")
+            }
+        }
         NodoExamen(p.examenFinal, e.abiertas.any { it.tipo == TipoSesion.EXAMEN_FINAL }, e.ocupado) {
             e.empezarExamen(cursoId, materiaId)
         }
@@ -374,7 +388,9 @@ private fun Entrada(e: EstudioVm, a: EjercicioUi) {
 
 @Composable
 private fun Opciones(e: EstudioVm, a: EjercicioUi) {
-    a.variante.opciones.chunked(2).forEach { fila ->
+    // Las opciones largas (oraciones enteras) van una por fila, para que se lean bien.
+    val porFila = if (a.variante.opciones.any { it.length > 18 }) 1 else 2
+    a.variante.opciones.chunked(porFila).forEach { fila ->
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             fila.forEach { opcion ->
                 val elegida = a.entrada == opcion
@@ -382,12 +398,13 @@ private fun Opciones(e: EstudioVm, a: EjercicioUi) {
                     onClick = { e.escribir(opcion) },
                     enabled = !a.respondido,
                     border = BorderStroke(if (elegida) 3.dp else 1.dp, MaterialTheme.colorScheme.primary),
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.weight(1f),
                 ) {
-                    Formula(opcion, modo = ModoFormula.OPCION, tamano = 22)
+                    Formula(opcion, modo = ModoFormula.OPCION, tamano = if (porFila == 1) 20 else 22)
                 }
             }
-            if (fila.size == 1) Spacer(Modifier.weight(1f))
+            if (fila.size < porFila) Spacer(Modifier.weight(1f))
         }
     }
 }
@@ -416,16 +433,25 @@ private fun Ordenar(e: EstudioVm, a: EjercicioUi) {
 private fun Cuaderno(e: EstudioVm, a: EjercicioUi) {
     val cuenta = a.variante.cuenta ?: return
     val grupoMal = a.resultado?.grupoMal
+    // Al escribir una cifra se pasa a la casilla siguiente en el orden real de la cuenta.
+    val focos = remember(a.ejercicio.intento.id) { List(cuenta.casillas) { FocusRequester() } }
+    val foco = LocalFocusManager.current
+    val alEscribir: (Int, String) -> Unit = { n, texto ->
+        e.escribirCasilla(n, texto)
+        if (texto.any(Char::isDigit)) {
+            if (n + 1 < focos.size) focos[n + 1].requestFocus() else foco.clearFocus()
+        }
+    }
     Text(stringResource(R.string.cuaderno_ayuda), style = MaterialTheme.typography.bodySmall)
     Column(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 8.dp)) {
         for (fila in cuenta.filas) {
             fila.etiqueta?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline) }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Row { fila.celdas.forEach { Celda(e, a, it, grupoMal) } }
+                Row { fila.celdas.forEach { Celda(a, it, grupoMal, focos, alEscribir) } }
                 if (fila.derecha.isNotEmpty()) {
                     Box(Modifier.width(2.dp).height(44.dp).background(MaterialTheme.colorScheme.onSurface))
                     Column {
-                        Row { fila.derecha.forEach { Celda(e, a, it, grupoMal) } }
+                        Row { fila.derecha.forEach { Celda(a, it, grupoMal, focos, alEscribir) } }
                     }
                 }
             }
@@ -438,7 +464,7 @@ private fun Cuaderno(e: EstudioVm, a: EjercicioUi) {
 }
 
 @Composable
-private fun Celda(e: EstudioVm, a: EjercicioUi, celda: Celda, grupoMal: Int?) {
+private fun Celda(a: EjercicioUi, celda: Celda, grupoMal: Int?, focos: List<FocusRequester>, alEscribir: (Int, String) -> Unit) {
     val caja = Modifier.size(44.dp).padding(2.dp)
     val estilo = TextStyle(fontSize = 22.sp, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface)
     when {
@@ -452,12 +478,12 @@ private fun Celda(e: EstudioVm, a: EjercicioUi, celda: Celda, grupoMal: Int?) {
             val borde = if (mal) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
             BasicTextField(
                 value = a.casillas[n].orEmpty(),
-                onValueChange = { e.escribirCasilla(n, it) },
+                onValueChange = { alEscribir(n, it) },
                 enabled = !a.respondido,
                 singleLine = true,
                 textStyle = estilo,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-                modifier = caja.border(if (mal) 3.dp else 1.dp, borde, RoundedCornerShape(6.dp)).padding(top = 6.dp),
+                modifier = caja.focusRequester(focos[n]).border(if (mal) 3.dp else 1.dp, borde, RoundedCornerShape(6.dp)).padding(top = 6.dp),
             )
         }
         celda.nota -> {
