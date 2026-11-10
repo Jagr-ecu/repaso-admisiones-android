@@ -108,7 +108,7 @@ fun PantallaCurso(vm: AppViewModel, e: EstudioVm, cursoId: String) {
     val puntos by e.puntos(cursoId).collectAsState(initial = 0)
     Marco(curso.nombre, alVolver = { vm.atras() }) {
         Text(stringResource(R.string.puntos, puntos), style = MaterialTheme.typography.titleMedium)
-        for (materia in curso.materias) {
+        EnColumnas(curso.materias, porFila = if (columnas() > 1) 3 else 1) { materia ->
             val p = progreso?.firstOrNull { it.materiaId == materia.id }
             val temas = p?.secciones?.flatMap { it.lecciones }.orEmpty()
             Card(Modifier.fillMaxWidth().clickable { e.abrirMateria(cursoId, materia.id) }) {
@@ -150,7 +150,8 @@ fun PantallaMateria(vm: AppViewModel, e: EstudioVm, cursoId: String, materiaId: 
                 }
             }
         }
-        for (s in p.secciones) {
+        EnColumnas(p.secciones) { s ->
+          Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(s.seccion.nombre, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
             for (pl in s.lecciones) {
                 val abierta = e.abiertas.any { it.tipo == TipoSesion.LECCION && it.leccionId == pl.leccion.id }
@@ -165,6 +166,7 @@ fun PantallaMateria(vm: AppViewModel, e: EstudioVm, cursoId: String, materiaId: 
                 alEmpezar = { e.empezarPrueba(cursoId, materiaId, s.seccion.id) },
                 alRepasar = { e.empezarRepaso(cursoId, materiaId, s.seccion.id) },
                 ocupado = e.ocupado)
+          }
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
         if (e.depuracion) {
@@ -290,7 +292,7 @@ fun PantallaEjercicio(vm: AppViewModel, e: EstudioVm) {
     }
     Marco(titulo, alVolver = { vm.atras() }) {
         Encabezado(e, a)
-        Formula(a.variante.enunciado, tamano = 22)
+        Formula(a.variante.enunciado, tamano = if (columnas() > 1) 26 else 22)
         Entrada(e, a)
         a.aviso?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.tertiary) }
         Retroalimentacion(a)

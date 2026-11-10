@@ -57,6 +57,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private val cuentas = Cuentas(app)
     private val progreso = Progreso()
     private val contenido = LectorContenido(app.assets)
+    private val textos = app.resources
     private val db by lazy { BaseDatos.abrir(app) }
     private val ajustes = app.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
@@ -145,7 +146,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             } catch (e: ErrorCuenta) {
                 error = e.message
             } catch (e: Exception) {
-                error = "Algo salió mal: ${e.message}"
+                error = textos.getString(R.string.error_inesperado, e.message.orEmpty())
             } finally {
                 ocupado = false
             }
@@ -191,7 +192,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             throw e
         }
         perfilPendiente = null
-        estudianteCreado = "Listo: ${listo.first} ya puede entrar con el usuario ${listo.second}."
+        estudianteCreado = textos.getString(R.string.estudiante_creado, listo.first, listo.second)
     }
 
     fun limpiarCreacion() {
@@ -220,7 +221,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
             estadoKiwi = try {
                 EstadoKiwi.Activo(modelos.first(), cliente.saludar(modelos.first()))
             } catch (e: Exception) {
-                EstadoKiwi.Activo(modelos.first(), null, "LM Studio responde, pero no pudo contestar: ${e.message}")
+                EstadoKiwi.Activo(modelos.first(), null, textos.getString(R.string.kiwi_no_contesta, e.message.orEmpty()))
             }
         }
     }
