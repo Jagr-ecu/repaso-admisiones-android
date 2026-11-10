@@ -14,8 +14,55 @@
     <string name="tus_cursos">Tus cursos</string>
     <string name="temas_hechos">%1$d de %2$d temas</string>
     <string name="probar_kiwi">Probar a Kiwi</string>
-    <string name="sin_subir">Respuestas esperando Internet: %1$d</string>
+    <plurals name="sin_subir">
+        <item quantity="one">%1$d cambio guardado en la tablet. Se sube cuando haya Internet.</item>
+        <item quantity="other">%1$d cambios guardados en la tablet. Se suben cuando haya Internet.</item>
+    </plurals>
     <string name="todo_subido">Tu progreso está guardado en la tablet y en la nube.</string>
+    <string name="nube_sincronizando">Guardando en la nube…</string>
+    <string name="nube_fallo">No pude revisar la nube. Tu progreso está a salvo en la tablet.</string>
+    <string name="cambiar_mi_clave">Cambiar mi clave</string>
+
+    <!-- Salir con cambios sin subir -->
+    <string name="salir_aviso_titulo">Todavía no se sube todo</string>
+    <plurals name="salir_aviso">
+        <item quantity="one">Hay %1$d cambio que aún no llega a la nube. No se borra: se sube cuando vuelvas a entrar en esta tablet.</item>
+        <item quantity="other">Hay %1$d cambios que aún no llegan a la nube. No se borran: se suben cuando vuelvas a entrar en esta tablet.</item>
+    </plurals>
+    <string name="salir_subir_primero">Subir y salir</string>
+    <string name="salir_igual">Salir igual</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="subiendo">Subiendo tu progreso…</string>
+    <string name="salir_no_subio">No se pudo subir todo. Revisa el Internet, o sal igual: nada se borra.</string>
+
+    <!-- Cuentas -->
+    <string name="bajando_progreso">Trayendo tu progreso…</string>
+    <string name="cuenta_sin_internet">Necesitas Internet para esto.</string>
+    <string name="cuenta_usuario_o_clave">Usuario o clave incorrectos.</string>
+    <string name="cuenta_usuario_repetido">Ese usuario ya existe. Elige otro.</string>
+    <string name="cuenta_usuario_corto">El usuario necesita al menos 3 letras o números.</string>
+    <string name="cuenta_usuario_largo">El usuario puede tener hasta 20 letras o números.</string>
+    <string name="cuenta_usuario_caracteres">Usa solo letras sin tilde, números, punto, guion o guion bajo. Sin espacios ni ñ.</string>
+    <string name="cuenta_clave_vacia">Escribe tu clave.</string>
+    <string name="cuenta_clave_corta">La clave necesita al menos 6 caracteres.</string>
+    <string name="cuenta_claves_distintas">Las dos claves nuevas no son iguales.</string>
+    <string name="cuenta_clave_igual">La clave nueva tiene que ser distinta de la actual.</string>
+    <string name="cuenta_clave_actual_mal">Tu clave actual no es esa.</string>
+    <string name="cuenta_demasiados_intentos">Muchos intentos seguidos. Espera un rato y prueba otra vez.</string>
+    <string name="cuenta_falta_nombre">Escribe el nombre del estudiante.</string>
+    <string name="cuenta_no_pude_revisar">No pude revisar tu cuenta. Revisa el Internet e inténtalo otra vez.</string>
+    <string name="cuenta_no_lista">Tu cuenta todavía no está lista. Pide ayuda a un adulto.</string>
+    <string name="cuenta_perfil_sin_guardar">La cuenta se creó, pero no pude guardar su perfil. Toca Reintentar.</string>
+    <string name="cuenta_sin_sesion">Primero entra con tu usuario.</string>
+
+    <!-- Cambiar la clave propia -->
+    <string name="clave_actual">Clave actual</string>
+    <string name="clave_nueva">Clave nueva</string>
+    <string name="clave_repetir">Repite la clave nueva</string>
+    <string name="cambiar_clave_ayuda">Necesitas Internet. Si olvidaste tu clave, pide ayuda a un adulto.</string>
+    <string name="cambiando">Cambiando…</string>
+    <string name="cambiar">Cambiar</string>
+    <string name="clave_cambiada">Listo. Desde ahora entra con tu clave nueva.</string>
 
     <!-- Camino de una materia -->
     <plurals name="repasar_ahora">
@@ -132,6 +179,33 @@
     <string name="estudiante_creado">Listo: %1$s ya puede entrar con el usuario %2$s.</string>
     <string name="sin_respuestas">Todavía no hay respuestas.</string>
     <string name="detalle_intento">Pistas: %1$d · Respondió: %2$s · Llegó a la nube: %3$s</string>
+    <string name="sin_resumen">Su tablet aún no subió un resumen. Aparece después de que estudie con Internet.</string>
+    <string name="ficha_resumen">Última vez: %1$s · Esta semana: %2$d min</string>
+    <string name="ficha_nunca">Todavía no estudia.</string>
+    <plurals name="ficha_writing">
+        <item quantity="one">%1$d Writing espera nota</item>
+        <item quantity="other">%1$d Writing esperan nota</item>
+    </plurals>
+    <string name="panel_tiempo">Tiempo de estudio</string>
+    <string name="panel_semana">Esta semana: %1$d min · En total: %2$d min</string>
+    <string name="panel_dia">%1$s: %2$d min</string>
+    <string name="panel_materia_avance">Temas: %1$d de %2$d · Secciones aprobadas: %3$d de %4$d · %5$d min</string>
+    <string name="panel_examen">Examen final: %1$s</string>
+    <string name="panel_examen_bloqueado">aún no se abre</string>
+    <string name="panel_examen_disponible">listo para darlo</string>
+    <string name="panel_examen_completado">aprobado</string>
+    <string name="panel_examen_pendiente">espera la nota de un Writing</string>
+    <string name="panel_notas">Pruebas y exámenes</string>
+    <string name="panel_nota">%1$s · %2$s · %3$s</string>
+    <string name="panel_nota_pendiente">nota pendiente</string>
+    <string name="panel_nota_valor">%1$s/10 %2$s</string>
+    <string name="panel_prueba_seccion">Prueba de %1$s</string>
+    <string name="panel_examen_final">Examen final</string>
+    <string name="panel_temas">Temas con más errores</string>
+    <string name="panel_tema">%1$s: %2$d de %3$d mal · pidió pistas en %4$d</string>
+    <string name="panel_pendientes">Writing por calificar</string>
+    <string name="panel_ultimas">Últimas respuestas</string>
+    <string name="panel_calculado">Resumen del %1$s</string>
     <string name="kiwi">Kiwi</string>
     <string name="kiwi_ayuda">Dirección de LM Studio en el PC de la casa, con su puerto. Por ejemplo: http://192.168.1.50:1234</string>
     <string name="direccion">Dirección</string>

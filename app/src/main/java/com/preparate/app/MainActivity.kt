@@ -13,6 +13,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import com.preparate.app.ui.Disposicion
 import com.preparate.app.ui.LocalDisposicion
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.preparate.app.ui.PantallaCambiarClave
 import com.preparate.app.ui.PantallaCrearEstudiante
 import com.preparate.app.ui.PantallaDetalleEstudiante
 import com.preparate.app.ui.PantallaEntrar
@@ -53,6 +54,7 @@ fun App(vm: AppViewModel) {
         Pantalla.Inicio -> PantallaInicio(vm)
         Pantalla.Kiwi -> PantallaKiwi(vm)
         Pantalla.CrearEstudiante -> PantallaCrearEstudiante(vm)
+        Pantalla.CambiarClave -> PantallaCambiarClave(vm)
         is Pantalla.DetalleEstudiante -> PantallaDetalleEstudiante(vm, pantalla)
         else -> if (estudio == null) PantallaInicio(vm) else when (pantalla) {
             is Pantalla.Curso -> PantallaCurso(vm, estudio, pantalla.cursoId)

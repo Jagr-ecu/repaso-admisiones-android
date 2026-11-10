@@ -12,11 +12,11 @@ object Usuario {
 
     fun esValido(usuario: String): Boolean = VALIDO.matches(usuario)
 
-    /** Motivo por el que un usuario no sirve, en palabras sencillas; null si sirve. */
-    fun problema(usuario: String): String? = when {
-        usuario.length < 3 -> "El usuario necesita al menos 3 letras o números."
-        usuario.length > 20 -> "El usuario puede tener hasta 20 letras o números."
-        !esValido(usuario) -> "Usa solo letras sin tilde, números, punto, guion o guion bajo. Sin espacios ni ñ."
+    /** Motivo por el que un usuario no sirve; null si sirve. La interfaz pone el texto. */
+    fun problema(usuario: String): ProblemaUsuario? = when {
+        usuario.length < 3 -> ProblemaUsuario.MUY_CORTO
+        usuario.length > 20 -> ProblemaUsuario.MUY_LARGO
+        !esValido(usuario) -> ProblemaUsuario.CARACTERES
         else -> null
     }
 
@@ -24,3 +24,5 @@ object Usuario {
 
     fun desdeCorreo(correo: String): String = correo.removeSuffix("@$DOMINIO")
 }
+
+enum class ProblemaUsuario { MUY_CORTO, MUY_LARGO, CARACTERES }

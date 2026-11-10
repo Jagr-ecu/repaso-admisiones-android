@@ -13,7 +13,6 @@ import com.preparate.datos.TiempoAgotado
 import com.preparate.dominio.AyudaProhibida
 import com.preparate.dominio.Bloqueo
 import com.preparate.dominio.EstadoRespuesta
-import com.preparate.dominio.Estudio
 import com.preparate.dominio.Leccion
 import com.preparate.dominio.Pista
 import com.preparate.dominio.ProgresoMateria
@@ -59,17 +58,13 @@ data class EjercicioUi(
 /** Cómo terminó un tema o repaso; las pruebas van a su pantalla de resultado. */
 data class FinPractica(val cierre: Cierre, val tipo: TipoSesion, val cursoId: String, val leccionId: String?, val materiaId: String)
 
-/**
- * Las pantallas de estudio de UN estudiante. `alGuardar` recibe cada respuesta guardada, para
- * subirla a Firestore (provisional hasta la cola de subida de la fase 5).
- */
+/** Las pantallas de estudio de UN estudiante. */
 class EstudioVm(
     val estudios: Estudios,
     /** Vista previa del APK de depuración: muestra los atajos para probar. */
     val depuracion: Boolean = false,
     private val alcance: CoroutineScope,
     private val ir: (Pantalla) -> Unit,
-    private val alGuardar: (Ejercicio, String, Resultado, Int) -> Unit,
 ) {
     var ocupado by mutableStateOf(false); private set
     @get:StringRes var bloqueo by mutableStateOf<Int?>(null); private set
@@ -194,22 +189,17 @@ class EstudioVm(
         if (a.respondido || !a.listo) return
         tarea {
             val v = a.variante
-            val (resultado, texto) = when (v.plantilla.tipo) {
-                TipoEjercicio.ORDENAR -> {
-                    val partes = a.orden.map { v.fragmentos[it] }
-                    estudios.responder(a.ejercicio.intento.id, partes) to partes.joinToString(" ")
-                }
-                TipoEjercicio.CUADERNO -> {
-                    val partes = (0 until v.cuenta!!.casillas).map { a.casillas[it].orEmpty() }
-                    estudios.responder(a.ejercicio.intento.id, partes) to Estudio.textoGuardado(v, partes)
-                }
-                else -> estudios.responder(a.ejercicio.intento.id, a.entrada.trim()) to a.entrada.trim()
+            // Lo guardado en Room entra solo en la cola de subida (un trigger de la base).
+            val resultado = when (v.plantilla.tipo) {
+                TipoEjercicio.ORDENAR -> estudios.responder(a.ejercicio.intento.id, a.orden.map { v.fragmentos[it] })
+                TipoEjercicio.CUADERNO ->
+                    estudios.responder(a.ejercicio.intento.id, (0 until v.cuenta!!.casillas).map { a.casillas[it].orEmpty() })
+                else -> estudios.responder(a.ejercicio.intento.id, a.entrada.trim())
             }
             if (resultado.estado == EstadoRespuesta.FORMATO_INVALIDO) {
                 actual = a.copy(aviso = avisoIlegible(a))
                 return@tarea
             }
-            alGuardar(a.ejercicio, texto, resultado, a.pistas.size)
             if (!a.practica) {
                 // En pruebas y exámenes no se dice si estuvo bien: se sigue con la próxima.
                 jugar(a.ejercicio.sesion)

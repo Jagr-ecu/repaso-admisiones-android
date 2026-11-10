@@ -29,6 +29,8 @@ app/       pantallas Compose y navegación
 - Tests del dominio: `./gradlew :dominio:test`
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
+- Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
+- Reglas de Firestore con su emulador: `npm test` dentro de `pruebas-reglas/` (ver su README)
 - Regenerar el contenido y los casos de referencia, desde la carpeta del proyecto web:
   `.venv/Scripts/python.exe -m app.cli exportar-paquete ../repaso-admisiones-android/app/src/main/assets/contenido --borradores`
   `.venv/Scripts/python.exe -m app.cli exportar-referencia ../repaso-admisiones-android/dominio/src/test/resources/referencia`
@@ -37,7 +39,7 @@ app/       pantallas Compose y navegación
 ## Secretos (nunca en git)
 - `app/google-services.json`, la configuración de Firebase.
 - La clave de firma del APK (`*.jks`) y `keystore.properties`. Guárdala con copia: sin ella no se puede actualizar la app.
-- La credencial del SDK de administración que usa `herramientas/cambiar_clave.py`. Solo se guarda en el PC.
+- La credencial del SDK de administración que usa `herramientas/cuentas.py` (`crear-admin`, `cambiar-clave`). Solo se guarda en el PC.
 
 ## Reglas inviolables
 1. La respuesta correcta la calcula siempre el código: Python al exportar y `:dominio` al verificar. Nunca el LLM.

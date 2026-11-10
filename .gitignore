@@ -25,3 +25,8 @@ herramientas/cuentas-pruebas.local
 prueba-compatibilidad/
 
 .codegraph/
+
+# Pruebas de las reglas de Firestore
+pruebas-reglas/node_modules/
+firebase-debug.log
+firestore-debug.log
