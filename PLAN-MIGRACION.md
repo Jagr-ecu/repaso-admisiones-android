@@ -54,7 +54,7 @@ Pasos del usuario para probar la fase 1:
 
 **Fase 2: hecha en código (2026-11-09, noche)**
 Se hizo mientras siguen pendientes las pruebas de la fase 1 en la MatePad. No depende de ellas: si la sincronización falla, el paquete sirve igual.
-- En el proyecto web, sin commit todavía: `app/exportar.py`, los comandos `exportar-paquete` y `exportar-referencia` en `app/cli.py`, `tests/test_exportar.py` (7 tests) y `docs/paquete-android.md`. Pasan los 611 tests de Python.
+- En el proyecto web (commit `3fda6a3`): `app/exportar.py`, los comandos `exportar-paquete` y `exportar-referencia` en `app/cli.py`, `tests/test_exportar.py` (7 tests) y `docs/paquete-android.md`. Pasan los 611 tests de Python.
 - El paquete trae 48 lecciones, 127 plantillas y 11 894 variantes: 9,8 MB en JSON y 1,05 MB comprimido dentro del APK. Tarda unos 10 s. Coincide con la medición de la sección 3.
 - Los casos de referencia son 19 622 del verificador (cuaderno y escritura incluidos), 7 700 de la guardia, 193 de las reglas y 120 historiales del camino. Están en `dominio/src/test/resources/referencia/`.
 - En Android, el formato se lee con kotlinx.serialization (1.9.0) en `:dominio` (`Paquete.kt`), así que los tests corren en la JVM. Si el formato cambia sin actualizar la app, la lectura falla, porque no se aceptan campos desconocidos.
@@ -64,6 +64,26 @@ Se hizo mientras siguen pendientes las pruebas de la fase 1 en la MatePad. No de
 - Aviso: `version` es `version_plantilla()`, que cambia con `--borradores` porque el estado forma parte de la plantilla. Hay que tenerlo en cuenta en el traspaso de la fase 7.
 
 
+**Cursos (2026-11-09, pedido del usuario)**
+- Todo el contenido actual queda dentro del curso **Admisiones** (`id: admisiones`), para poder añadir otros cursos más adelante sin mezclarlos.
+- En la web, `curso.yaml` tiene ahora `id`, `nombre: Admisiones` y `descripcion`.
+- El paquete pasa al formato 2: `cursos.json`, y cada curso en su carpeta (`admisiones/lecciones`, `admisiones/variantes`). `exportar-paquete` acepta varios `--contenido`, uno por curso.
+- En Android, `Curso` tiene `id` y el lector pide siempre el curso. **Fase 4:** las tablas de Room y los documentos de Firestore llevan `curso_id`, y la pantalla de inicio muestra los cursos antes de las materias.
+
+**Fase 3: hecha (2026-11-09, noche)**
+Todo vive en `:dominio`, en Kotlin puro y con tests en la JVM. Coincide con Python en todos los casos de referencia.
+- `Reglas.kt`: constantes, nota (redondeo igual que `round` de Python), tema perdido, calificación del repaso y temas con más errores.
+- `Progreso.kt`: desbloqueo del camino. Coincide en los 120 historiales de referencia.
+- `Verificador.kt` y `Cuaderno.kt`: el verificador completo, con Writing (mínimo 3 palabras) y la revisión del cuaderno paso a paso, incluido el consejo de "te faltó sumar lo que llevabas". Coincide en los 19 622 casos.
+- `Memoria.kt`: FSRS-6 **portado de py-fsrs** en lugar de usar una librería. No hay una oficial de Kotlin en Maven Central; solo FsrsKt (comunitaria) y una de Java. Al portarlo, las fechas coinciden con las de la web en 1 730 repasos de referencia, algo necesario para el traspaso de la fase 7. Sin dispersión de fechas, como en la web.
+- `Seleccion.kt`: variante nunca vista (se elige entre las del paquete), conceptos vencidos y plantillas intercaladas por turnos, siempre de una sola materia.
+- `Estudio.kt`: la lógica de `estudio.py` sin la base de datos. Cubre el tema (orden, 3 errores, repetición de lo fallado con la misma semilla, puntos una sola vez), el repaso, las pruebas (10 preguntas sin lecturas ni respuestas repetidas), el examen (20 minutos más 5 s de margen), las pistas (prohibidas en pruebas), la solución y la nota del Writing. Los motivos de bloqueo son un `enum`, y la interfaz pone el texto desde `strings.xml`.
+- 21 tests en `EstudioTest`, portados de `test_reglas.py`, `test_pruebas.py` y `test_cuaderno.py`. Los tests de cuaderno que arman la cuenta no se portan, porque eso se queda en Python.
+- El paquete trae ahora `opciones_fijas` por plantilla, que hace falta para no repetir la respuesta en una prueba.
+- Los tests de `:dominio` y `:datos` declaran el paquete como entrada de Gradle: si cambia el contenido, se vuelven a correr.
+- **Para la fase 4:** la pantalla de práctica de la fase 1 todavía usa `armarTema` (provisional, sin la regla de 3 errores). Se reemplaza por `Estudio` al hacer las pantallas reales. La guardia de Kiwi se porta en la fase 6; sus casos de referencia ya existen.
+
+**APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
 - marca, modelo, versión de Android y nivel de API reales;
 - si existen los servicios de Google;
