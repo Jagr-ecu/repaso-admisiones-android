@@ -91,6 +91,24 @@ object Estudio {
     /** Conceptos que repasa el repaso libre: los vencidos, como máximo estos. */
     const val CONCEPTOS_REPASO_LIBRE = 4
 
+    // --- Historial ------------------------------------------------------------------
+
+    /** Lo que ya hizo el estudiante en una materia, a partir de sus sesiones cerradas. */
+    fun historial(sesiones: List<Sesion>): Historial {
+        val cerradas = sesiones.filter { it.fin != null }
+        return Historial(
+            leccionesCompletadas = cerradas
+                .filter { it.tipo == TipoSesion.LECCION && it.aprobada == true }
+                .mapNotNull { it.leccionId }.toSet(),
+            pruebas = cerradas.filter { it.tipo == TipoSesion.PRUEBA_SECCION && it.seccionId != null }
+                .map { ResultadoPrueba(it.seccionId!!, it.aprobada, it.fin!!) },
+            repasos = cerradas.filter { it.tipo == TipoSesion.REPASO && it.aprobada == true && it.seccionId != null }
+                .map { RepasoHecho(it.seccionId!!, it.fin!!) },
+            examenAprobado = cerradas.any { it.tipo == TipoSesion.EXAMEN_FINAL && it.aprobada == true },
+            examenPendiente = cerradas.any { it.tipo == TipoSesion.EXAMEN_FINAL && it.aprobada == null },
+        )
+    }
+
     // --- Empezar --------------------------------------------------------------------
 
     fun comprobarTema(progreso: ProgresoMateria, leccionId: String) {
