@@ -28,7 +28,7 @@ Estado al 2026-11-09. La migración aún no empieza. La base es el commit `0cdff
 - **El APK vacío se instala y funciona en la MatePad: fase 0 cerrada.** Firebase se inicia al abrir la app sin cerrarla, aunque no haya servicios de Google.
 - En el proyecto web se hizo el commit `a4ee32a`, que añade `.codegraph/` al `.gitignore`. Va después de la etiqueta base, así que no la cambia.
 
-**Fase 1: código listo, falta probarla en la MatePad (2026-11-09)**
+**Fase 1: cerrada (2026-11-09), salvo Kiwi, que se prueba en la fase 6**
 Hecho y comprobado en el emulador (Android 17):
 - Tema de prueba: "Sumar fracciones con el mismo denominador", con 30 variantes por plantilla. Lo generaba `herramientas/exportar_prueba.py`, que la fase 2 reemplazó por `exportar-paquete`.
 - KaTeX 0.19 y marked en WebView, sin Internet. La lección, los enunciados y las opciones se ven como en la web.
@@ -48,8 +48,8 @@ Pasos del usuario para probar la fase 1:
 - [x] Publicar `firestore.rules` en la consola de Firebase.
 - [x] Descargar la credencial de la cuenta de servicio en `herramientas/credencial-firebase.json`, instalar `firebase-admin` y crear el admin con `cuentas.py crear-admin`.
 - [x] En la MatePad: entrar como admin, crear un estudiante y entrar con él. Hecho el 2026-11-09 a las 21:42 con `papa` y el estudiante `emi`. Los 5 intentos del tema llegaron a Firestore unos 2 s después de responder. **Firebase Auth y Firestore funcionan en HarmonyOS 4.3 sin servicios de Google, y acepta `@preparate.invalid`.**
-- [x] Responder en modo avión y volver a conectar. Los 5 intentos respondidos sin red entre las 21:49:04 y las 21:49:19 llegaron juntos a Firestore a las 21:49:36, al volver la conexión. Falta confirmar que el panel de admin los muestra desde otro dispositivo.
-- [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app.
+- [x] Responder en modo avión y volver a conectar. Los 5 intentos respondidos sin red entre las 21:49:04 y las 21:49:19 llegaron juntos a Firestore a las 21:49:36, al volver la conexión. El panel de admin los mostró desde otro dispositivo.
+- [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app. **Se pasa a la fase 6**, por decisión del usuario.
 - [x] Cambiar una clave con `cuentas.py cambiar-clave` y entrar con la nueva. Se hizo con `papa`, que entró en la MatePad justo después: **el script funciona en el plan Spark.**
 
 **Fase 2: hecha en código (2026-11-09, noche)**
