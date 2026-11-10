@@ -2,50 +2,105 @@ package com.preparate.tutor
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.put
+import kotlinx.serialization.json.putJsonArray
+import kotlinx.serialization.json.putJsonObject
+import kotlinx.serialization.json.addJsonObject
 import java.net.HttpURLConnection
 import java.net.URL
 
+/** Un mensaje para el modelo: `rol` es "system", "user" o "assistant". */
+data class Mensaje(val rol: String, val texto: String)
+
+/** LM Studio no responde, no tiene un modelo o devolvió algo inservible. La app sigue sin Kiwi. */
+class TutorNoDisponible(mensaje: String) : Exception(mensaje)
+
+/** El modelo que usa Kiwi. En los tests se reemplaza por uno falso. */
+interface Modelo {
+    /** Los modelos que ofrece, o null si no responde a tiempo. */
+    suspend fun modelos(): List<String>?
+
+    /** La respuesta del modelo, sin el razonamiento. Lanza [TutorNoDisponible]. */
+    suspend fun chat(mensajes: List<Mensaje>, esquema: JsonObject? = null, maxTokens: Int = 300): String
+}
+
 /**
- * Cliente de LM Studio en el PC de la casa (API compatible con OpenAI).
+ * Cliente de LM Studio en el PC de la casa (API compatible con OpenAI). Puerto de app/tutor/cliente.py.
  *
- * Fase 1: solo comprueba la conexión y pide un saludo. Todavía NO se usa en los
- * ejercicios: antes hay que portar la guardia (regla 2) en la fase 6.
+ * Antes de cada llamada se comprueba `GET /v1/models` con 2 s de espera: si LM Studio está apagado,
+ * Kiwi "descansa" y la app sigue sin él. La llamada en sí espera hasta 120 s, porque LM Studio
+ * puede estar cargando el modelo. Tras una comprobación fallida, las llamadas no la repiten durante
+ * 5 minutos (cada pista tardaría 2 s más); [modelos] sí comprueba siempre.
  */
-class ClienteKiwi(direccion: String) {
+class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::currentTimeMillis) : Modelo {
     val base: String = normalizar(direccion)
+    val configurado: Boolean get() = base.isNotEmpty()
 
-    /** Modelos que ofrece LM Studio, o null si no responde en 2 s. */
-    suspend fun modelos(): List<String>? = withContext(Dispatchers.IO) {
-        runCatching {
-            val datos = JSONObject(pedir("GET", "/v1/models", null, TIMEOUT_COMPROBACION_MS))
-            val lista = datos.getJSONArray("data")
-            (0 until lista.length()).map { lista.getJSONObject(it).getString("id") }
-        }.getOrNull()
+    @Volatile private var apagadoHasta = 0L
+
+    override suspend fun modelos(): List<String>? {
+        if (!configurado) return null
+        return withContext(Dispatchers.IO) {
+            runCatching {
+                val datos = json.parseToJsonElement(pedir("GET", "/v1/models", null, TIMEOUT_COMPROBACION_MS)).jsonObject
+                datos.getValue("data").jsonArray.map { it.jsonObject.getValue("id").jsonPrimitive.content }
+            }.getOrNull()
+        }.also { apagadoHasta = if (it == null) reloj() + RECUERDA_APAGADO_MS else 0L }
     }
 
-    /** Un saludo corto de Kiwi. Lanza una excepción si LM Studio no responde. */
-    suspend fun saludar(modelo: String): String = withContext(Dispatchers.IO) {
-        val cuerpo = JSONObject()
-            .put("model", modelo)
-            .put(
-                "messages",
-                JSONArray()
-                    .put(JSONObject().put("role", "system").put("content", SISTEMA_SALUDO))
-                    .put(JSONObject().put("role", "user").put("content", "Hola, Kiwi. ¿Me escuchas?")),
-            )
-            .put("max_tokens", 120)
-            // Mismo muestreo que la web (app/tutor/cliente.py): Qwen sin razonamiento.
-            .put("temperature", 0.7)
-            .put("top_p", 0.8)
-            .put("presence_penalty", 1.5)
-            .put("top_k", 20)
-            .put("chat_template_kwargs", JSONObject().put("enable_thinking", false))
-        val datos = JSONObject(pedir("POST", "/v1/chat/completions", cuerpo.toString(), TIMEOUT_RESPUESTA_MS))
-        val texto = datos.getJSONArray("choices").getJSONObject(0).getJSONObject("message").getString("content")
-        PENSAMIENTO.replace(texto, "").trim()
+    override suspend fun chat(mensajes: List<Mensaje>, esquema: JsonObject?, maxTokens: Int): String {
+        if (reloj() < apagadoHasta) throw TutorNoDisponible("LM Studio no estaba encendido hace un momento")
+        val lista = modelos() ?: throw TutorNoDisponible("LM Studio no está encendido")
+        val modelo = lista.firstOrNull { !esDeEmbeddings(it) } ?: throw TutorNoDisponible("LM Studio no tiene un modelo adecuado")
+        val cuerpo = buildJsonObject {
+            put("model", modelo)
+            putJsonArray("messages") {
+                for (m in mensajes) addJsonObject { put("role", m.rol); put("content", m.texto) }
+            }
+            put("max_tokens", maxTokens)
+            // Qwen en modo instruct (sin razonamiento), como en la web.
+            put("temperature", 0.7)
+            put("top_p", 0.8)
+            put("presence_penalty", 1.5)
+            put("top_k", 20)
+            putJsonObject("chat_template_kwargs") { put("enable_thinking", false) }
+            if (esquema != null) {
+                putJsonObject("response_format") {
+                    put("type", "json_schema")
+                    putJsonObject("json_schema") {
+                        put("name", "respuesta")
+                        put("strict", true)
+                        put("schema", esquema)
+                    }
+                }
+            }
+        }
+        val respuesta = withContext(Dispatchers.IO) {
+            try {
+                pedir("POST", "/v1/chat/completions", cuerpo.toString(), TIMEOUT_RESPUESTA_MS)
+            } catch (e: Exception) {
+                throw TutorNoDisponible("LM Studio no respondió: ${e.message}")
+            }
+        }
+        val texto = runCatching {
+            json.parseToJsonElement(respuesta).jsonObject.getValue("choices").jsonArray[0].jsonObject
+                .getValue("message").jsonObject["content"]?.jsonPrimitive?.contentOrNull.orEmpty()
+        }.getOrElse { throw TutorNoDisponible("LM Studio devolvió algo que no se entiende") }
+        return PENSAMIENTO.replace(texto, "").trim().ifEmpty { throw TutorNoDisponible("el modelo devolvió una respuesta vacía") }
     }
+
+    /** Un saludo corto, para probar a Kiwi desde los ajustes. */
+    suspend fun saludar(): String = chat(
+        listOf(Mensaje("system", SISTEMA_SALUDO), Mensaje("user", "Hola, Kiwi. ¿Me escuchas?")),
+        maxTokens = 120,
+    )
 
     private fun pedir(metodo: String, ruta: String, cuerpo: String?, timeoutMs: Int): String {
         val conexion = URL(base + ruta).openConnection() as HttpURLConnection
@@ -69,14 +124,19 @@ class ClienteKiwi(direccion: String) {
     companion object {
         const val TIMEOUT_COMPROBACION_MS = 2_000
         const val TIMEOUT_RESPUESTA_MS = 120_000
+        const val RECUERDA_APAGADO_MS = 300_000L
+        private val json = Json { ignoreUnknownKeys = true }
         private val PENSAMIENTO = Regex("<think>.*?(</think>|$)", RegexOption.DOT_MATCHES_ALL)
         private const val SISTEMA_SALUDO =
             "Eres Kiwi, un tutor amable para niños de 11 años. Responde en español, " +
                 "con una o dos frases cortas y sencillas."
 
-        /** "192.168.1.50:1234", "http://192.168.1.50:1234/v1/" → "http://192.168.1.50:1234". */
+        fun esDeEmbeddings(id: String): Boolean = listOf("embed", "bge", "e5-", "nomic").any { it in id.lowercase() }
+
+        /** "192.168.1.50:1234", "http://192.168.1.50:1234/v1/" → "http://192.168.1.50:1234". Vacío si no hay. */
         fun normalizar(direccion: String): String {
             var d = direccion.trim().trimEnd('/')
+            if (d.isEmpty()) return ""
             if (!d.startsWith("http://") && !d.startsWith("https://")) d = "http://$d"
             return d.removeSuffix("/v1").trimEnd('/')
         }

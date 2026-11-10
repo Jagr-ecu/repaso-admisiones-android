@@ -53,6 +53,8 @@ data class Intento(
     val pistasAlResponder: Int? = null,
     /** Nota del Writing que puso Kiwi con la rúbrica. */
     val puntaje: Double? = null,
+    /** El detalle de esa nota (`Revision` en JSON): criterios y comentario. */
+    val revision: String? = null,
 )
 
 /** Qué sigue en un tema. */

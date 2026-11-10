@@ -1,20 +1,16 @@
+// Kotlin puro, sin Android: el cliente de LM Studio usa HttpURLConnection y los tests corren en la JVM.
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.jvm)
 }
 
-android {
-    namespace = "com.preparate.tutor"
-    compileSdk = 36
-    defaultConfig {
-        minSdk = 29
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
-    implementation(project(":dominio"))
-    implementation(libs.coroutines.android)
+    api(project(":dominio"))
+    implementation(libs.coroutines.core)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
 }

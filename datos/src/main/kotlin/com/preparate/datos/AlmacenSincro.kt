@@ -185,4 +185,5 @@ private fun IntentoFila.conIntento(i: Intento) = copy(
     pistasUsadas = i.pistasUsadas,
     pistasAlResponder = i.pistasAlResponder,
     puntaje = i.puntaje,
+    revision = i.revision,
 )

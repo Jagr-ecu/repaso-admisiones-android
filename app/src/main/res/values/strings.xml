@@ -122,6 +122,17 @@
     <string name="no_entendi_texto">Escribe una respuesta para comprobarla.</string>
     <string name="writing_corto">Escribe al menos una oración completa.</string>
     <string name="writing_guardado">¡Listo! Kiwi revisará tu texto cuando esté encendido.</string>
+    <string name="writing_revisando">Kiwi está leyendo tu texto…</string>
+    <string name="writing_nota">Tu nota: %1$s de 10</string>
+    <string name="writing_criterio">%1$s: %2$s de %3$s</string>
+
+    <!-- Kiwi en los ejercicios -->
+    <string name="kiwi_tu">Tú</string>
+    <string name="kiwi_pista_n">Kiwi · pista %1$d</string>
+    <string name="kiwi_descansa">Kiwi está descansando. Sigue con las pistas escritas.</string>
+    <string name="kiwi_bloqueado">Piénsalo con calma. ¿Qué paso harías primero?</string>
+    <string name="kiwi_escribele">Escríbele a Kiwi</string>
+    <string name="kiwi_enviar">Enviar</string>
     <string name="pedir_pista">Pedir una pista</string>
     <string name="otra_pista">Otra pista</string>
     <string name="ver_solucion">Ver la solución</string>

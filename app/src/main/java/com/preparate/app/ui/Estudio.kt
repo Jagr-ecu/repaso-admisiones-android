@@ -67,6 +67,11 @@ import com.preparate.dominio.Estudio
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.TipoVerificador
+import com.preparate.dominio.Reglas
+import com.preparate.dominio.Revision
+import com.preparate.dominio.ayudaPermitida
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import kotlinx.coroutines.delay
 import java.time.Duration
 import java.time.Instant
@@ -83,6 +88,8 @@ private fun Avisos(e: EstudioVm) {
 /** Los cursos del estudiante. Hoy solo Admisiones; más adelante pueden ser varios. */
 @Composable
 fun InicioEstudiante(vm: AppViewModel, e: EstudioVm, nombre: String, pie: @Composable () -> Unit) {
+    // Si Kiwi está encendido, califica los Writing que esperaban su nota.
+    LaunchedEffect(Unit) { e.calificarPendientes() }
     Marco(stringResource(R.string.hola, nombre)) {
         Text(stringResource(R.string.tus_cursos), style = MaterialTheme.typography.titleMedium)
         for (curso in e.estudios.cursos()) {
@@ -297,6 +304,7 @@ fun PantallaEjercicio(vm: AppViewModel, e: EstudioVm) {
         a.aviso?.let { Text(stringResource(it), color = MaterialTheme.colorScheme.tertiary) }
         Retroalimentacion(a)
         Pistas(e, a)
+        Kiwi(e, a)
         Avisos(e)
         if (a.respondido) {
             Button(onClick = { e.siguiente() }, enabled = !e.ocupado, modifier = Modifier.fillMaxWidth()) {
@@ -507,7 +515,12 @@ private fun Celda(a: EjercicioUi, celda: Celda, grupoMal: Int?, focos: List<Focu
 private fun Retroalimentacion(a: EjercicioUi) {
     val resultado = a.resultado ?: return
     if (resultado.estado == EstadoRespuesta.PENDIENTE) {
-        Text(stringResource(R.string.writing_guardado), color = MaterialTheme.colorScheme.primary)
+        val revision = a.revision
+        when {
+            revision != null -> TarjetaRevision(revision)
+            a.kiwiPensando -> Text(stringResource(R.string.writing_revisando), color = MaterialTheme.colorScheme.primary)
+            else -> Text(stringResource(R.string.writing_guardado), color = MaterialTheme.colorScheme.primary)
+        }
         return
     }
     val bien = resultado.correcta
@@ -557,6 +570,87 @@ private fun Pistas(e: EstudioVm, a: EjercicioUi) {
         }
         vistas == maximo && solucionPosible -> TextButton(onClick = { e.pedirPista() }, enabled = !e.ocupado) {
             Text(stringResource(R.string.ver_solucion))
+        }
+    }
+}
+
+/** La nota de un Writing: la puso Kiwi con la rúbrica y la sumó el código. */
+@Composable
+fun TarjetaRevision(r: Revision) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = if (r.puntaje >= Reglas.NOTA_MINIMA_APROBAR) MaterialTheme.colorScheme.primaryContainer
+            else MaterialTheme.colorScheme.secondaryContainer,
+        ),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text(stringResource(R.string.writing_nota, numero(r.puntaje)), style = MaterialTheme.typography.titleMedium)
+            if (r.comentario.isNotEmpty()) Text(r.comentario)
+            for (c in r.criterios) {
+                Text(
+                    stringResource(R.string.writing_criterio, c.criterio, numero(c.puntos), numero(c.maximo)),
+                    style = MaterialTheme.typography.labelLarge,
+                )
+                if (c.comentario.isNotEmpty()) Text(c.comentario, style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}
+
+private fun numero(x: Double): String = if (x == Math.floor(x)) x.toLong().toString() else "%.1f".format(x)
+
+/**
+ * Kiwi en la práctica (nunca en pruebas ni exámenes, regla 3): lo que dijo tras un fallo o al pedir una
+ * pista, y una caja para contestarle. Solo aparece si falló o en un Writing (regla 9). La charla vive
+ * en memoria: al salir del ejercicio se pierde.
+ */
+@Composable
+private fun Kiwi(e: EstudioVm, a: EjercicioUi) {
+    if (!ayudaPermitida(a.tipo)) return
+    for (m in a.kiwi) {
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = if (m.deKiwi) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+            ),
+            modifier = Modifier.fillMaxWidth().padding(start = if (m.deKiwi) 0.dp else 48.dp, end = if (m.deKiwi) 48.dp else 0.dp),
+        ) {
+            Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    when {
+                        !m.deKiwi -> stringResource(R.string.kiwi_tu)
+                        m.pista != null -> stringResource(R.string.kiwi_pista_n, m.pista)
+                        else -> stringResource(R.string.kiwi)
+                    },
+                    style = MaterialTheme.typography.labelLarge,
+                )
+                if (m.bloqueado) Text(stringResource(R.string.kiwi_bloqueado)) else Formula(m.texto.orEmpty(), tamano = 18)
+            }
+        }
+    }
+    if (a.kiwiPensando && a.resultado?.estado != EstadoRespuesta.PENDIENTE) {
+        Text(stringResource(R.string.kiwi_pensando), color = MaterialTheme.colorScheme.tertiary)
+    }
+    if (a.kiwiDescansa && !a.kiwiPensando && a.resultado?.estado != EstadoRespuesta.PENDIENTE) {
+        Text(stringResource(R.string.kiwi_descansa), style = MaterialTheme.typography.bodySmall)
+    }
+    // Contestarle a Kiwi: tras un fallo o en un Writing ya revisado.
+    val puedeHablar = a.respondido && !a.kiwiDescansa && a.kiwi.isNotEmpty() &&
+        (a.resultado?.correcta == false || a.revision != null)
+    if (puedeHablar) {
+        var texto by rememberSaveable(a.ejercicio.intento.id) { mutableStateOf("") }
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedTextField(
+                value = texto,
+                onValueChange = { texto = it },
+                label = { Text(stringResource(R.string.kiwi_escribele)) },
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
+                keyboardActions = KeyboardActions(onSend = { e.escribirAKiwi(texto); texto = "" }),
+                modifier = Modifier.weight(1f),
+            )
+            Button(onClick = { e.escribirAKiwi(texto); texto = "" }, enabled = texto.isNotBlank() && !a.kiwiPensando) {
+                Text(stringResource(R.string.kiwi_enviar))
+            }
         }
     }
 }
@@ -640,6 +734,7 @@ fun PantallaResultado(vm: AppViewModel, e: EstudioVm) {
                     }
                     Formula(p.variante.enunciado, tamano = 18)
                     Text(p.intento.respuesta?.let { stringResource(R.string.respondiste, it) } ?: stringResource(R.string.sin_responder))
+                    p.intento.revision?.let { TarjetaRevision(Revision.desdeJson(it)) }
                     p.intento.errorComun?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     if (p.intento.correcta != true) {
                         p.variante.respuesta?.let { Text(stringResource(R.string.respuesta_correcta, it)) }
