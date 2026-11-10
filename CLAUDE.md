@@ -30,6 +30,8 @@ app/       pantallas Compose y navegación
 - Tests de Kiwi (puerta de ayuda por tipo de sesión, guardia, Writing): `./gradlew :tutor:test`
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
+- APK firmado: `./gradlew :app:assembleRelease`. Necesita `keystore.properties` en la raíz (ver `app/build.gradle.kts`); sin él, sale sin firmar
+- Traspasar el progreso de la web a una cuenta: `python herramientas/traspasar.py --usuario <usuario>` (solo muestra) y luego con `--subir`
 - Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
 - Reglas de Firestore con su emulador: `npm test` dentro de `pruebas-reglas/` (ver su README)
 - Regenerar el contenido y los casos de referencia, desde la carpeta del proyecto web:

@@ -30,3 +30,4 @@ prueba-compatibilidad/
 pruebas-reglas/node_modules/
 firebase-debug.log
 firestore-debug.log
+__pycache__/
