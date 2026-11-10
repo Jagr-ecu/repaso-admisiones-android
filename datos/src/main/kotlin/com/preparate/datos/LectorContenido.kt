@@ -1,71 +1,34 @@
 package com.preparate.datos
 
 import android.content.res.AssetManager
-import com.preparate.dominio.EjercicioRef
-import com.preparate.dominio.ErrorEsperado
+import com.preparate.dominio.Curso
 import com.preparate.dominio.Leccion
-import com.preparate.dominio.Plantilla
-import com.preparate.dominio.TipoEjercicio
-import com.preparate.dominio.TipoVerificador
+import com.preparate.dominio.Manifiesto
+import com.preparate.dominio.Paquete
+import com.preparate.dominio.PlantillaConVariantes
 import com.preparate.dominio.Variante
-import org.json.JSONArray
-import org.json.JSONObject
 
 /**
- * Lee el paquete de contenido de assets/contenido/ (solo lectura).
- * Formato provisional de la fase 1; el definitivo sale de `exportar-paquete` en la fase 2.
+ * Lee el paquete de contenido (solo lectura) que genera `exportar-paquete` en el proyecto web.
+ * `leer` recibe una ruta relativa a la carpeta del paquete, como "curso.json".
  */
-class LectorContenido(private val assets: AssetManager) {
-    private val variantes = mutableMapOf<String, List<Variante>>()
+class LectorContenido(private val leer: (String) -> String) {
+    constructor(assets: AssetManager) : this({ ruta ->
+        assets.open("contenido/$ruta").bufferedReader(Charsets.UTF_8).use { it.readText() }
+    })
 
-    fun leccion(id: String): Leccion {
-        val j = leer("contenido/lecciones/$id.json")
-        return Leccion(
-            id = j.getString("id"),
-            materia = j.getString("materia"),
-            seccion = j.getString("seccion"),
-            titulo = j.getString("titulo"),
-            concepto = j.getString("concepto"),
-            contenido = j.getString("contenido"),
-            ejercicios = j.getJSONArray("ejercicios").objetos().map {
-                EjercicioRef(it.getString("plantilla"), it.getInt("cantidad"))
-            },
-        )
-    }
+    val manifiesto: Manifiesto by lazy { Paquete.manifiesto(leer("manifiesto.json")) }
+
+    val curso: Curso by lazy { Paquete.curso(leer("curso.json")) }
+
+    private val plantillas = mutableMapOf<String, PlantillaConVariantes>()
+
+    fun leccion(id: String): Leccion = Paquete.leccion(leer("lecciones/$id.json"))
 
     /** Cada plantilla va en su propio archivo y se carga solo cuando hace falta. */
-    fun variantes(plantillaId: String): List<Variante> = synchronized(variantes) {
-        variantes.getOrPut(plantillaId) {
-            val j = leer("contenido/variantes/$plantillaId.json")
-            val plantilla = Plantilla(
-                id = j.getString("id"),
-                tipo = TipoEjercicio.desde(j.getString("tipo")),
-                verificador = TipoVerificador.desde(j.getString("verificador")),
-                formaIrreducible = j.getBoolean("forma_irreducible"),
-                ignorarTildes = j.getBoolean("ignorar_tildes"),
-            )
-            j.getJSONArray("variantes").objetos().map { v ->
-                Variante(
-                    plantilla = plantilla,
-                    semilla = v.getInt("semilla"),
-                    enunciado = v.getString("enunciado"),
-                    respuesta = v.getString("respuesta"),
-                    aceptadas = v.getJSONArray("aceptadas").textos(),
-                    opciones = v.getJSONArray("opciones").textos(),
-                    pistas = v.getJSONArray("pistas").textos(),
-                    solucion = if (v.isNull("solucion")) null else v.getString("solucion"),
-                    errores = v.getJSONArray("errores").objetos().map {
-                        ErrorEsperado(it.getString("valor"), it.getString("explicacion"))
-                    },
-                )
-            }
-        }
+    fun plantilla(id: String): PlantillaConVariantes = synchronized(plantillas) {
+        plantillas.getOrPut(id) { Paquete.plantilla(leer("variantes/$id.json")) }
     }
 
-    private fun leer(ruta: String): JSONObject =
-        JSONObject(assets.open(ruta).bufferedReader(Charsets.UTF_8).use { it.readText() })
-
-    private fun JSONArray.objetos(): List<JSONObject> = (0 until length()).map { getJSONObject(it) }
-
-    private fun JSONArray.textos(): List<String> = (0 until length()).map { getString(it) }
+    fun variantes(plantillaId: String): List<Variante> = plantilla(plantillaId).variantes
 }

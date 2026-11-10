@@ -29,6 +29,10 @@ app/       pantallas Compose y navegación
 - Tests del dominio: `./gradlew :dominio:test`
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
+- Regenerar el contenido y los casos de referencia, desde la carpeta del proyecto web:
+  `.venv/Scripts/python.exe -m app.cli exportar-paquete ../repaso-admisiones-android/app/src/main/assets/contenido --borradores`
+  `.venv/Scripts/python.exe -m app.cli exportar-referencia ../repaso-admisiones-android/dominio/src/test/resources/referencia`
+  Mientras todo el contenido esté en borrador, el paquete se genera con `--borradores`. El formato está en `docs/paquete-android.md` del proyecto web.
 
 ## Secretos (nunca en git)
 - `app/google-services.json`, la configuración de Firebase.
