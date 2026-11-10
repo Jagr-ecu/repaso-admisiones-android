@@ -16,4 +16,5 @@ android {
 
 dependencies {
     api(project(":dominio"))
+    testImplementation(libs.junit)
 }

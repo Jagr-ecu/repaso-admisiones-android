@@ -59,15 +59,16 @@ object Verificador {
         require(plantilla.tipo != TipoEjercicio.ESCRITURA && plantilla.tipo != TipoEjercicio.CUADERNO) {
             "${plantilla.tipo} aún no está portado"
         }
+        val respuesta = checkNotNull(variante.respuesta) { "${plantilla.id}: la variante no tiene respuesta" }
         if (plantilla.verificador == TipoVerificador.SYMPY) {
             val numero = leerNumero(entrada) ?: return Resultado(EstadoRespuesta.FORMATO_INVALIDO)
-            if (numero == leerNumero(variante.respuesta)) {
+            if (numero == leerNumero(respuesta)) {
                 if (plantilla.formaIrreducible && !irreducible(entrada)) {
                     return Resultado(EstadoRespuesta.FORMA_INCORRECTA)
                 }
                 return Resultado(EstadoRespuesta.CORRECTA)
             }
-        } else if ((listOf(variante.respuesta) + variante.aceptadas).any { equivalentes(plantilla, entrada, it) }) {
+        } else if ((listOf(respuesta) + variante.aceptadas).any { equivalentes(plantilla, entrada, it) }) {
             return Resultado(EstadoRespuesta.CORRECTA)
         }
         val error = variante.errores.firstOrNull { equivalentes(plantilla, entrada, it.valor) }

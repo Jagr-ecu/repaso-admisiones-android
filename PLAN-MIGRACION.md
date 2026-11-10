@@ -30,7 +30,7 @@ Estado al 2026-11-09. La migración aún no empieza. La base es el commit `0cdff
 
 **Fase 1: código listo, falta probarla en la MatePad (2026-11-09)**
 Hecho y comprobado en el emulador (Android 17):
-- Tema de prueba: "Sumar fracciones con el mismo denominador", con 30 variantes por plantilla. Lo genera `herramientas/exportar_prueba.py` (provisional, lo reemplaza `exportar-paquete` en la fase 2).
+- Tema de prueba: "Sumar fracciones con el mismo denominador", con 30 variantes por plantilla. Lo generaba `herramientas/exportar_prueba.py`, que la fase 2 reemplazó por `exportar-paquete`.
 - KaTeX 0.19 y marked en WebView, sin Internet. La lección, los enunciados y las opciones se ven como en la web.
 - Verificador portado a `:dominio`. Pasa 930 casos de referencia generados por Python.
 - Corrige, detecta errores comunes, muestra la pista de la lista tras un fallo y permite ver la solución.
@@ -52,7 +52,18 @@ Pasos del usuario para probar la fase 1:
 - [ ] Activar en LM Studio el servidor en la red local y probar a Kiwi desde la app.
 - [ ] Cambiar la clave del estudiante con `cuentas.py cambiar-clave` y entrar con la nueva.
 
-**APK de prueba de compatibilidad (descartado el 2026-11-09)**
+**Fase 2: hecha en código (2026-11-09, noche)**
+Se hizo mientras siguen pendientes las pruebas de la fase 1 en la MatePad. No depende de ellas: si la sincronización falla, el paquete sirve igual.
+- En el proyecto web, sin commit todavía: `app/exportar.py`, los comandos `exportar-paquete` y `exportar-referencia` en `app/cli.py`, `tests/test_exportar.py` (7 tests) y `docs/paquete-android.md`. Pasan los 611 tests de Python.
+- El paquete trae 48 lecciones, 127 plantillas y 11 894 variantes: 9,8 MB en JSON y 1,05 MB comprimido dentro del APK. Tarda unos 10 s. Coincide con la medición de la sección 3.
+- Los casos de referencia son 19 622 del verificador (cuaderno y escritura incluidos), 7 700 de la guardia, 193 de las reglas y 120 historiales del camino. Están en `dominio/src/test/resources/referencia/`.
+- En Android, el formato se lee con kotlinx.serialization (1.9.0) en `:dominio` (`Paquete.kt`), así que los tests corren en la JVM. Si el formato cambia sin actualizar la app, la lectura falla, porque no se aceptan campos desconocidos.
+- `LectorContenidoTest` (`:datos`) lee el curso completo: todas las plantillas, sus variantes y todas las lecciones. **Se cumple el criterio de la fase 2.**
+- El verificador de Kotlin coincide con Python en todos los casos de los tipos ya portados. Escritura y cuaderno se saltan hasta la fase 3.
+- Se borró `herramientas/exportar_prueba.py`. El tema de prueba de la fase 1 sigue funcionando con el paquete nuevo (comprobado en el emulador).
+- Aviso: `version` es `version_plantilla()`, que cambia con `--borradores` porque el estado forma parte de la plantilla. Hay que tenerlo en cuenta en el traspaso de la fase 7.
+
+
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:
 - marca, modelo, versión de Android y nivel de API reales;
 - si existen los servicios de Google;

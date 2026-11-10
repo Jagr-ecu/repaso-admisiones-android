@@ -1,7 +1,13 @@
 package com.preparate.dominio
 
-import org.json.JSONArray
-import org.json.JSONObject
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonNull
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -39,41 +45,63 @@ class VerificadorTest {
         assertEquals("i'm", Verificador.normalizar("I’m"))
     }
 
-    /** Casos generados por Python con herramientas/exportar_prueba.py: Kotlin debe corregir igual. */
+    /**
+     * Casos que genera Python con `exportar-referencia` para todas las plantillas: Kotlin debe corregir igual.
+     * Escritura y cuaderno se portan en la fase 3; hasta entonces sus casos se cuentan aparte.
+     */
     @Test
     fun coincideConLosCasosDeReferencia() {
-        val casos = JSONArray(File(javaClass.getResource("/referencia-verificador.json")!!.toURI()).readText())
-        val variantes = File("../app/src/main/assets/contenido/variantes").listFiles()!!.associate { archivo ->
-            val json = JSONObject(archivo.readText())
-            val plantilla = Plantilla(
-                id = json.getString("id"),
-                tipo = TipoEjercicio.desde(json.getString("tipo")),
-                verificador = TipoVerificador.desde(json.getString("verificador")),
-                formaIrreducible = json.getBoolean("forma_irreducible"),
-                ignorarTildes = json.getBoolean("ignorar_tildes"),
-            )
-            val lista = json.getJSONArray("variantes")
-            plantilla.id to (0 until lista.length()).associate { i ->
-                val v = lista.getJSONObject(i)
-                val e = v.getJSONArray("errores")
-                val errores = (0 until e.length()).map {
-                    ErrorEsperado(e.getJSONObject(it).getString("valor"), e.getJSONObject(it).getString("explicacion"))
-                }
-                v.getInt("semilla") to Variante(
-                    plantilla, v.getInt("semilla"), v.getString("enunciado"), v.getString("respuesta"), errores = errores,
-                )
+        var revisados = 0
+        val sinPortar = mutableMapOf<TipoEjercicio, Int>()
+        for ((variante, caso) in Referencia.casos("verificador")) {
+            val tipo = variante.plantilla.tipo
+            if (tipo == TipoEjercicio.ESCRITURA || tipo == TipoEjercicio.CUADERNO) {
+                sinPortar.merge(tipo, 1, Int::plus)
+                continue
             }
-        }
-        assertTrue(casos.length() > 100)
-        for (i in 0 until casos.length()) {
-            val caso = casos.getJSONObject(i)
-            val variante = variantes.getValue(caso.getString("plantilla")).getValue(caso.getInt("semilla"))
-            val entrada = caso.getString("entrada")
+            // Python une con espacios la lista de palabras de `ordenar`.
+            val entrada = when (val e = caso.getValue("entrada")) {
+                is JsonArray -> e.joinToString(" ") { it.jsonPrimitive.content }
+                else -> e.jsonPrimitive.content
+            }
             val r = Verificador.verificar(variante, entrada)
             val mensaje = "${variante.plantilla.id} semilla ${variante.semilla}, entrada '$entrada'"
-            assertEquals(mensaje, caso.getString("estado"), r.estado.valor)
-            val esperado = if (caso.isNull("error_comun")) null else caso.getString("error_comun")
-            assertEquals(mensaje, esperado, r.errorComun)
+            assertEquals(mensaje, caso.texto("estado"), r.estado.valor)
+            assertEquals(mensaje, caso.texto("error_comun"), r.errorComun)
+            revisados++
         }
+        assertTrue("solo $revisados casos", revisados > 10_000)
+        assertTrue(sinPortar.isNotEmpty())
     }
 }
+
+/** Lee los archivos `referencia-<parte>.json` de los recursos de test. */
+object Referencia {
+    private val json = Json { ignoreUnknownKeys = false }
+
+    fun leer(parte: String): JsonObject {
+        val recurso = checkNotNull(javaClass.getResource("/referencia/referencia-$parte.json")) {
+            "falta referencia-$parte.json: genéralo con exportar-referencia"
+        }
+        return json.parseToJsonElement(File(recurso.toURI()).readText(Charsets.UTF_8)).jsonObject
+    }
+
+    /** Cada caso con su variante, para las partes que tienen la forma plantillas → variantes → casos. */
+    fun casos(parte: String): List<Pair<Variante, JsonObject>> =
+        leer(parte).getValue("plantillas").jsonArray.flatMap { p ->
+            val datos = p.jsonObject
+            val variantes = datos.getValue("variantes").jsonArray
+            val archivo = json.decodeFromJsonElement<ArchivoPlantilla>(
+                JsonObject(datos + ("variantes" to JsonArray(emptyList()))),
+            )
+            val plantilla = archivo.plantilla()
+            variantes.flatMap { v ->
+                val sinCasos = JsonObject(v.jsonObject - "casos")
+                val variante = json.decodeFromJsonElement<VarianteJson>(sinCasos).aDominio(plantilla)
+                v.jsonObject.getValue("casos").jsonArray.map { variante to it.jsonObject }
+            }
+        }
+}
+
+fun JsonObject.texto(clave: String): String? =
+    getValue(clave).let { if (it is JsonNull) null else it.jsonPrimitive.content }
