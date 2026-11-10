@@ -114,7 +114,7 @@ private fun pagina(texto: String, modo: ModoFormula, color: Int, tamano: Int): S
         <link rel="stylesheet" href="katex.min.css">
         <style>
           html, body { margin: 0; padding: 0; background: transparent; color: $hex;
-            font-family: sans-serif; font-size: ${tamano}px; line-height: 1.45; -webkit-text-size-adjust: none; }
+            font-family: sans-serif; font-size: ${tamano}px; line-height: 1.9; -webkit-text-size-adjust: none; }
           #c { padding: $relleno; }
           #c.opcion { text-align: center; }
           .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; margin: 8px 0; }

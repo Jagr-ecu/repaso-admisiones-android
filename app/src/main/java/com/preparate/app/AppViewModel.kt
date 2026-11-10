@@ -7,15 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.preparate.datos.Estudios
 import com.preparate.datos.LectorContenido
-import com.preparate.dominio.EstadoRespuesta
-import com.preparate.dominio.Leccion
-import com.preparate.dominio.Resultado
-import com.preparate.dominio.TipoSesion
-import com.preparate.dominio.Variante
-import com.preparate.dominio.Verificador
-import com.preparate.dominio.armarTema
-import com.preparate.dominio.ayudaPermitida
+import com.preparate.datos.local.BaseDatos
+import com.preparate.sincro.Rol
 import com.preparate.sincro.Cuentas
 import com.preparate.sincro.ErrorCuenta
 import com.preparate.sincro.FichaEstudiante
@@ -32,36 +27,20 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 sealed interface Pantalla {
     data object Entrar : Pantalla
     data object Inicio : Pantalla
-    data object Leccion : Pantalla
-    data object Practica : Pantalla
+    data class Curso(val cursoId: String) : Pantalla
+    data class Materia(val cursoId: String, val materiaId: String) : Pantalla
+    data class Explicacion(val cursoId: String, val leccionId: String) : Pantalla
+    data class Ejercicio(val sesionId: String) : Pantalla
+    data object FinPractica : Pantalla
+    data class Resultado(val sesionId: String) : Pantalla
     data object Kiwi : Pantalla
     data object CrearEstudiante : Pantalla
     data class DetalleEstudiante(val ficha: FichaEstudiante) : Pantalla
 }
-
-data class EjercicioEnCurso(
-    val variante: Variante,
-    val entrada: String = "",
-    val resultado: Resultado? = null,
-    val aviso: String? = null,
-    val pistasVistas: Int = 0,
-    val verSolucion: Boolean = false,
-)
-
-data class TemaEnCurso(
-    val leccion: Leccion,
-    val sesionId: String,
-    val ejercicios: List<Variante>,
-    val indice: Int,
-    val actual: EjercicioEnCurso,
-    val aciertos: Int = 0,
-    val terminado: Boolean = false,
-)
 
 sealed interface EstadoKiwi {
     data object SinProbar : EstadoKiwi
@@ -70,18 +49,21 @@ sealed interface EstadoKiwi {
     data object Apagado : EstadoKiwi
 }
 
-/** PROVISIONAL (fase 1): un solo tema de prueba. La navegación real llega en la fase 4. */
-const val CURSO_PRUEBA = "admisiones"
-const val LECCION_PRUEBA = "mat.fracciones.suma-igual-denominador"
+/** Usuario local de la vista previa de depuración: guarda en Room, nunca en la nube. */
+const val USUARIO_VISTA_PREVIA = "vista-previa"
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppViewModel(app: Application) : AndroidViewModel(app) {
     private val cuentas = Cuentas(app)
     private val progreso = Progreso()
     private val contenido = LectorContenido(app.assets)
+    private val db by lazy { BaseDatos.abrir(app) }
     private val ajustes = app.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
     var sesion by mutableStateOf(cuentas.sesionGuardada()); private set
+
+    /** El estudio del estudiante que entró; null para un admin o sin sesión. */
+    var estudio by mutableStateOf<EstudioVm?>(null); private set
     var pantalla by mutableStateOf<Pantalla>(if (sesion == null) Pantalla.Entrar else Pantalla.Inicio); private set
     var ocupado by mutableStateOf(false); private set
     var error by mutableStateOf<String?>(null); private set
@@ -96,11 +78,61 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         pantalla = destino
     }
 
-    fun volverAlInicio() = ir(if (sesion == null) Pantalla.Entrar else Pantalla.Inicio)
+    /** Un paso atrás en el camino: ejercicio → materia → curso → inicio. */
+    fun atras() {
+        val e = estudio
+        val sesionActual = e?.actual?.ejercicio?.sesion ?: e?.resultado?.cierre?.sesion
+        when (val p = pantalla) {
+            is Pantalla.Materia -> ir(Pantalla.Curso(p.cursoId))
+            is Pantalla.Curso -> ir(Pantalla.Inicio)
+            is Pantalla.Explicacion -> e?.leccion?.let { e.abrirMateria(p.cursoId, it.materia) } ?: volverAlInicio()
+            is Pantalla.Ejercicio, is Pantalla.Resultado -> sesionActual?.let { e?.abrirMateria(it.cursoId, it.materiaId) } ?: volverAlInicio()
+            Pantalla.FinPractica -> e?.fin?.let { e.abrirMateria(it.cursoId, it.materiaId) } ?: volverAlInicio()
+            else -> volverAlInicio()
+        }
+    }
 
-    /** Solo en el APK de depuración: abre el tema sin cuenta y sin guardar nada. */
+    fun volverAlInicio() = ir(if (sesion == null && estudio == null) Pantalla.Entrar else Pantalla.Inicio)
+
+    init {
+        sesion?.let(::prepararEstudio)
+    }
+
+    private fun prepararEstudio(s: Sesion) {
+        estudio = if (s.rol == Rol.ESTUDIANTE) crearEstudio(s.uid, subir = true) else null
+    }
+
+    private fun crearEstudio(uid: String, subir: Boolean) = EstudioVm(
+        estudios = Estudios(db, contenido, uid),
+        alcance = viewModelScope,
+        ir = ::ir,
+        alGuardar = { ej, texto, resultado, pistas ->
+            // Provisional (fase 1): la respuesta va directo a Firestore. En la fase 5 la sube la cola de Room.
+            if (subir) {
+                progreso.registrar(
+                    uid,
+                    Intento(
+                        id = ej.intento.id,
+                        sesionId = ej.sesion.id,
+                        leccion = ej.sesion.leccionId ?: ej.sesion.tipo.valor,
+                        plantilla = ej.variante.plantilla.id,
+                        semilla = ej.variante.semilla,
+                        respuesta = texto,
+                        estado = resultado.estado.valor,
+                        errorComun = resultado.errorComun,
+                        pistasUsadas = pistas,
+                    ),
+                )
+            }
+        },
+    )
+
+    /** Solo en el APK de depuración: estudia sin cuenta. Guarda en la tablet, nunca en la nube. */
     fun vistaPrevia() {
-        if (BuildConfig.DEBUG && sesion == null) abrirLeccion()
+        if (BuildConfig.DEBUG && sesion == null) {
+            estudio = crearEstudio(USUARIO_VISTA_PREVIA, subir = false)
+            ir(Pantalla.Inicio)
+        }
     }
 
     private fun tarea(accion: suspend () -> Unit) {
@@ -125,6 +157,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val nueva = cuentas.entrar(usuario, clave)
         sesion = nueva
         uidActual.value = nueva.uid
+        prepararEstudio(nueva)
         ir(Pantalla.Inicio)
     }
 
@@ -132,7 +165,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         cuentas.salir()
         sesion = null
         uidActual.value = null
-        tema = null
+        estudio = null
         ir(Pantalla.Entrar)
     }
 
@@ -164,88 +197,6 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         estudianteCreado = null
         perfilPendiente = null
         error = null
-    }
-
-    // --- Tema de práctica -----------------------------------------------------
-
-    var leccion by mutableStateOf<Leccion?>(null); private set
-    var tema by mutableStateOf<TemaEnCurso?>(null); private set
-
-    fun abrirLeccion() {
-        leccion = contenido.leccion(CURSO_PRUEBA, LECCION_PRUEBA)
-        ir(Pantalla.Leccion)
-    }
-
-    fun empezarPractica() {
-        val lec = leccion ?: contenido.leccion(CURSO_PRUEBA, LECCION_PRUEBA)
-        val variantes = lec.ejercicios.associate { it.plantilla to contenido.variantes(lec.curso, it.plantilla) }
-        val ejercicios = armarTema(lec, variantes)
-        tema = TemaEnCurso(lec, UUID.randomUUID().toString(), ejercicios, 0, EjercicioEnCurso(ejercicios.first()))
-        ir(Pantalla.Practica)
-    }
-
-    private fun cambiarActual(cambio: (EjercicioEnCurso) -> EjercicioEnCurso) {
-        val t = tema ?: return
-        tema = t.copy(actual = cambio(t.actual))
-    }
-
-    fun escribir(texto: String) = cambiarActual { if (it.resultado == null) it.copy(entrada = texto, aviso = null) else it }
-
-    fun comprobar() {
-        val t = tema ?: return
-        val actual = t.actual
-        if (actual.resultado != null || actual.entrada.isBlank()) return
-        val resultado = Verificador.verificar(actual.variante, actual.entrada)
-        when (resultado.estado) {
-            // No cuentan como error: se vuelve a escribir.
-            EstadoRespuesta.FORMATO_INVALIDO -> cambiarActual {
-                it.copy(aviso = "No entendí tu respuesta. Escribe la fracción con números, por ejemplo 3/4.")
-            }
-            EstadoRespuesta.FORMA_INCORRECTA -> cambiarActual {
-                it.copy(aviso = "¡Casi! El valor está bien, pero falta simplificar.")
-            }
-            else -> {
-                // Sin sesión solo puede ser la vista previa de depuración: no se guarda nada.
-                sesion?.let { sesionActual ->
-                progreso.registrar(
-                    sesionActual.uid,
-                    Intento(
-                        sesionId = t.sesionId,
-                        leccion = t.leccion.id,
-                        plantilla = actual.variante.plantilla.id,
-                        semilla = actual.variante.semilla,
-                        respuesta = actual.entrada.trim(),
-                        estado = resultado.estado.valor,
-                        errorComun = resultado.errorComun,
-                        pistasUsadas = actual.pistasVistas,
-                    ),
-                )
-                }
-                // Regla 9: tras un fallo, la pista de la lista sale primero.
-                val pistas = if (!resultado.correcta && actual.pistasVistas == 0) 1 else actual.pistasVistas
-                tema = t.copy(
-                    actual = actual.copy(resultado = resultado, pistasVistas = pistas, aviso = null),
-                    aciertos = t.aciertos + if (resultado.correcta) 1 else 0,
-                )
-            }
-        }
-    }
-
-    fun pedirPista() {
-        if (!ayudaPermitida(TipoSesion.LECCION)) return
-        cambiarActual { it.copy(pistasVistas = minOf(it.pistasVistas + 1, it.variante.pistas.size)) }
-    }
-
-    fun verSolucion() = cambiarActual { it.copy(verSolucion = true) }
-
-    fun siguiente() {
-        val t = tema ?: return
-        val proximo = t.indice + 1
-        tema = if (proximo >= t.ejercicios.size) {
-            t.copy(terminado = true)
-        } else {
-            t.copy(indice = proximo, actual = EjercicioEnCurso(t.ejercicios[proximo]))
-        }
     }
 
     // --- Kiwi -----------------------------------------------------------------

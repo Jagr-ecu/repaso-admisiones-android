@@ -79,6 +79,12 @@ class Estudios(
 
     // --- Progreso --------------------------------------------------------------------
 
+    fun cursos() = contenido.cursos
+
+    fun curso(cursoId: String) = contenido.curso(cursoId)
+
+    fun leccion(cursoId: String, leccionId: String) = contenido.leccion(cursoId, leccionId)
+
     suspend fun progreso(cursoId: String, materiaId: String): ProgresoMateria {
         val materia = contenido.curso(cursoId).materias.single { it.id == materiaId }
         return calcularProgreso(materia, Estudio.historial(sesionesDe(cursoId, materiaId)))
