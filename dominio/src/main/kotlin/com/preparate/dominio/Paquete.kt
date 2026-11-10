@@ -39,6 +39,7 @@ internal data class ArchivoPlantilla(
     @SerialName("ignorar_tildes") val ignorarTildes: Boolean,
     @SerialName("forma_irreducible") val formaIrreducible: Boolean,
     val rubrica: List<CriterioRubrica> = emptyList(),
+    @SerialName("opciones_fijas") val opcionesFijas: List<String>,
     val variantes: List<VarianteJson>,
 ) {
     fun plantilla() = Plantilla(
@@ -51,6 +52,7 @@ internal data class ArchivoPlantilla(
         concepto = concepto,
         dificultad = dificultad,
         rubrica = rubrica,
+        opcionesFijas = opcionesFijas,
     )
 
     fun aDominio(): PlantillaConVariantes {
