@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
  */
 object Paquete {
     /** El formato que entiende esta versión de la app. */
-    const val FORMATO = 1
+    const val FORMATO = 2
 
     // Estricto: si Python cambia el formato sin cambiar la app, se nota al leer, no a mitad de un tema.
     private val json = Json { ignoreUnknownKeys = false }
@@ -19,7 +19,7 @@ object Paquete {
         require(it.formato == FORMATO) { "el paquete tiene el formato ${it.formato} y la app entiende el $FORMATO" }
     }
 
-    fun curso(texto: String): Curso = json.decodeFromString(texto)
+    fun cursos(texto: String): List<Curso> = json.decodeFromString<Cursos>(texto).cursos
 
     fun leccion(texto: String): Leccion = json.decodeFromString(texto)
 
@@ -27,7 +27,7 @@ object Paquete {
         json.decodeFromString<ArchivoPlantilla>(texto).aDominio()
 }
 
-/** variantes/<plantilla>.json: los datos de la plantilla y sus variantes, sin repetir la plantilla en cada una. */
+/** <curso>/variantes/<plantilla>.json: los datos de la plantilla y sus variantes, sin repetir la plantilla en cada una. */
 @Serializable
 internal data class ArchivoPlantilla(
     val id: String,

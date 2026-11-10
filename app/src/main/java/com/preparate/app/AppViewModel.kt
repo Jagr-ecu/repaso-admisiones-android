@@ -71,6 +71,7 @@ sealed interface EstadoKiwi {
 }
 
 /** PROVISIONAL (fase 1): un solo tema de prueba. La navegación real llega en la fase 4. */
+const val CURSO_PRUEBA = "admisiones"
 const val LECCION_PRUEBA = "mat.fracciones.suma-igual-denominador"
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -171,13 +172,13 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     var tema by mutableStateOf<TemaEnCurso?>(null); private set
 
     fun abrirLeccion() {
-        leccion = contenido.leccion(LECCION_PRUEBA)
+        leccion = contenido.leccion(CURSO_PRUEBA, LECCION_PRUEBA)
         ir(Pantalla.Leccion)
     }
 
     fun empezarPractica() {
-        val lec = leccion ?: contenido.leccion(LECCION_PRUEBA)
-        val variantes = lec.ejercicios.associate { it.plantilla to contenido.variantes(it.plantilla) }
+        val lec = leccion ?: contenido.leccion(CURSO_PRUEBA, LECCION_PRUEBA)
+        val variantes = lec.ejercicios.associate { it.plantilla to contenido.variantes(lec.curso, it.plantilla) }
         val ejercicios = armarTema(lec, variantes)
         tema = TemaEnCurso(lec, UUID.randomUUID().toString(), ejercicios, 0, EjercicioEnCurso(ejercicios.first()))
         ir(Pantalla.Practica)

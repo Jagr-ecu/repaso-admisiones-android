@@ -33,7 +33,7 @@ enum class TipoVerificador(val valor: String) {
     }
 }
 
-// --- manifiesto.json y curso.json ---------------------------------------------
+// --- manifiesto.json y cursos.json ---------------------------------------------
 
 @Serializable
 data class Manifiesto(
@@ -43,13 +43,26 @@ data class Manifiesto(
     /** true en un paquete de desarrollo, que publica también lo que está en borrador. */
     val borradores: Boolean,
     val semillas: Int,
+    val cursos: List<String>,
     val lecciones: Int,
     val plantillas: Int,
     val variantes: Int,
 )
 
 @Serializable
-data class Curso(val nombre: String, val materias: List<MateriaCurso>)
+data class Cursos(val cursos: List<Curso>)
+
+/**
+ * Un curso agrupa materias, secciones y temas. Hoy solo existe Admisiones. Los cursos nunca
+ * se mezclan, y el progreso de cada uno se guarda aparte.
+ */
+@Serializable
+data class Curso(
+    val id: String,
+    val nombre: String,
+    val descripcion: String = "",
+    val materias: List<MateriaCurso>,
+)
 
 @Serializable
 data class MateriaCurso(
@@ -75,7 +88,7 @@ data class LeccionResumen(val id: String, val titulo: String, val concepto: Stri
 @Serializable
 data class PlantillaResumen(val id: String, val concepto: String, val tipo: TipoEjercicio, val dificultad: Int)
 
-// --- lecciones/<id>.json ------------------------------------------------------
+// --- <curso>/lecciones/<id>.json ------------------------------------------------------
 
 @Serializable
 data class EjercicioRef(val plantilla: String, val cantidad: Int)
@@ -83,6 +96,7 @@ data class EjercicioRef(val plantilla: String, val cantidad: Int)
 @Serializable
 data class Leccion(
     val id: String,
+    val curso: String,
     val materia: String,
     val seccion: String,
     val titulo: String,
@@ -93,7 +107,7 @@ data class Leccion(
     val ejercicios: List<EjercicioRef>,
 )
 
-// --- variantes/<plantilla>.json -----------------------------------------------
+// --- <curso>/variantes/<plantilla>.json -----------------------------------------------
 
 @Serializable
 data class CriterioRubrica(val criterio: String, val descripcion: String, val puntos: Double)
