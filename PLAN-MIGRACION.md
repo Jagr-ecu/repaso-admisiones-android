@@ -118,9 +118,37 @@ Hecho después (misma noche):
 - Probado en el emulador contra Firebase real, con el admin `admin` y el estudiante de prueba `estudiante-prueba` (creado desde la app; su clave está en `herramientas/cuentas-pruebas.local`): crear estudiante, entrar, responder y subir en segundos, responder en modo avión (contador y aviso al salir), volver a conectar y subir solo, borrar los datos de la app y entrar de nuevo (el historial baja y el tema sigue con sus errores), y ver el resumen en el panel.
 - El script para cambiar una clave olvidada es `herramientas/cuentas.py cambiar-clave`, ya probado en la fase 1.
 
+**Fase 5: cerrada en código (commit `3403f5c`).** El usuario publicó las reglas el 2026-11-10.
+
 Pendiente para después, por decisión del usuario (no bloquea la fase 6):
 - En la MatePad y un segundo dispositivo: dos dispositivos sin conexión que luego se unen, dos estudiantes en la misma tablet, días sin Internet y cerrar la app durante una subida.
 - Borrar `estudiante-prueba` y los documentos de la fase 1 de `ana` cuando ya no hagan falta.
+
+**Fase 6: hecha en código (2026-11-10)**
+- **Guardia** (`dominio/Guardia.kt`), puerto de `guardia.py`. Coincide con Python en los 7 700 casos de referencia, en la JVM y en el dispositivo (motor ICU). Sin `\d`, `\s` ni `\w`: clases de caracteres a mano, como en el verificador. Es más cauta que la web con las cifras de otros alfabetos.
+- **Writing** (`dominio/Escritura.kt`): el modelo pone los puntos por criterio y el código los recorta al máximo, los suma y calcula la nota sobre 10 con un decimal. La revisión (`Revision`, en JSON) se guarda en `intentos.revision` y sube a Firestore. Room pasa a la versión 3 con su migración.
+- Al calificar un Writing, si la prueba ya estaba cerrada se vuelve a calificar, y `memoria` se reconstruye desde los intentos. Así queda igual en cualquier dispositivo (la web la actualizaba con la hora de la calificación).
+- **`:tutor` pasa a Kotlin puro** (sin Android), con `HttpURLConnection` y kotlinx.serialization: `ClienteKiwi` (2 s para comprobar, 120 s para responder, recuerda 5 min que LM Studio estaba apagado, salta los modelos de embeddings), `Prompts` (copiados sin cambios) y `Tutor` (pista, primer mensaje tras un fallo, conversación y calificación).
+- **Regla 3:** cada función de ayuda de `Tutor` consulta `ayudaPermitida` antes de tocar el modelo. Hay un test que recorre los 4 tipos de sesión y comprueba que en pruebas y exámenes se lanza `AyudaProhibida` sin ninguna llamada. Calificar un Writing no es ayudar: se hace también en pruebas y exámenes.
+- **Sin RAG:** se manda el material del concepto completo, sin dibujos, con un límite de 3 000 caracteres (el más largo medido tiene 2 589). Si alguno lo pasa, se corta por párrafos.
+- **Conversaciones:** solo en la memoria de la pantalla (`EjercicioUi.kiwi`). Nunca en Room ni en Firestore. La solución tras las 3 pistas siempre es la escrita.
+- **Pantalla:** tras un fallo sale primero la pista escrita y después Kiwi, sin bloquear "Siguiente". Al pedir una pista, sale la escrita al instante y Kiwi la explica después. Hay una caja para contestarle a Kiwi. Si Kiwi no está, sale un aviso amable. Kiwi no aparece en pruebas ni exámenes.
+- **Writing de práctica:** se califica al enviarlo. Si Kiwi no está, queda pendiente. Los pendientes (también de pruebas y exámenes) se califican solos al abrir el inicio, al terminar una prueba que esperaba nota o al guardar la dirección de Kiwi. El resultado de la prueba muestra la nota y el comentario de cada Writing.
+- Si la guardia bloquea y ya no quedan pistas escritas, la pantalla pone un texto fijo desde `strings.xml`.
+- Tests: 64 en `:dominio`, 9 en `:tutor` y 21 en el dispositivo (`EscrituraEnRoomTest` con 4, incluida la migración a 3, y la guardia con ICU).
+- Probado en el emulador con un servidor falso compatible con OpenAI (LM Studio estaba apagado en el PC):
+  - guardar la dirección y saludar;
+  - pista escrita primero y Kiwi después;
+  - pedirle la respuesta: la guardia la cambió por la pista 2;
+  - Writing calificado con nota y criterios;
+  - Kiwi apagado: aviso y Writing pendiente;
+  - al volver, el pendiente se calificó solo.
+
+Pendiente para después (lo hace el usuario, con LM Studio de verdad):
+- Activar en LM Studio el servidor en la red local y guardar la dirección del PC en la tablet. Probarlo encendido, apagado y apagándose a mitad de una respuesta.
+- Insistir en pedir la respuesta con el modelo real y ver que la guardia la tape.
+- Revisar en el PC si LM Studio guarda registros de las conversaciones y desactivarlos o limpiarlos.
+- Ver si Kiwi responde bien con el concepto de material más largo.
 
 **APK de prueba de compatibilidad (descartado el 2026-11-09)**
 Está en `prueba-compatibilidad/`, un proyecto Gradle aparte que se borra después. Por eso no va en los cinco módulos. Tiene una sola pantalla, sin Compose, que muestra:

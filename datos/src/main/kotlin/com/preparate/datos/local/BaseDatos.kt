@@ -81,6 +81,8 @@ data class IntentoFila(
     val subida: Boolean = false,
     /** Pistas que llevaba al responder: con ellas se reconstruye `memoria`. Null en intentos de la versión 1. */
     @ColumnInfo(name = "pistas_al_responder") val pistasAlResponder: Int? = null,
+    /** Writing: el detalle de la nota (criterios y comentario de Kiwi), en JSON. Desde la versión 3. */
+    val revision: String? = null,
 )
 
 /** El repaso espaciado (FSRS) de cada concepto. */
@@ -163,6 +165,13 @@ interface EstudioDao {
     @Query("SELECT * FROM intentos WHERE usuario_id = :usuario AND sesion_id = :sesion ORDER BY orden")
     suspend fun intentosDeSesion(usuario: String, sesion: String): List<IntentoFila>
 
+    /** Los Writing que esperan la nota de Kiwi, del más antiguo al más nuevo. */
+    @Query("SELECT id FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL ORDER BY respondido")
+    suspend fun writingPendientes(usuario: String): List<String>
+
+    @Query("SELECT COUNT(*) FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL")
+    fun observarWritingPendientes(usuario: String): Flow<Int>
+
     @Query("SELECT huella FROM intentos WHERE usuario_id = :usuario AND curso_id = :curso AND plantilla_id = :plantilla")
     suspend fun huellas(usuario: String, curso: String, plantilla: String): List<String>
 
@@ -242,7 +251,7 @@ interface SincroDao {
  */
 @Database(
     entities = [SesionFila::class, IntentoFila::class, MemoriaFila::class, PuntosFila::class, ColaFila::class],
-    version = 2,
+    version = 3,
     exportSchema = true,
 )
 abstract class BaseDatos : RoomDatabase() {
@@ -263,7 +272,7 @@ abstract class BaseDatos : RoomDatabase() {
          */
         fun abrir(context: Context): BaseDatos = instancia ?: synchronized(this) {
             instancia ?: Room.databaseBuilder(context.applicationContext, BaseDatos::class.java, NOMBRE)
-                .addMigrations(MIGRACION_1_2)
+                .addMigrations(MIGRACION_1_2, MIGRACION_2_3)
                 .addCallback(CrearTriggers)
                 .build()
                 .also { instancia = it }
@@ -308,6 +317,13 @@ abstract class BaseDatos : RoomDatabase() {
                 db.execSQL("$encolar SELECT usuario_id, 'sesiones', curso_id, id FROM sesiones $sinNube")
                 db.execSQL("$encolar SELECT usuario_id, 'intentos', curso_id, id FROM intentos $sinNube")
                 db.execSQL("$encolar SELECT usuario_id, 'puntos', curso_id, motivo || ':' || referencia FROM puntos $sinNube")
+            }
+        }
+
+        /** La revisión del Writing (criterios y comentario de Kiwi) se guarda con el intento. */
+        val MIGRACION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE intentos ADD COLUMN revision TEXT")
             }
         }
     }

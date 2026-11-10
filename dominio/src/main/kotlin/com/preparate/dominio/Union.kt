@@ -27,7 +27,7 @@ object Union {
         val unido = base.copy(pistasUsadas = maxOf(base.pistasUsadas, otro.pistasUsadas))
         // Un Writing calificado en otro dispositivo trae su nota: no se pierde.
         return if (unido.puntaje == null && otro.puntaje != null && unido.estado == EstadoRespuesta.PENDIENTE) {
-            unido.copy(puntaje = otro.puntaje, estado = otro.estado, correcta = otro.correcta)
+            unido.copy(puntaje = otro.puntaje, estado = otro.estado, correcta = otro.correcta, revision = otro.revision)
         } else {
             unido
         }

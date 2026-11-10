@@ -7,6 +7,8 @@ import com.preparate.datos.local.MemoriaFila
 import com.preparate.datos.local.PuntosFila
 import com.preparate.datos.local.SesionFila
 import com.preparate.dominio.Calificacion
+import com.preparate.dominio.ContextoTutor
+import com.preparate.dominio.Revision
 import com.preparate.dominio.EstadoRespuesta
 import com.preparate.dominio.EstadoTarjeta
 import com.preparate.dominio.Estudio
@@ -279,6 +281,48 @@ class Estudios(
         return ResultadoPrueba(cierre, preguntas, repasar)
     }
 
+    // --- Kiwi ---------------------------------------------------------------------------
+
+    /** Lo que Kiwi necesita de un ejercicio: el ejercicio, lo que respondió y el material del concepto. */
+    suspend fun contextoTutor(intentoId: String): ContextoTutor {
+        val fila = dao.intento(usuarioId, intentoId) ?: error("no existe ese ejercicio")
+        val sesion = sesion(fila.sesionId)
+        val intento = fila.aDominio()
+        val materia = contenido.curso(sesion.cursoId).materias.single { it.id == sesion.materiaId }
+        val lecciones = materia.secciones.flatMap { it.lecciones }.filter { it.concepto == intento.concepto }
+        return ContextoTutor(
+            tipoSesion = sesion.tipo,
+            materia = materia.nombre,
+            concepto = lecciones.firstOrNull()?.titulo ?: intento.concepto,
+            material = ContextoTutor.material(lecciones.map { contenido.leccion(sesion.cursoId, it.id) }),
+            variante = variante(sesion.cursoId, intento),
+            intento = intento,
+        )
+    }
+
+    /** Los Writing que esperan su nota, de cualquier sesión: también de pruebas y exámenes ya cerrados. */
+    suspend fun writingPendientes(): List<String> = dao.writingPendientes(usuarioId)
+
+    fun observarWritingPendientes(): Flow<Int> = dao.observarWritingPendientes(usuarioId)
+
+    /**
+     * Guarda la nota que Kiwi puso con la rúbrica (la calcula `Escritura`, no la IA). Si la prueba ya
+     * estaba cerrada, se vuelve a calificar: esperaba esta nota. El repaso espaciado se recalcula
+     * desde los intentos, así queda igual que en cualquier otro dispositivo.
+     */
+    suspend fun registrarEscritura(intentoId: String, revision: Revision): Intento = db.withTransaction {
+        val fila = dao.intento(usuarioId, intentoId) ?: error("no existe ese ejercicio")
+        val sesion = sesion(fila.sesionId)
+        val calificado = Estudio.registrarEscritura(fila.aDominio(), revision.puntaje).copy(revision = revision.aJson())
+        dao.actualizarIntento(calificado.aFila(usuarioId, sesion, fila.orden))
+        if (sesion.fin != null && !esPractica(sesion.tipo)) {
+            val nota = Estudio.calificarPrueba(intentosDe(sesion.id))
+            dao.actualizarSesion(sesion.copy(nota = nota.nota, aprobada = nota.aprobada).aFila(usuarioId))
+        }
+        AlmacenSincro(db, usuarioId).reconstruirMemoria(sesion.cursoId)
+        calificado
+    }
+
     // --- Solo depuración ---------------------------------------------------------------
 
     /**
@@ -486,6 +530,7 @@ internal fun IntentoFila.aDominio() = Intento(
     pistasUsadas = pistasUsadas,
     pistasAlResponder = pistasAlResponder,
     puntaje = puntaje,
+    revision = revision,
 )
 
 internal fun Intento.aFila(usuarioId: String, sesion: Sesion, orden: Int) = IntentoFila(
@@ -510,4 +555,5 @@ internal fun Intento.aFila(usuarioId: String, sesion: Sesion, orden: Int) = Inte
     pistasUsadas = pistasUsadas,
     pistasAlResponder = pistasAlResponder,
     puntaje = puntaje,
+    revision = revision,
 )

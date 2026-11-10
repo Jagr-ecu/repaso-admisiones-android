@@ -26,6 +26,7 @@ import com.preparate.sincro.SinConexion
 import com.preparate.sincro.Sincronizacion
 import com.preparate.sincro.SubidaWorker
 import com.preparate.tutor.ClienteKiwi
+import com.preparate.tutor.Tutor
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -132,6 +133,7 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         depuracion = BuildConfig.DEBUG && uid == USUARIO_VISTA_PREVIA,
         alcance = viewModelScope,
         ir = ::ir,
+        tutor = { tutor },
     )
 
     /** Solo en el APK de depuración: estudia sin cuenta. Guarda en la tablet, nunca en la nube. */
@@ -307,23 +309,32 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     var direccionKiwi by mutableStateOf(ajustes.getString("kiwi", "").orEmpty()); private set
     var estadoKiwi by mutableStateOf<EstadoKiwi>(EstadoKiwi.SinProbar); private set
 
+    /** Un solo cliente por dirección: recuerda si LM Studio estaba apagado y no espera 2 s en cada pista. */
+    private var cliente = ClienteKiwi(direccionKiwi)
+
+    /** Kiwi, si este dispositivo tiene guardada la dirección de LM Studio. */
+    private val tutor: Tutor? get() = if (cliente.configurado) Tutor(cliente) else null
+
     fun probarKiwi(direccion: String) {
-        val cliente = ClienteKiwi(direccion)
-        direccionKiwi = cliente.base
-        ajustes.edit().putString("kiwi", cliente.base).apply()
+        val nuevo = ClienteKiwi(direccion)
+        cliente = nuevo
+        direccionKiwi = nuevo.base
+        ajustes.edit().putString("kiwi", nuevo.base).apply()
         estadoKiwi = EstadoKiwi.Probando
         viewModelScope.launch {
-            val modelos = cliente.modelos()
+            val modelos = nuevo.modelos()?.filterNot(ClienteKiwi::esDeEmbeddings)
             if (modelos.isNullOrEmpty()) {
                 estadoKiwi = EstadoKiwi.Apagado
                 return@launch
             }
             estadoKiwi = EstadoKiwi.Activo(modelos.first(), null)
             estadoKiwi = try {
-                EstadoKiwi.Activo(modelos.first(), cliente.saludar(modelos.first()))
+                EstadoKiwi.Activo(modelos.first(), nuevo.saludar())
             } catch (e: Exception) {
                 EstadoKiwi.Activo(modelos.first(), null, textos.getString(R.string.kiwi_no_contesta, e.message.orEmpty()))
             }
+            // Con Kiwi encendido, se califican los Writing que esperaban.
+            estudio?.calificarPendientes()
         }
     }
 

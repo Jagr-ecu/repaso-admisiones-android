@@ -22,7 +22,12 @@ import com.preparate.dominio.Sesion
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.TipoVerificador
+import com.preparate.dominio.Revision
 import com.preparate.dominio.ayudaPermitida
+import com.preparate.tutor.Dicho
+import com.preparate.tutor.Turno
+import com.preparate.tutor.Tutor
+import com.preparate.tutor.TutorNoDisponible
 import com.preparate.dominio.esPractica
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -41,10 +46,19 @@ data class EjercicioUi(
     val resultado: Resultado? = null,
     val pistas: List<Pista> = emptyList(),
     @StringRes val aviso: Int? = null,
+    /** La charla con Kiwi sobre este ejercicio. Solo en memoria: nunca se guarda (PLAN, sección 6). */
+    val kiwi: List<MensajeKiwi> = emptyList(),
+    /** Cuántos pedidos a Kiwi siguen esperando respuesta. */
+    val kiwiEsperando: Int = 0,
+    /** Kiwi no respondió: se muestra un aviso amable y siguen las pistas escritas. */
+    val kiwiDescansa: Boolean = false,
+    /** Writing: la nota de Kiwi con la rúbrica, o null mientras espera. */
+    val revision: Revision? = null,
 ) {
     val variante get() = ejercicio.variante
     val tipo get() = ejercicio.sesion.tipo
     val respondido get() = resultado != null
+    val kiwiPensando get() = kiwiEsperando > 0
     val practica get() = esPractica(tipo)
 
     val listo: Boolean
@@ -54,6 +68,19 @@ data class EjercicioUi(
             else -> entrada.isNotBlank()
         }
 }
+
+/**
+ * Un mensaje en la charla con Kiwi. `pista`: el nivel, si Kiwi escribió una pista; `escrita`: la puso
+ * la guardia en lugar de lo que Kiwi iba a decir; `bloqueado`: Kiwi iba a decir la respuesta y no
+ * quedan pistas, así que la pantalla pone un texto fijo.
+ */
+data class MensajeKiwi(
+    val deKiwi: Boolean,
+    val texto: String? = null,
+    val pista: Int? = null,
+    val escrita: Boolean = false,
+    val bloqueado: Boolean = false,
+)
 
 /** Cómo terminó un tema o repaso; las pruebas van a su pantalla de resultado. */
 data class FinPractica(val cierre: Cierre, val tipo: TipoSesion, val cursoId: String, val leccionId: String?, val materiaId: String)
@@ -65,6 +92,8 @@ class EstudioVm(
     val depuracion: Boolean = false,
     private val alcance: CoroutineScope,
     private val ir: (Pantalla) -> Unit,
+    /** Kiwi, si hay una dirección de LM Studio guardada en este dispositivo. */
+    private val tutor: () -> Tutor? = { null },
 ) {
     var ocupado by mutableStateOf(false); private set
     @get:StringRes var bloqueo by mutableStateOf<Int?>(null); private set
@@ -166,6 +195,7 @@ class EstudioVm(
         } else {
             resultado = estudios.resultado(sesion.id)
             ir(Pantalla.Resultado(sesion.id))
+            if (resultado?.cierre?.pendiente == true) calificarPendientes()
         }
     }
 
@@ -211,6 +241,112 @@ class EstudioVm(
                 estudios.pista(a.ejercicio.intento.id)?.let { pistas = listOf(it) }
             }
             actual = a.copy(resultado = resultado, pistas = pistas, estado = estudios.estado(a.ejercicio.sesion.id))
+            // Después, Kiwi: solo si falló o si es un Writing (regla 9). Nunca bloquea el botón Siguiente.
+            when {
+                resultado.estado == EstadoRespuesta.PENDIENTE -> calificarWriting(a.ejercicio.intento.id)
+                resultado.correcta == false -> kiwiTrasFallo(a.ejercicio.intento.id)
+            }
+        }
+    }
+
+    // --- Kiwi --------------------------------------------------------------------------
+
+    /** Cambia el ejercicio en pantalla solo si sigue siendo el mismo: Kiwi puede tardar. */
+    private fun enEste(intentoId: String, cambio: (EjercicioUi) -> EjercicioUi) {
+        actual = actual?.let { if (it.ejercicio.intento.id == intentoId) cambio(it) else it }
+    }
+
+    /** Las pistas escritas que ya están a la vista, para que la guardia no repita una. */
+    private fun vistas(a: EjercicioUi): Set<String> =
+        (a.pistas.map { it.texto } + a.kiwi.mapNotNull { m -> m.texto?.takeIf { m.escrita } }).toSet()
+
+    /** Kiwi trabaja aparte: la pantalla sigue respondiendo mientras piensa (puede tardar hasta 2 min). */
+    private fun conKiwi(intentoId: String, accion: suspend (Tutor) -> Unit) {
+        val t = tutor() ?: return enEste(intentoId) { it.copy(kiwiDescansa = true) }
+        enEste(intentoId) { it.copy(kiwiEsperando = it.kiwiEsperando + 1) }
+        alcance.launch {
+            try {
+                accion(t)
+            } catch (_: AyudaProhibida) {
+            } catch (e: Exception) {
+                enEste(intentoId) { it.copy(kiwiDescansa = true) }
+            } finally {
+                enEste(intentoId) { it.copy(kiwiEsperando = (it.kiwiEsperando - 1).coerceAtLeast(0)) }
+            }
+        }
+    }
+
+    private fun mensaje(d: Dicho): MensajeKiwi = when (d) {
+        is Dicho.DeKiwi -> MensajeKiwi(true, d.texto)
+        is Dicho.PistaEscrita -> MensajeKiwi(true, d.texto, escrita = true)
+        Dicho.Bloqueado -> MensajeKiwi(true, bloqueado = true)
+    }
+
+    private fun agregar(intentoId: String, dicho: Dicho?) =
+        enEste(intentoId) { if (dicho == null) it.copy(kiwiDescansa = true) else it.copy(kiwi = it.kiwi + mensaje(dicho), kiwiDescansa = false) }
+
+    private fun kiwiTrasFallo(intentoId: String) = conKiwi(intentoId) { t ->
+        val a = actual ?: return@conKiwi
+        agregar(intentoId, t.trasFallo(estudios.contextoTutor(intentoId), vistas(a)))
+    }
+
+    /** El estudiante le escribe a Kiwi sobre su respuesta. */
+    fun escribirAKiwi(texto: String) {
+        val a = actual ?: return
+        val limpio = texto.trim()
+        if (limpio.isEmpty() || !ayudaPermitida(a.tipo) || a.kiwiPensando) return
+        val id = a.ejercicio.intento.id
+        val historial = a.kiwi.mapNotNull { m -> m.texto?.let { Turno(m.deKiwi, it) } }
+        enEste(id) { it.copy(kiwi = it.kiwi + MensajeKiwi(false, limpio), kiwiDescansa = false) }
+        conKiwi(id) { t ->
+            agregar(id, t.conversar(estudios.contextoTutor(id), historial, limpio, vistas(actual ?: a)))
+        }
+    }
+
+    /** La pista de Kiwi del mismo nivel que la escrita que ya se muestra. */
+    private fun kiwiPista(intentoId: String, nivel: Int) = conKiwi(intentoId) { t ->
+        val previas = actual?.kiwi.orEmpty().filter { it.pista != null }.mapNotNull { it.texto }
+        val texto = t.pista(estudios.contextoTutor(intentoId), nivel, previas)
+        enEste(intentoId) {
+            if (texto == null) it.copy(kiwiDescansa = true) else it.copy(kiwi = it.kiwi + MensajeKiwi(true, texto, pista = nivel), kiwiDescansa = false)
+        }
+    }
+
+    /** Califica un Writing de práctica en cuanto se envía. Sin Kiwi, queda pendiente para más tarde. */
+    private fun calificarWriting(intentoId: String) = conKiwi(intentoId) { t ->
+        val revision = t.calificar(estudios.contextoTutor(intentoId))
+        estudios.registrarEscritura(intentoId, revision)
+        enEste(intentoId) { it.copy(revision = revision) }
+    }
+
+    private var calificando = false
+
+    /**
+     * Califica los Writing que quedaron pendientes (de práctica, pruebas o exámenes) si Kiwi está.
+     * Para en cuanto Kiwi deja de responder. Calificar no es ayudar: no pasa por `ayudaPermitida`.
+     */
+    fun calificarPendientes() {
+        if (calificando) return
+        val t = tutor() ?: return
+        calificando = true
+        alcance.launch {
+            try {
+                // Comprueba siempre (2 s): así se nota enseguida si LM Studio volvió.
+                if (estudios.writingPendientes().isEmpty() || !t.disponible()) return@launch
+                for (id in estudios.writingPendientes()) {
+                    val revision = try {
+                        t.calificar(estudios.contextoTutor(id))
+                    } catch (e: TutorNoDisponible) {
+                        break
+                    }
+                    estudios.registrarEscritura(id, revision)
+                }
+                // Si está a la vista el resultado de una prueba que esperaba su nota, se actualiza.
+                resultado?.let { r -> if (r.cierre.pendiente) resultado = estudios.resultado(r.cierre.sesion.id) }
+            } catch (_: Exception) {
+            } finally {
+                calificando = false
+            }
         }
     }
 
@@ -229,6 +365,8 @@ class EstudioVm(
             try {
                 val pista = estudios.pista(a.ejercicio.intento.id) ?: return@tarea
                 actual = actual?.copy(pistas = (actual?.pistas.orEmpty() + pista).distinctBy { it.nivel })
+                // La escrita sale al instante y Kiwi la explica a su manera después. La solución es siempre la escrita.
+                if (pista.nivel <= a.variante.pistas.size) kiwiPista(a.ejercicio.intento.id, pista.nivel)
             } catch (_: AyudaProhibida) {
             }
         }

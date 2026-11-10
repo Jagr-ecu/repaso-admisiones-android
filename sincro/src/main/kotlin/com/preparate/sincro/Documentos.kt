@@ -85,6 +85,7 @@ internal object Documentos {
         "pistas_usadas" to f.pistasUsadas,
         "pistas_al_responder" to f.pistasAlResponder,
         "puntaje" to f.puntaje,
+        "revision" to f.revision,
     )
 
     fun puntos(f: PuntosFila) = sinVacios(
@@ -140,6 +141,7 @@ internal object Documentos {
             pistasUsadas = d.getLong("pistas_usadas")?.toInt() ?: 0,
             puntaje = d.getDouble("puntaje"),
             pistasAlResponder = d.getLong("pistas_al_responder")?.toInt(),
+            revision = d.getString("revision"),
         )
     }
 

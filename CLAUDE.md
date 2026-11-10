@@ -18,15 +18,16 @@ Objetivo pedagógico: que el estudiante razone, no que memorice respuestas.
 - Dispositivo real: Huawei MatePad 11.5 con HarmonyOS 4.3, **sin servicios de Google**. No debe actualizarse a HarmonyOS 5.
 
 ## Módulos
-dominio/   Kotlin puro: reglas, verificador, cuaderno, selección y repasos. Sus tests corren en la JVM
+dominio/   Kotlin puro: reglas, verificador, cuaderno, selección, repasos, guardia de Kiwi y nota del Writing. Sus tests corren en la JVM
 datos/     Room y lectura del paquete de contenido
-tutor/     cliente de LM Studio, prompts, guardia y calificación de Writing
+tutor/     Kotlin puro (sin Android): cliente de LM Studio, prompts y servicio de Kiwi. Tests en la JVM
 sincro/    subida, descarga y reconstrucción con Firestore
 app/       pantallas Compose y navegación
 
 ## Comandos
 - Usar el JDK de Android Studio: `JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"`
 - Tests del dominio: `./gradlew :dominio:test`
+- Tests de Kiwi (puerta de ayuda por tipo de sesión, guardia, Writing): `./gradlew :tutor:test`
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
 - Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
