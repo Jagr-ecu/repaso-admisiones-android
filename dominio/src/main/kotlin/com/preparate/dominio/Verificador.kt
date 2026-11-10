@@ -11,9 +11,12 @@ enum class EstadoRespuesta(val valor: String) {
     FORMA_INCORRECTA("forma_incorrecta"),
     /** No se pudo leer, por ejemplo letras donde va un número. */
     FORMATO_INVALIDO("formato_invalido"),
+    /** Escritura: la califica Kiwi con la rúbrica. */
+    PENDIENTE("pendiente"),
 }
 
-data class Resultado(val estado: EstadoRespuesta, val errorComun: String? = null) {
+/** `grupoMal` es el primer paso equivocado de una cuenta en el cuaderno. */
+data class Resultado(val estado: EstadoRespuesta, val errorComun: String? = null, val grupoMal: Int? = null) {
     val correcta: Boolean get() = estado == EstadoRespuesta.CORRECTA
 }
 
@@ -54,10 +57,29 @@ object Verificador {
             ")$",
     )
 
+    /** Un Writing de una o dos palabras («asdf», «no se») no es una oración: se pide de nuevo. */
+    const val MIN_PALABRAS_ESCRITURA = 3
+    // Como `[^\W\d_]` de Python: letras y números que no son cifras (², ½), sin el guion bajo.
+    private const val LETRAS = """[\p{L}\p{Nl}\p{No}]+"""
+    private val PALABRA = Regex("$LETRAS(?:['’]$LETRAS)?")
+
+    /** Una lista: las casillas del cuaderno, una cifra en cada una, o las palabras de `ordenar`. */
+    fun verificar(variante: Variante, entradas: List<String>): Resultado = when (variante.plantilla.tipo) {
+        TipoEjercicio.CUADERNO -> verificarCuaderno(variante, entradas)
+        TipoEjercicio.ESCRITURA -> Resultado(EstadoRespuesta.FORMATO_INVALIDO)
+        else -> verificar(variante, entradas.joinToString(" "))
+    }
+
     fun verificar(variante: Variante, entrada: String): Resultado {
         val plantilla = variante.plantilla
-        require(plantilla.tipo != TipoEjercicio.ESCRITURA && plantilla.tipo != TipoEjercicio.CUADERNO) {
-            "${plantilla.tipo} aún no está portado"
+        when (plantilla.tipo) {
+            TipoEjercicio.ESCRITURA -> return Resultado(
+                if (PALABRA.findAll(entrada).count() >= MIN_PALABRAS_ESCRITURA) EstadoRespuesta.PENDIENTE
+                else EstadoRespuesta.FORMATO_INVALIDO,
+            )
+            // Un texto es la cuenta como se lee: «68 340 408».
+            TipoEjercicio.CUADERNO -> return verificarCuaderno(variante, checkNotNull(variante.cuenta).desdeTexto(entrada))
+            else -> {}
         }
         val respuesta = checkNotNull(variante.respuesta) { "${plantilla.id}: la variante no tiene respuesta" }
         if (plantilla.verificador == TipoVerificador.SYMPY) {
@@ -73,6 +95,13 @@ object Verificador {
         }
         val error = variante.errores.firstOrNull { equivalentes(plantilla, entrada, it.valor) }
         return Resultado(EstadoRespuesta.INCORRECTA, error?.explicacion)
+    }
+
+    private fun verificarCuaderno(variante: Variante, entradas: List<String>?): Resultado {
+        val cuenta = checkNotNull(variante.cuenta) { "${variante.plantilla.id}: cuaderno sin cuenta" }
+        if (entradas == null || !cuenta.valida(entradas)) return Resultado(EstadoRespuesta.FORMATO_INVALIDO)
+        val error = cuenta.primerError(entradas) ?: return Resultado(EstadoRespuesta.CORRECTA)
+        return Resultado(EstadoRespuesta.INCORRECTA, error.consejo, error.grupo)
     }
 
     fun equivalentes(plantilla: Plantilla, entrada: String, esperado: String): Boolean =

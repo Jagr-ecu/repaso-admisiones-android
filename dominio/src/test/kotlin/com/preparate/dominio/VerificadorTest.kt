@@ -45,33 +45,25 @@ class VerificadorTest {
         assertEquals("i'm", Verificador.normalizar("I’m"))
     }
 
-    /**
-     * Casos que genera Python con `exportar-referencia` para todas las plantillas: Kotlin debe corregir igual.
-     * Escritura y cuaderno se portan en la fase 3; hasta entonces sus casos se cuentan aparte.
-     */
+    /** Casos que genera Python con `exportar-referencia` para todas las plantillas: Kotlin debe corregir igual. */
     @Test
     fun coincideConLosCasosDeReferencia() {
-        var revisados = 0
-        val sinPortar = mutableMapOf<TipoEjercicio, Int>()
+        val porTipo = mutableMapOf<TipoEjercicio, Int>()
         for ((variante, caso) in Referencia.casos("verificador")) {
-            val tipo = variante.plantilla.tipo
-            if (tipo == TipoEjercicio.ESCRITURA || tipo == TipoEjercicio.CUADERNO) {
-                sinPortar.merge(tipo, 1, Int::plus)
-                continue
+            val e = caso.getValue("entrada")
+            val r = if (e is JsonArray) {
+                Verificador.verificar(variante, e.map { it.jsonPrimitive.content })
+            } else {
+                Verificador.verificar(variante, e.jsonPrimitive.content)
             }
-            // Python une con espacios la lista de palabras de `ordenar`.
-            val entrada = when (val e = caso.getValue("entrada")) {
-                is JsonArray -> e.joinToString(" ") { it.jsonPrimitive.content }
-                else -> e.jsonPrimitive.content
-            }
-            val r = Verificador.verificar(variante, entrada)
-            val mensaje = "${variante.plantilla.id} semilla ${variante.semilla}, entrada '$entrada'"
+            val mensaje = "${variante.plantilla.id} semilla ${variante.semilla}, entrada $e"
             assertEquals(mensaje, caso.texto("estado"), r.estado.valor)
             assertEquals(mensaje, caso.texto("error_comun"), r.errorComun)
-            revisados++
+            assertEquals(mensaje, caso.texto("grupo_mal")?.toInt(), r.grupoMal)
+            porTipo.merge(variante.plantilla.tipo, 1, Int::plus)
         }
-        assertTrue("solo $revisados casos", revisados > 10_000)
-        assertTrue(sinPortar.isNotEmpty())
+        assertEquals(TipoEjercicio.entries.toSet(), porTipo.keys)
+        assertTrue("solo ${porTipo.values.sum()} casos", porTipo.values.sum() > 19_000)
     }
 }
 
