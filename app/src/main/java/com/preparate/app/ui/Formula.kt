@@ -10,7 +10,6 @@ import android.webkit.WebView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -50,8 +49,9 @@ fun Formula(
     modo: ModoFormula = ModoFormula.TEXTO,
     tamano: Int = 20,
 ) {
-    val color = MaterialTheme.colorScheme.onSurface.toArgb()
-    val html = remember(texto, modo, color, tamano) { pagina(texto, modo, color, tamano) }
+    val p = paleta()
+    val colores = ColoresPagina(p.tinta.toArgb(), p.uva700.toArgb(), p.uva50.toArgb())
+    val html = remember(texto, modo, colores, tamano) { pagina(texto, modo, colores, tamano) }
     var altura by remember(html) { mutableIntStateOf(0) }
     val alCambiarAltura by rememberUpdatedState<(Int) -> Unit> { altura = it }
 
@@ -105,22 +105,40 @@ fun Formula(
     }
 }
 
-private fun pagina(texto: String, modo: ModoFormula, color: Int, tamano: Int): String {
-    val hex = String.format("#%06X", color and 0xFFFFFF)
-    val relleno = if (modo == ModoFormula.LECCION) "16px 20px 48px" else "0"
+/** Los colores de la paleta que usa la página: texto, títulos y fondo de las cuentas. */
+private data class ColoresPagina(val tinta: Int, val titulo: Int, val fondoCuenta: Int)
+
+private fun hex(color: Int) = String.format("#%06X", color and 0xFFFFFF)
+
+private fun pagina(texto: String, modo: ModoFormula, colores: ColoresPagina, tamano: Int): String {
+    val relleno = if (modo == ModoFormula.LECCION) "12px 20px 48px" else "0"
     return """
         <!doctype html><html><head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="katex.min.css">
         <style>
-          html, body { margin: 0; padding: 0; background: transparent; color: $hex;
-            font-family: sans-serif; font-size: ${tamano}px; line-height: 1.9; -webkit-text-size-adjust: none; }
+          /* Nunito, como la web y el resto de la app. */
+          @font-face { font-family: 'Nunito'; src: url('nunito.woff2') format('woff2'); font-weight: 200 1000; }
+          html, body { margin: 0; padding: 0; background: transparent; color: ${hex(colores.tinta)};
+            font-family: 'Nunito', sans-serif; font-weight: 600; font-size: ${tamano}px; line-height: 1.6;
+            -webkit-text-size-adjust: none; }
           #c { padding: $relleno; }
-          #c.opcion { text-align: center; }
-          .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; margin: 8px 0; }
-          h3 { font-size: 1.2em; margin: 1.2em 0 0.4em; }
+          #c.opcion { text-align: center; font-weight: 700; }
+          strong { font-weight: 800; color: ${hex(colores.titulo)}; }
+          /* Cada bloque de una lección empieza con una pregunta, en violeta. */
+          h3 { font-size: 1.25em; font-weight: 900; color: ${hex(colores.titulo)}; margin: 1.3em 0 0.3em; line-height: 1.3; }
+          h3:first-child { margin-top: 0.4em; }
           p { margin: 0.4em 0; }
           ol, ul { padding-left: 1.4em; }
+          li { margin: 0.2em 0; }
+          li::marker { color: ${hex(colores.titulo)}; font-weight: 900; }
+          .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; margin: 8px 0; }
+          /* Las cuentas y dibujos de las lecciones van aparte, sobre un fondo suave, como en el cuaderno. */
+          #c.leccion .katex-display, #c.leccion .figura {
+            background: ${hex(colores.fondoCuenta)}; border-radius: 16px; padding: 16px 12px; margin: 14px 0; }
+          #c.leccion .katex-display > .katex { font-size: 1.2em; }
+          .figura { display: flex; justify-content: center; }
+          .figura svg { max-width: 100%; height: auto; }
         </style>
         <script src="katex.min.js"></script>
         <script src="marked.umd.js"></script>

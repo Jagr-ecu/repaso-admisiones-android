@@ -86,6 +86,7 @@
     <string name="empezar">Empezar</string>
     <string name="tema_hecho">Hecho</string>
     <string name="tema_bloqueado">Bloqueado</string>
+    <string name="tema_disponible">Disponible</string>
 
     <!-- Motivos para no poder empezar -->
     <string name="bloqueo_tema">Este tema se abre al terminar el anterior.</string>
@@ -116,7 +117,7 @@
     <string name="siguiente">Siguiente</string>
     <string name="terminar">Terminar</string>
     <string name="muy_bien">¡Muy bien!</string>
-    <string name="todavia_no">Todavía no.</string>
+    <string name="todavia_no">Esta vez no</string>
     <string name="casi_simplificar">¡Casi! El valor está bien, pero falta simplificar.</string>
     <string name="no_entendi_numero">No entendí tu respuesta. Escríbela con números, por ejemplo 3/4.</string>
     <string name="no_entendi_texto">Escribe una respuesta para comprobarla.</string>
@@ -133,11 +134,11 @@
     <string name="kiwi_bloqueado">Piénsalo con calma. ¿Qué paso harías primero?</string>
     <string name="kiwi_escribele">Escríbele a Kiwi</string>
     <string name="kiwi_enviar">Enviar</string>
-    <string name="pedir_pista">Pedir una pista</string>
-    <string name="otra_pista">Otra pista</string>
-    <string name="ver_solucion">Ver la solución</string>
+    <string name="pedir_pista">💡 Una pista</string>
+    <string name="otra_pista">💡 Otra pista</string>
+    <string name="ver_solucion">📝 ¿Cómo se resuelve?</string>
     <string name="pista_n">Pista %1$d</string>
-    <string name="solucion">Solución</string>
+    <string name="solucion">Así se resuelve</string>
     <string name="por_que">¿Por qué está bien?</string>
     <string name="respuesta_guardada">Respuesta guardada.</string>
     <string name="tiempo_agotado">Se acabó el tiempo del examen.</string>
@@ -227,4 +228,28 @@
     <string name="kiwi_dice">Kiwi: %1$s</string>
     <string name="kiwi_pensando">Kiwi está pensando…</string>
     <string name="kiwi_no_contesta">LM Studio responde, pero no pudo contestar: %1$s</string>
+
+    <!-- Diseño: Kiwi, el camino y los premios -->
+    <string name="volver_corto">Volver</string>
+    <string name="puntos_pildora">⭐ %1$d</string>
+    <string name="mas_puntos">⭐ +%1$d puntos</string>
+    <string name="kiwi_mascota">Kiwi, tu compañero de estudio</string>
+    <string name="kiwi_hola">¡Hola, %1$s! ¿Qué quieres practicar hoy?</string>
+    <string name="que_practicar">¿Qué quieres practicar hoy?</string>
+    <string name="kiwi_entrar">¡Hola! Soy Kiwi. Entra con tu usuario y tu clave.</string>
+    <string name="aqui_vas">¡Aquí vas!</string>
+    <string name="seccion_n">Sección %1$d · %2$s</string>
+    <string name="seccion_completada">Completada</string>
+    <string name="seccion_en_curso">En curso</string>
+    <string name="seccion_sin_empezar">Sin empezar</string>
+    <plurals name="vidas">
+        <item quantity="one">❤️ Puedes equivocarte %1$d vez más</item>
+        <item quantity="other">❤️ Puedes equivocarte %1$d veces más</item>
+    </plurals>
+    <string name="ultimo_error">⚠️ Un error más y el tema vuelve a empezar</string>
+    <string name="equivocarse">Equivocarse es parte de aprender. Al final te la vuelvo a preguntar.</string>
+    <string name="equivocarse_prueba">Equivocarse es parte de aprender.</string>
+    <string name="buen_trabajo">¡Buen trabajo!</string>
+    <string name="de_10">de 10</string>
+    <string name="otra_vez">🔁 Otra vez</string>
 </resources>

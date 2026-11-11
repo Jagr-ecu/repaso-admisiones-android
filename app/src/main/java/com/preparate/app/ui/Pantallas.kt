@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -53,14 +54,16 @@ import java.util.Locale
 fun PantallaEntrar(vm: AppViewModel) {
     var usuario by rememberSaveable { mutableStateOf("") }
     var clave by rememberSaveable { mutableStateOf("") }
-    Marco(stringResource(R.string.entrar_titulo)) {
-        Spacer(Modifier.height(24.dp))
-        Text(stringResource(R.string.entrar_ayuda), style = MaterialTheme.typography.bodyLarge)
+    Marco(stringResource(R.string.entrar_titulo), colorTitulo = paleta().uva700) {
+        Spacer(Modifier.height(8.dp))
+        KiwiDice(stringResource(R.string.kiwi_entrar), tamano = 120.dp)
+        Tarjeta(Modifier.fillMaxWidth()) {
         OutlinedTextField(
             value = usuario,
             onValueChange = { usuario = it },
             label = { Text(stringResource(R.string.usuario)) },
             singleLine = true,
+            colors = coloresCampo(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Next),
             modifier = Modifier.fillMaxWidth(),
         )
@@ -71,13 +74,16 @@ fun PantallaEntrar(vm: AppViewModel) {
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done),
+            colors = coloresCampo(),
             modifier = Modifier.fillMaxWidth(),
         )
         TextoError(vm.error)
-        Button(onClick = { vm.entrar(usuario, clave) }, enabled = !vm.ocupado, modifier = Modifier.fillMaxWidth()) {
-            Text(if (vm.ocupado) stringResource(vm.paso ?: R.string.entrando) else stringResource(R.string.entrar))
+        BotonPrimario(
+            if (vm.ocupado) stringResource(vm.paso ?: R.string.entrando) else stringResource(R.string.entrar),
+            { vm.entrar(usuario, clave) }, Modifier.fillMaxWidth(), enabled = !vm.ocupado,
+        )
         }
-        Text(stringResource(R.string.version, BuildConfig.VERSION_NAME), style = MaterialTheme.typography.bodySmall)
+        Text(stringResource(R.string.version, BuildConfig.VERSION_NAME), style = MaterialTheme.typography.bodySmall, color = paleta().suave)
         if (BuildConfig.DEBUG) {
             TextButton(onClick = { vm.vistaPrevia() }) { Text(stringResource(R.string.vista_previa)) }
         }
@@ -102,17 +108,16 @@ fun PantallaInicio(vm: AppViewModel) {
                 vm.nube == EstadoNube.FALLO -> stringResource(R.string.nube_fallo)
                 else -> stringResource(R.string.todo_subido)
             }
-            Text(texto, style = MaterialTheme.typography.bodyMedium)
+            Text("☁️ " + texto, style = MaterialTheme.typography.bodyMedium, color = paleta().suave)
         }
-        OutlinedButton(onClick = { vm.ir(Pantalla.Kiwi) }, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(R.string.probar_kiwi))
+        val botones = listOfNotNull<Pair<String, () -> Unit>>(
+            stringResource(R.string.probar_kiwi) to { vm.ir(Pantalla.Kiwi) },
+            if (sesion != null) stringResource(R.string.cambiar_mi_clave) to { vm.abrirCambiarClave() } else null,
+            stringResource(R.string.salir) to { vm.pedirSalir() },
+        )
+        EnColumnas(botones, porFila = if (columnas() > 1) 3 else 1) { (texto, accion) ->
+            BotonSecundario(texto, accion, Modifier.fillMaxWidth())
         }
-        if (sesion != null) {
-            OutlinedButton(onClick = { vm.abrirCambiarClave() }, modifier = Modifier.fillMaxWidth()) {
-                Text(stringResource(R.string.cambiar_mi_clave))
-            }
-        }
-        OutlinedButton(onClick = { vm.pedirSalir() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
     }
     if (vm.avisoSalir) AvisoSalir(vm, pendientes)
 }
@@ -147,9 +152,9 @@ private fun InicioAdmin(vm: AppViewModel) {
     val sesion = vm.sesion ?: return
     LaunchedEffect(Unit) { vm.cargarEstudiantes() }
     Marco(stringResource(R.string.panel_de, sesion.nombre.ifEmpty { sesion.usuario })) {
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = { vm.limpiarCreacion(); vm.ir(Pantalla.CrearEstudiante) }) { Text(stringResource(R.string.crear_estudiante)) }
-            OutlinedButton(onClick = { vm.cargarEstudiantes() }) { Text(stringResource(R.string.actualizar)) }
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            BotonPrimario(stringResource(R.string.crear_estudiante), { vm.limpiarCreacion(); vm.ir(Pantalla.CrearEstudiante) })
+            BotonSecundario(stringResource(R.string.actualizar), { vm.cargarEstudiantes() })
         }
         TextoError(vm.error)
         Text(stringResource(R.string.estudiantes), style = MaterialTheme.typography.titleMedium)
@@ -158,8 +163,8 @@ private fun InicioAdmin(vm: AppViewModel) {
             lista == null && vm.ocupado -> CircularProgressIndicator()
             lista.isNullOrEmpty() -> Text(stringResource(R.string.sin_estudiantes))
             else -> lista.forEach { ficha ->
-                Card(Modifier.fillMaxWidth().clickable { vm.abrirEstudiante(ficha) }) {
-                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Tarjeta(Modifier.fillMaxWidth(), onClick = { vm.abrirEstudiante(ficha) }, relleno = 16.dp) {
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text(ficha.nombre, style = MaterialTheme.typography.titleMedium)
                         Text(stringResource(R.string.usuario_es, ficha.usuario), style = MaterialTheme.typography.bodyMedium)
                         val r = ficha.resumen
@@ -184,9 +189,9 @@ private fun InicioAdmin(vm: AppViewModel) {
             }
         }
         HorizontalDivider()
-        OutlinedButton(onClick = { vm.ir(Pantalla.Kiwi) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.kiwi_direccion_pc)) }
-        OutlinedButton(onClick = { vm.abrirCambiarClave() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.cambiar_mi_clave)) }
-        OutlinedButton(onClick = { vm.salir() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
+        BotonSecundario(stringResource(R.string.kiwi_direccion_pc), { vm.ir(Pantalla.Kiwi) }, Modifier.fillMaxWidth())
+        BotonSecundario(stringResource(R.string.cambiar_mi_clave), { vm.abrirCambiarClave() }, Modifier.fillMaxWidth())
+        BotonSecundario(stringResource(R.string.salir), { vm.salir() }, Modifier.fillMaxWidth())
     }
 }
 
@@ -208,15 +213,15 @@ fun PantallaCrearEstudiante(vm: AppViewModel) {
             enabled = pendiente == null, supportingText = { Text(stringResource(R.string.clave_reglas)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii), modifier = Modifier.fillMaxWidth())
         TextoError(vm.error)
-        vm.estudianteCreado?.let { Text(it, color = MaterialTheme.colorScheme.primary) }
-        Button(
-            onClick = {
+        vm.estudianteCreado?.let { Text(it, color = paleta().bien700, style = MaterialTheme.typography.titleSmall) }
+        BotonPrimario(
+            if (pendiente != null) stringResource(R.string.reintentar) else if (vm.ocupado) stringResource(R.string.creando) else stringResource(R.string.crear),
+            {
                 vm.crearEstudiante(nombre, usuario, clave)
                 if (pendiente == null) clave = ""
             },
-            enabled = !vm.ocupado,
-            modifier = Modifier.fillMaxWidth(),
-        ) { Text(if (pendiente != null) stringResource(R.string.reintentar) else if (vm.ocupado) stringResource(R.string.creando) else stringResource(R.string.crear)) }
+            Modifier.fillMaxWidth(), enabled = !vm.ocupado,
+        )
     }
 }
 
@@ -231,12 +236,11 @@ fun PantallaCambiarClave(vm: AppViewModel) {
         CampoClave(nueva, { nueva = it }, stringResource(R.string.clave_nueva), stringResource(R.string.clave_reglas))
         CampoClave(repetida, { repetida = it }, stringResource(R.string.clave_repetir))
         TextoError(vm.error)
-        if (vm.claveCambiada) Text(stringResource(R.string.clave_cambiada), color = MaterialTheme.colorScheme.primary)
-        Button(
-            onClick = { vm.cambiarClave(actual, nueva, repetida) },
-            enabled = !vm.ocupado,
-            modifier = Modifier.fillMaxWidth(),
-        ) { Text(stringResource(if (vm.ocupado) R.string.cambiando else R.string.cambiar)) }
+        if (vm.claveCambiada) Text(stringResource(R.string.clave_cambiada), color = paleta().bien700, style = MaterialTheme.typography.titleSmall)
+        BotonPrimario(
+            stringResource(if (vm.ocupado) R.string.cambiando else R.string.cambiar),
+            { vm.cambiarClave(actual, nueva, repetida) }, Modifier.fillMaxWidth(), enabled = !vm.ocupado,
+        )
     }
 }
 
@@ -248,6 +252,7 @@ private fun CampoClave(valor: String, alCambiar: (String) -> Unit, etiqueta: Str
         singleLine = true,
         visualTransformation = PasswordVisualTransformation(),
         supportingText = ayuda?.let { { Text(it) } },
+        colors = coloresCampo(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         modifier = Modifier.fillMaxWidth(),
     )
@@ -275,8 +280,8 @@ fun PantallaDetalleEstudiante(vm: AppViewModel, destino: Pantalla.DetalleEstudia
             lista == null -> CircularProgressIndicator()
             lista.isEmpty() -> Text(stringResource(R.string.sin_respuestas))
             else -> lista.forEach { intento ->
-                Card(Modifier.fillMaxWidth()) {
-                    Column(Modifier.padding(12.dp)) {
+                Tarjeta(Modifier.fillMaxWidth(), relleno = 14.dp) {
+                    Column {
                         Text(
                             "${intento.plantilla.substringAfterLast('.')}: «${intento.respuesta}» → ${intento.estado}",
                             style = MaterialTheme.typography.bodyLarge,
@@ -296,16 +301,26 @@ fun PantallaDetalleEstudiante(vm: AppViewModel, destino: Pantalla.DetalleEstudia
 fun PantallaKiwi(vm: AppViewModel) {
     var direccion by rememberSaveable { mutableStateOf(vm.direccionKiwi.ifEmpty { "http://192.168.1." }) }
     Marco(stringResource(R.string.kiwi), alVolver = { vm.volverAlInicio() }) {
-        Text(stringResource(R.string.kiwi_ayuda))
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Mascota(
+                animo = when (vm.estadoKiwi) {
+                    is EstadoKiwi.Activo -> Animo.FELIZ
+                    EstadoKiwi.Probando -> Animo.PENSANDO
+                    else -> Animo.NORMAL
+                },
+                tamano = 96.dp, movimiento = Movimiento.FLOTAR,
+            )
+            Text(stringResource(R.string.kiwi_ayuda), modifier = Modifier.weight(1f))
+        }
         OutlinedTextField(
             direccion, { direccion = it }, label = { Text(stringResource(R.string.direccion)) }, singleLine = true,
+            colors = coloresCampo(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri), modifier = Modifier.fillMaxWidth(),
         )
-        Button(
-            onClick = { vm.probarKiwi(direccion) },
+        BotonPrimario(
+            stringResource(R.string.guardar_probar), { vm.probarKiwi(direccion) }, Modifier.fillMaxWidth(),
             enabled = vm.estadoKiwi != EstadoKiwi.Probando,
-            modifier = Modifier.fillMaxWidth(),
-        ) { Text(stringResource(R.string.guardar_probar)) }
+        )
         when (val estado = vm.estadoKiwi) {
             EstadoKiwi.SinProbar -> Unit
             EstadoKiwi.Probando -> Text(stringResource(R.string.kiwi_buscando))
@@ -316,8 +331,8 @@ fun PantallaKiwi(vm: AppViewModel) {
             is EstadoKiwi.Activo -> {
                 Text(stringResource(R.string.kiwi_activo, estado.modelo), color = MaterialTheme.colorScheme.primary)
                 when {
-                    estado.saludo != null -> Card(Modifier.fillMaxWidth()) {
-                        Text(stringResource(R.string.kiwi_dice, estado.saludo), Modifier.padding(16.dp))
+                    estado.saludo != null -> Tarjeta(Modifier.fillMaxWidth(), fondo = paleta().uva50, borde = null) {
+                        Text(stringResource(R.string.kiwi_dice, estado.saludo), style = MaterialTheme.typography.titleMedium)
                     }
                     estado.error != null -> TextoError(estado.error)
                     else -> Text(stringResource(R.string.kiwi_pensando))
@@ -334,8 +349,8 @@ private fun DetalleResumen(r: ResumenPanel) {
     if (r.pendientes.isNotEmpty()) {
         Text(stringResource(R.string.panel_pendientes), style = MaterialTheme.typography.titleMedium)
         r.pendientes.forEach { p ->
-            Card(Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Tarjeta(Modifier.fillMaxWidth(), fondo = paleta().sol100, borde = null, relleno = 14.dp) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(p.enunciado, style = MaterialTheme.typography.bodyMedium)
                     Text("«${p.respuesta}»", style = MaterialTheme.typography.bodyLarge)
                     Text(fecha(p.respondido), style = MaterialTheme.typography.bodySmall)

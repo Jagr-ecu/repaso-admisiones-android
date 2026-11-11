@@ -1,6 +1,7 @@
 package com.preparate.app
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.ScrollState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -30,7 +31,9 @@ import com.preparate.tutor.Tutor
 import com.preparate.tutor.TutorNoDisponible
 import com.preparate.dominio.esPractica
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 /** Lo que el estudiante está respondiendo ahora. */
@@ -107,9 +110,23 @@ class EstudioVm(
     var fin by mutableStateOf<FinPractica?>(null); private set
     var resultado by mutableStateOf<ResultadoPrueba?>(null); private set
 
-    fun progreso(cursoId: String): Flow<List<ProgresoMateria>> = estudios.observarProgreso(cursoId)
+    // El progreso y los puntos se observan una sola vez por curso y se guardan: al volver a una
+    // pantalla ya están listos, sin un instante de carga que encoja la lista y la suba arriba.
+    private val progresos = mutableMapOf<String, StateFlow<List<ProgresoMateria>?>>()
+    private val puntosPorCurso = mutableMapOf<String, StateFlow<Int>>()
 
-    fun puntos(cursoId: String): Flow<Int> = estudios.observarPuntos(cursoId)
+    fun progreso(cursoId: String): StateFlow<List<ProgresoMateria>?> = progresos.getOrPut(cursoId) {
+        estudios.observarProgreso(cursoId).stateIn(alcance, SharingStarted.Eagerly, null)
+    }
+
+    fun puntos(cursoId: String): StateFlow<Int> = puntosPorCurso.getOrPut(cursoId) {
+        estudios.observarPuntos(cursoId).stateIn(alcance, SharingStarted.Eagerly, 0)
+    }
+
+    /** Hasta dónde bajó el estudiante en cada pantalla (curso o materia), para volver al mismo lugar. */
+    private val desplazamientos = mutableMapOf<String, ScrollState>()
+
+    fun desplazamiento(clave: String): ScrollState = desplazamientos.getOrPut(clave) { ScrollState(0) }
 
     fun limpiarAvisos() {
         bloqueo = null
