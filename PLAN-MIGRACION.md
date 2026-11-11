@@ -175,7 +175,7 @@ Pendiente para después (lo hace el usuario, con LM Studio de verdad):
 - **Contenido:** sigue todo en borrador (48 lecciones y 127 plantillas). Publicarlo es una revisión del usuario.
 
 Pasos del usuario para el uso real:
-1. **Clave de firma**, una sola vez, guardada fuera del proyecto y con copia:
+1. ~~**Clave de firma**~~ **Hecho el 2026-11-10**: clave en `<carpeta segura fuera del proyecto>/preparate.jks` (fuera del proyecto) y `keystore.properties` en la raíz (fuera de git). Huella SHA-256 del certificado: `0dbb52fbebba8a43c67732f03051adf9b90dd77de8c0e31670b10c145ba4e12b`. El primer APK firmado (37 MB, firma v2) se verificó con `apksigner`. Falta respaldarla en otro lugar. Comando usado:
    `"C:\Program Files\Android\Android Studio\jbr\bin\keytool" -genkeypair -v -keystore C:\ruta\segura\preparate.jks -alias preparate -keyalg RSA -keysize 4096 -validity 10000`
    y luego `keystore.properties` en la raíz del proyecto (ver `app/build.gradle.kts`).
 2. **Contenido:** revisar y pasar a `revisado` en el proyecto web. Mientras haya borradores, el paquete se exporta con `--borradores`. Ampliar antes `ing.daily-routines.significado-frecuencia`, que tiene solo 4 variantes distintas.
