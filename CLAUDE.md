@@ -35,9 +35,9 @@ app/       pantallas Compose y navegación
 - Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
 - Reglas de Firestore con su emulador: `npm test` dentro de `pruebas-reglas/` (ver su README)
 - Regenerar el contenido y los casos de referencia, desde la carpeta del proyecto web:
-  `.venv/Scripts/python.exe -m app.cli exportar-paquete ../repaso-admisiones-android/app/src/main/assets/contenido --borradores`
+  `.venv/Scripts/python.exe -m app.cli exportar-paquete ../repaso-admisiones-android/app/src/main/assets/contenido`
   `.venv/Scripts/python.exe -m app.cli exportar-referencia ../repaso-admisiones-android/dominio/src/test/resources/referencia`
-  Mientras todo el contenido esté en borrador, el paquete se genera con `--borradores`. El formato está en `docs/paquete-android.md` del proyecto web.
+  Todo el contenido está en `revisado`, así que el paquete se genera sin `--borradores` (queda solo para desarrollo). El formato está en `docs/paquete-android.md` del proyecto web.
 
 ## Secretos (nunca en git)
 - `app/google-services.json`, la configuración de Firebase.
