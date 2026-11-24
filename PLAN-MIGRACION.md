@@ -2,6 +2,8 @@
 
 Fecha: 2026-11-06. Proyecto de origen: `D:\Archivos\Proyectos\repaso-admisiones`.
 
+La visión, la arquitectura y las decisiones (ADR) están ordenadas en [`docs/`](docs/README.md). Este archivo queda como diario de avances.
+
 ## Pendientes para empezar
 
 Estado al 2026-11-09. La migración aún no empieza. La base es el commit `0cdff9f`, en la rama `operaciones-en-cuaderno` del proyecto web, sin subir a GitHub.
