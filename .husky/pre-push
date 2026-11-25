@@ -1,0 +1,9 @@
+# Respaldo local de la protección de main (ver docs/proteccion-main.md).
+# Bloquea el push directo a main: todo cambio entra por PR.
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    echo "✖ No se hace push directo a main. Crea una rama y abre un PR (ver CONTRIBUTING.md)." >&2
+    exit 1
+  fi
+done
+exit 0

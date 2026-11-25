@@ -1,3 +1,18 @@
 * text=auto eol=lf
 *.bat text eol=crlf
+
+# Binarios
 *.jar binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.woff2 binary
+*.ttf binary
+*.jks binary
+*.keystore binary
+
+# Generados: GitHub los pliega en los diffs y no cuentan en las estadísticas de lenguaje
+app/src/main/assets/contenido/** linguist-generated=true
+app/src/main/assets/web/*.min.* linguist-vendored=true
+dominio/src/test/resources/referencia/** linguist-generated=true
+datos/schemas/** linguist-generated=true
