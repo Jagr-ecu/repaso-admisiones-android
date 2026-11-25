@@ -31,3 +31,6 @@ pruebas-reglas/node_modules/
 firebase-debug.log
 firestore-debug.log
 __pycache__/
+
+# Herramientas de desarrollo en la raíz (husky + commitlint)
+/node_modules/

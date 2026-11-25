@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Avisar de un problema de seguridad
+    url: https://github.com/Jagr-ecu/repaso-admisiones-android/security/advisories/new
+    about: Los fallos que exponen datos de estudiantes se avisan en privado, nunca en un issue.

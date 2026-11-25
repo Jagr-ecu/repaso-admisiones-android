@@ -1,0 +1,47 @@
+name: Tarea técnica
+description: Mantenimiento, refactorización, CI, dependencias o deuda técnica.
+title: "chore: "
+labels: ["tarea-tecnica"]
+body:
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto
+      description: ¿Por qué hace falta?
+    validations:
+      required: true
+  - type: textarea
+    id: alcance
+    attributes:
+      label: Alcance
+      description: Qué se hace y qué queda fuera.
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      value: |
+        - [ ]
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      multiple: true
+      options:
+        - build / Gradle
+        - CI/CD
+        - seguridad
+        - tests
+        - documentación
+        - refactorización
+        - dependencias
+    validations:
+      required: true
+  - type: textarea
+    id: riesgos
+    attributes:
+      label: Riesgos
+      description: ¿Puede afectar al progreso guardado, a la firma del APK o a Firebase?

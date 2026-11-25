@@ -1,0 +1,54 @@
+name: Función nueva
+description: Proponer algo nuevo para estudiantes o admins.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema o necesidad
+      description: ¿Qué le cuesta hoy al estudiante o al admin?
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      description: En Gherkin cuando aplique.
+      render: gherkin
+      value: |
+        Escenario:
+          Dado
+          Cuando
+          Entonces
+    validations:
+      required: true
+  - type: dropdown
+    id: rol
+    attributes:
+      label: Para quién
+      multiple: true
+      options:
+        - estudiante
+        - admin
+    validations:
+      required: true
+  - type: checkboxes
+    id: reglas
+    attributes:
+      label: Reglas del proyecto (CLAUDE.md)
+      options:
+        - label: Respeta las reglas inviolables (Kiwi no revela respuestas, sin ayuda en pruebas, materias separadas, funciona sin red)
+          required: true
+        - label: Guarda datos nuevos de estudiantes (requiere revisar privacidad y firestore.rules)
+        - label: Cambia una decisión registrada (requiere ADR)
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas consideradas

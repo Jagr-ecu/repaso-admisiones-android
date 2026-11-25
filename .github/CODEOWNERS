@@ -1,0 +1,12 @@
+# Dueño de todo el repositorio
+* @Jagr-ecu
+
+# Zonas críticas (mismo dueño; se listan para dejar claro qué revisar con más cuidado)
+/firestore.rules              @Jagr-ecu
+/pruebas-reglas/              @Jagr-ecu
+/dominio/src/main/kotlin/com/preparate/dominio/Guardia.kt  @Jagr-ecu
+/dominio/src/main/kotlin/com/preparate/dominio/Reglas.kt   @Jagr-ecu
+/tutor/                       @Jagr-ecu
+/datos/schemas/               @Jagr-ecu
+/app/build.gradle.kts         @Jagr-ecu
+/.github/                     @Jagr-ecu
