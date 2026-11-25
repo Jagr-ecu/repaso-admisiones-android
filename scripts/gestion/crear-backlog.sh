@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Crea etiquetas, milestones, épicas e issues del backlog, ordena los issues existentes
 # y añade todo al Project con Status, Priority, Size y Área.
-# Se puede ejecutar varias veces: no duplica nada (busca los issues por título exacto).
+# Se puede ejecutar varias veces: no duplica nada (busca los issues por título exacto) y en los
+# issues que ya están en el tablero solo rellena los campos vacíos.
 #
 #   bash scripts/gestion/crear-backlog.sh            # crea
 #   DRY_RUN=1 bash scripts/gestion/crear-backlog.sh  # solo muestra
@@ -51,30 +52,62 @@ buscar_issue() {
     --jq ".[] | select(.title==\"$1\") | .number" | head -n1
 }
 
-# Issues que ya están en el tablero: sus campos no se tocan, para no pisar lo que se movió a mano.
-declare -A EN_TABLERO=()
-while read -r ya; do [[ -n "$ya" ]] && EN_TABLERO["$ya"]=1; done < <(
-  gh project item-list "$numero" --owner "$DUENO" --limit 1000 --format json \
-    --jq '.items[] | select(.content.type=="Issue") | .content.number')
+# Issues que ya están en el tablero: su elemento y el valor actual de cada campo.
+# Solo se rellenan los campos vacíos, para no pisar lo que se movió a mano.
+# (gh pone los nombres de campo en minúscula; Área se busca por el final para no depender de la tilde.)
+declare -A ITEM_ID=()
+declare -A VALOR=()
+cargar_tablero() {
+  local n id estado prioridad tamano area
+  ITEM_ID=(); VALOR=()
+  while IFS=$'\t' read -r n id estado prioridad tamano area; do
+    [[ -z "$n" ]] && continue
+    ITEM_ID["$n"]="$id"
+    VALOR["$n|Status"]="$estado"; VALOR["$n|Priority"]="$prioridad"
+    VALOR["$n|Size"]="$tamano";   VALOR["$n|Área"]="$area"
+  done < <(gh project item-list "$numero" --owner "$DUENO" --limit 1000 --format json --jq '
+    .items[] | select(.content.type=="Issue")
+    | [.content.number, .id, (.status // ""), (.priority // ""), (.size // ""),
+       ((to_entries | map(select(.key | endswith("rea"))) | .[0].value) // "")] | @tsv')
+}
+cargar_tablero
 
-# Añade un issue al Project y fija sus campos la primera vez. Args: número, status, prioridad, tamaño, área
+# Id del elemento de un issue en el tablero. "Auto-add to project" puede tardar unos segundos en añadirlo.
+buscar_item() {
+  local n="$1" intento item
+  for intento in 1 2 3 4 5; do
+    item="$(gh project item-list "$numero" --owner "$DUENO" --limit 1000 --format json \
+      --jq ".items[] | select(.content.type==\"Issue\" and .content.number==$n) | .id")"
+    [[ -n "$item" ]] && { printf '%s\n' "$item"; return 0; }
+    sleep 2
+  done
+  return 1
+}
+
+# Añade un issue al Project (si no está) y rellena sus campos vacíos. Args: número, status, prioridad, tamaño, área
 al_tablero() {
   local n="$1" estado="$2" prioridad="$3" tamano="$4" area="$5" item
-  if [[ -n "${EN_TABLERO[$n]:-}" ]]; then
-    info "#$n ya está en el tablero: no se cambian sus campos."
-    return 0
+  item="${ITEM_ID[$n]:-}"
+  if [[ -z "$item" ]]; then
+    # Si Auto-add ya lo añadió, item-add falla con "Content already exists": se busca el elemento.
+    item="$(escribir gh project item-add "$numero" --owner "$DUENO" \
+      --url "https://github.com/$REPO/issues/$n" --format json --jq '.id' 2>/dev/null)" \
+      || item="$(buscar_item "$n")" \
+      || { aviso "#$n: no se pudo añadir al tablero."; return 0; }
+    [[ "$item" == "SIMULADO" ]] && return 0
+    ITEM_ID["$n"]="$item"
   fi
-  item="$(escribir gh project item-add "$numero" --owner "$DUENO" \
-    --url "https://github.com/$REPO/issues/$n" --format json --jq '.id')"
-  [[ "$item" == "SIMULADO" ]] && return 0
-  EN_TABLERO["$n"]=1
   fijar() {
-    local campo="$1" valor="$2" oid
+    local campo="$1" valor="$2" actual oid
     [[ -z "$valor" ]] && return 0
+    actual="${VALOR["$n|$campo"]:-}"
+    [[ -n "$actual" ]] && return 0
     oid="${OPCION_ID["$campo|$valor"]:-}"
     if [[ -z "$oid" ]]; then aviso "#$n: no existe la opción \"$valor\" en $campo."; return 0; fi
+    info "#$n: $campo → $valor"
     escribir gh project item-edit --id "$item" --project-id "$pid" \
       --field-id "${CAMPO_ID[$campo]}" --single-select-option-id "$oid" >/dev/null
+    VALOR["$n|$campo"]="$valor"
   }
   fijar Status "$estado"; fijar Priority "$prioridad"; fijar Size "$tamano"; fijar "Área" "$area"
 }

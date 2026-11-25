@@ -1,6 +1,8 @@
 # Gestión del trabajo
 
-El trabajo se organiza en el GitHub Project **"Prepárate"** de la cuenta `Jagr-ecu`, enlazado a este repo.
+El trabajo se organiza en el GitHub Project **"@Jagr-ecu's Preparate App"**
+([Project 1](https://github.com/users/Jagr-ecu/projects/1)) de la cuenta `Jagr-ecu`, enlazado a este repo.
+Los scripts lo buscan por su título exacto (`PROYECTO_TITULO` en `scripts/gestion/comun.sh`).
 Todo issue abierto está en el tablero; todo PR cierra un issue con `Closes #N`.
 
 ## Crear el tablero y el backlog (una sola vez)
@@ -30,7 +32,9 @@ bash scripts/gestion/crear-backlog.sh
 ```
 
 Los dos scripts se pueden repetir: no duplican el Project, los campos, las etiquetas, los milestones ni los
-issues (los buscan por título exacto), y **no cambian los campos de un issue que ya está en el tablero**.
+issues (los buscan por título exacto). En los issues que ya están en el tablero **solo rellenan los campos
+vacíos**: lo que se movió a mano no se pisa. Si la automatización "Auto-add to project" añadió un issue nuevo
+antes que el script, el script encuentra ese elemento y le pone sus campos.
 
 Si la API no deja configurar `Status` o crear `Iteration`, el script lo avisa y dice cómo hacerlo a mano.
 

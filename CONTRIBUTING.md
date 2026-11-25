@@ -14,7 +14,7 @@ corta y un PR con los checks en verde.
 `main` siempre compila y está protegida: no se hace push directo ni force-push.
 
 1. **Issue.** Todo empieza con un issue (bug, feature o tarea técnica) con criterios de aceptación, en el
-   tablero "Prepárate" ([`docs/gestion-del-trabajo.md`](docs/gestion-del-trabajo.md)).
+   tablero del proyecto ([`docs/gestion-del-trabajo.md`](docs/gestion-del-trabajo.md)).
 2. **Rama corta** desde `main` actualizada, con vida de días, no de semanas:
 
    | Prefijo | Para qué | Ejemplo |

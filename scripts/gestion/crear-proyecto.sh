@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Crea (o completa) el GitHub Project "Prepárate" en la cuenta del dueño y lo enlaza al repo.
+# Crea (o completa) el GitHub Project del repo (PROYECTO_TITULO en comun.sh) y lo enlaza al repo.
 # Se puede ejecutar varias veces: lo que ya existe no se vuelve a crear.
 #
 #   bash scripts/gestion/crear-proyecto.sh            # crea

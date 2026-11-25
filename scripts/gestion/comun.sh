@@ -7,7 +7,10 @@ set -euo pipefail
 
 DUENO="${DUENO:-Jagr-ecu}"
 REPO="${REPO:-Jagr-ecu/repaso-admisiones-android}"
-PROYECTO_TITULO="${PROYECTO_TITULO:-Prepárate}"
+# Título exacto del tablero en GitHub (Project 1). Si se renombra, cambiarlo aquí.
+# (va aparte porque el apóstrofo no se puede escribir dentro de ${...:-...}).
+TITULO_POR_DEFECTO="@Jagr-ecu's Preparate App"
+PROYECTO_TITULO="${PROYECTO_TITULO:-$TITULO_POR_DEFECTO}"
 DRY_RUN="${DRY_RUN:-0}"
 
 info()  { printf '• %s\n' "$*" >&2; }
