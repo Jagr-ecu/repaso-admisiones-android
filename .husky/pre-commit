@@ -1,0 +1,13 @@
+# Busca secretos en lo que vas a commitear (ADR-0020), con las reglas de .gitleaks.toml.
+# Si Gitleaks no está instalado, avisa y deja seguir: el CI (security.yml) lo revisa igual.
+# Instalarlo en Windows: winget install Gitleaks.Gitleaks
+
+if command -v gitleaks >/dev/null 2>&1; then
+  if ! gitleaks git --pre-commit --staged --config .gitleaks.toml --redact --no-banner --verbose; then
+    echo "✖ Gitleaks encontró un posible secreto. Quítalo del commit (git restore --staged <archivo>)." >&2
+    echo "  Si es un falso positivo, ajusta .gitleaks.toml en un PR aparte." >&2
+    exit 1
+  fi
+else
+  echo "⚠ Gitleaks no está instalado: no se buscaron secretos antes del commit (winget install Gitleaks.Gitleaks)." >&2
+fi

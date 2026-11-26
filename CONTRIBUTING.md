@@ -6,8 +6,11 @@ corta y un PR con los checks en verde.
 ## Antes de empezar
 
 1. Lee [`CLAUDE.md`](CLAUDE.md) (reglas inviolables) y [`docs/vision.md`](docs/vision.md).
-2. Ejecuta `npm install` en la raíz una vez: instala el hook que revisa los mensajes de commit.
-3. Consigue `app/google-services.json` (no está en git).
+2. Ejecuta `npm install` en la raíz una vez: instala los hooks que revisan los mensajes de commit y buscan
+   secretos antes de cada commit.
+3. Instala Gitleaks (`winget install Gitleaks.Gitleaks` en Windows). Sin él, el hook solo avisa y el secreto se
+   detecta más tarde, en el PR ([ADR-0020](docs/adr/0020-escaneo-de-seguridad-en-ci.md)).
+4. Consigue `app/google-services.json` (no está en git).
 
 ## Flujo de trabajo (trunk-based)
 
