@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
@@ -29,6 +30,15 @@ import com.preparate.app.ui.TemaPreparate
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class MainActivity : ComponentActivity() {
+    /** El mismo ViewModel que usa la interfaz (viewModel() en Compose comparte el de la actividad). */
+    private val vm: AppViewModel by viewModels()
+
+    override fun onStop() {
+        super.onStop()
+        // Girar la pantalla también para la actividad: eso no cuenta como salir de la app.
+        if (!isChangingConfigurations) vm.alSalirDeLaApp()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

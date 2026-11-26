@@ -13,6 +13,7 @@ import com.preparate.datos.LectorContenido
 import com.preparate.datos.local.BaseDatos
 import com.preparate.dominio.ProblemaUsuario
 import com.preparate.dominio.ResumenPanel
+import com.preparate.dominio.Usuario
 import com.preparate.sincro.Cuentas
 import com.preparate.sincro.ErrorCuenta
 import com.preparate.sincro.FichaEstudiante
@@ -77,7 +78,17 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     private val db by lazy { BaseDatos.abrir(app) }
     private val ajustes = app.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
-    var sesion by mutableStateOf(cuentas.sesionGuardada())
+    /** La sesión de admin no se recupera al abrir la app: hay que entrar otra vez (ADR-0021). */
+    var sesion by mutableStateOf(
+        cuentas.sesionGuardada()?.let { guardada ->
+            if (guardada.rol == Rol.ADMIN) {
+                cuentas.salir()
+                null
+            } else {
+                guardada
+            }
+        },
+    )
         private set
 
     /** El estudio del estudiante que entró; null para un admin o sin sesión. */
@@ -217,7 +228,8 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
 
             MotivoCuenta.SIN_SESION -> R.string.cuenta_sin_sesion
         }
-        return textos.getString(id)
+        // Solo cuenta_clave_corta usa el número (%1$d); los demás textos lo ignoran.
+        return textos.getString(id, Usuario.CLAVE_MINIMA)
     }
 
     // --- Nube -----------------------------------------------------------------
@@ -288,6 +300,14 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         } else {
             error = textos.getString(R.string.salir_no_subio)
         }
+    }
+
+    /**
+     * La app pasó a segundo plano (otra app, pantalla apagada). La sesión de admin se cierra: en un dispositivo
+     * compartido, un estudiante podría abrir el panel de admin (ADR-0021). La del estudiante sigue abierta.
+     */
+    fun alSalirDeLaApp() {
+        if (sesion?.rol == Rol.ADMIN) salir()
     }
 
     /** Lo que no subió se queda en la tablet y sube cuando este estudiante vuelva a entrar. */

@@ -42,6 +42,7 @@ import com.preparate.app.R
 import com.preparate.dominio.EstadoNodo
 import com.preparate.dominio.ResumenPanel
 import com.preparate.dominio.TipoSesion
+import com.preparate.dominio.Usuario
 import com.preparate.sincro.Rol
 import java.time.Instant
 import java.time.LocalDate
@@ -244,7 +245,7 @@ fun PantallaCrearEstudiante(vm: AppViewModel) {
             label = { Text(stringResource(R.string.clave)) },
             singleLine = true,
             enabled = pendiente == null,
-            supportingText = { Text(stringResource(R.string.clave_reglas)) },
+            supportingText = { Text(stringResource(R.string.clave_reglas, Usuario.CLAVE_MINIMA)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
             modifier = Modifier.fillMaxWidth(),
         )
@@ -281,7 +282,9 @@ fun PantallaCambiarClave(vm: AppViewModel) {
     Marco(stringResource(R.string.cambiar_mi_clave), alVolver = { vm.volverAlInicio() }) {
         Text(stringResource(R.string.cambiar_clave_ayuda), style = MaterialTheme.typography.bodyMedium)
         CampoClave(actual, { actual = it }, stringResource(R.string.clave_actual))
-        CampoClave(nueva, { nueva = it }, stringResource(R.string.clave_nueva), stringResource(R.string.clave_reglas))
+        CampoClave(nueva, {
+            nueva = it
+        }, stringResource(R.string.clave_nueva), stringResource(R.string.clave_reglas, Usuario.CLAVE_MINIMA))
         CampoClave(repetida, { repetida = it }, stringResource(R.string.clave_repetir))
         TextoError(vm.error)
         if (vm.claveCambiada) Text(stringResource(R.string.clave_cambiada), color = MaterialTheme.colorScheme.primary)
