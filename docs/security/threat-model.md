@@ -1,6 +1,6 @@
 # Modelo de amenazas (STRIDE)
 
-Estado: vigente. Revisado el 2026-11-25. Se revisa cuando cambia una frontera de confianza (un servicio nuevo, un
+Estado: vigente. Revisado el 2026-11-26, al cerrar la fase 4. Se revisa cuando cambia una frontera de confianza (un servicio nuevo, un
 rol nuevo, otra forma de instalar la app) y, como mínimo, antes de cada versión MAJOR.
 
 ## Alcance y activos
@@ -32,7 +32,8 @@ dispositivo es la fuente de verdad y Firebase guarda una copia ([arquitectura](.
 Fuera de alcance: un atacante con acceso de administrador al PC de la casa o a la cuenta de Google del proyecto
 de Firebase. Con eso controla todo y ninguna medida de la app lo frena.
 
-**Escala**: Impacto y Probabilidad en Alto / Medio / Bajo. "Pendiente" enlaza el issue que lo resuelve. "Aceptado"
+**Escala**: Impacto y Probabilidad en Alto / Medio / Bajo. "Hecho" enlaza la decisión que lo mitiga, "Pendiente" el
+issue que lo resolverá y "Aceptado"
 enlaza el ADR que lo justifica.
 
 ## Frontera 1: app ↔ Firestore y Firebase Auth
@@ -41,14 +42,14 @@ Por Internet y con HTTPS. La configuración de Firebase (`google-services.json`)
 diseño. Lo que protege los datos son Auth y [`firestore.rules`](../../firestore.rules), probadas en
 [`pruebas-reglas/`](../../pruebas-reglas/).
 
-| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Pendiente / aceptado |
+| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Estado |
 |---|---|---|---|---|---|
 | **S** | A1 crea una cuenta con la API pública de Auth y lee o escribe datos | Alto | Media | Sin documento en `usuarios/` no se puede leer ni escribir nada (`firestore.rules`, probado). Sin registro público en la app ([ADR-0012](../adr/0012-login-con-dominio-invalid.md)) | — |
-| **S** | A1 adivina la clave de un estudiante (fuerza bruta o claves cortas) | Alto | Baja | Límite de intentos de Firebase Auth. Los usuarios no son correos reales | Pendiente: protección contra enumeración de correos y longitud mínima de clave en Auth ([#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60)) |
+| **S** | A1 adivina la clave de un estudiante (fuerza bruta o claves cortas) | Alto | Baja | Límite de intentos de Firebase Auth. Los usuarios no son correos reales | Hecho: claves nuevas de 8 caracteres o más ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)). Paso manual: protección contra la enumeración de correos en la consola (ver lista abajo) |
 | **T** | A4 sube notas o puntos falsos a su propio progreso | Bajo | Media | El estudiante solo escribe en `estudiantes/{su uid}` y nunca borra | Aceptado: las notas no son oficiales ([ADR-0008](../adr/0008-ayuda-permitida-unica-puerta.md)) |
 | **T** | A4 se cambia el rol a `admin` | Alto | Baja | Solo un admin escribe `usuarios/`, y solo con `rol == 'estudiante'`. Los admins se crean desde la consola o con `cuentas.py` | — |
 | **R** | Un estudiante niega haber escrito un Writing o un admin niega un cambio de perfil | Bajo | Baja | Cada intento guarda fechas y semilla; los admins se crean solo desde el PC | Aceptado: sin registros de auditoría en el plan Spark ([ADR-0003](../adr/0003-firebase-plan-gratuito.md)) |
-| **I** | A1 o A3 lee el progreso o los Writing de otro estudiante | Alto | Baja | `esElEstudiante(uid)` o `esAdmin()` para leer, probado con el emulador. HTTPS (y, tras #38, HTTP prohibido hacia Firebase) | Pendiente: HTTP prohibido hacia Firebase y Google ([#38](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/38)) |
+| **I** | A1 o A3 lee el progreso o los Writing de otro estudiante | Alto | Baja | `esElEstudiante(uid)` o `esAdmin()` para leer, probado con el emulador. HTTPS (y, tras #38, HTTP prohibido hacia Firebase) | Hecho: HTTP prohibido hacia Firebase y Google, probado en el dispositivo ([ADR-0018](../adr/0018-http-solo-en-la-red-local.md)) |
 | **I** | El texto de un Writing incluye datos personales y queda en la nube | Medio | Media | Solo lo leen el estudiante y el admin | Aceptado: el Writing es la tarea y debe calificarse ([ADR-0009](../adr/0009-conversaciones-sin-guardar.md) solo excluye el chat) |
 | **D** | A4 (o un fallo de la app) agota la cuota diaria gratuita de Firestore | Medio | Baja | Subida por lotes desde la cola, sin reintentos agresivos (WorkManager). La app funciona sin la nube (regla 8) | Aceptado ([ADR-0002](../adr/0002-room-fuente-de-verdad.md), [ADR-0003](../adr/0003-firebase-plan-gratuito.md)) |
 | **E** | Una cuenta de estudiante consigue permisos de admin | Alto | Baja | El rol se lee en el servidor (`get(usuarios/uid)`), no del cliente. Tests de reglas por rol | — |
@@ -57,10 +58,10 @@ diseño. Lo que protege los datos son Auth y [`firestore.rules`](../../firestore
 
 Por HTTP sin cifrar, dentro de la wifi de casa. LM Studio no tiene HTTPS y su IP la elige el admin.
 
-| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Pendiente / aceptado |
+| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Estado |
 |---|---|---|---|---|---|
-| **S** | A2 se hace pasar por LM Studio y envía textos a un menor | Medio | Baja | La guardia revisa cada texto antes de mostrarlo (regla 2). La app solo habla con la dirección que escribió el admin | Pendiente: solo direcciones de red local ([#38](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/38)) |
-| **S** | El admin escribe por error un servidor de Internet y el chat sale de casa sin cifrar | Medio | Baja | — | Pendiente: `ClienteKiwi` rechaza direcciones que no son locales ([#38](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/38)) |
+| **S** | A2 se hace pasar por LM Studio y envía textos a un menor | Medio | Baja | La guardia revisa cada texto antes de mostrarlo (regla 2). La app solo habla con la dirección que escribió el admin | Hecho: solo direcciones de la red local y sin redirecciones ([ADR-0018](../adr/0018-http-solo-en-la-red-local.md)) |
+| **S** | El admin escribe por error un servidor de Internet y el chat sale de casa sin cifrar | Medio | Baja | — | Hecho: `ClienteKiwi.esDeRedLocal` y aviso en Ajustes ([ADR-0018](../adr/0018-http-solo-en-la-red-local.md)) |
 | **T** | A2 altera la respuesta de Kiwi para revelar la solución | Bajo | Baja | La guardia bloquea textos que revelan la respuesta. La nota la calcula `:dominio`, nunca el modelo (regla 1) | — |
 | **T** | El texto de Kiwi (o de un LM Studio falso) inyecta HTML o JavaScript en el WebView de fórmulas | Medio | Baja | `formulas.js` escapa `& < > "` fuera de las fórmulas. KaTeX corre con `trust: false` (sin `\href` ni `\includegraphics`). La interfaz JavaScript solo expone `altura(px)` | — |
 | **R** | No queda registro de lo que Kiwi le dijo a un menor | Bajo | Media | La guardia filtra cada texto | Aceptado: las conversaciones no se guardan a propósito ([ADR-0009](../adr/0009-conversaciones-sin-guardar.md)) |
@@ -73,13 +74,13 @@ Por HTTP sin cifrar, dentro de la wifi de casa. LM Studio no tiene HTTPS y su IP
 
 `herramientas/cuentas.py` y `traspasar.py` usan el SDK de administración, que se salta las reglas de Firestore.
 
-| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Pendiente / aceptado |
+| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Estado |
 |---|---|---|---|---|---|
-| **S** | Alguien usa la credencial del SDK de administración robada | Alto | Baja | Solo en el PC, en `.gitignore` (`herramientas/credencial*.json`) | Pendiente: Gitleaks en el PR, antes del commit y en todo el historial ([#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39)) |
+| **S** | Alguien usa la credencial del SDK de administración robada | Alto | Baja | Solo en el PC, en `.gitignore` (`herramientas/credencial*.json`) | Hecho: Gitleaks antes del commit, en cada PR y en todo el historial ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)) |
 | **T** | Un traspaso equivocado pisa el progreso real de un estudiante | Medio | Baja | `traspasar.py` solo muestra por defecto; hace falta `--subir`. Ids estables y unión por reglas (`Union.kt`) | — |
 | **R** | No se sabe quién creó o cambió una cuenta | Bajo | Baja | Solo hay un admin con acceso al PC | Aceptado ([ADR-0003](../adr/0003-firebase-plan-gratuito.md)) |
-| **I** | La credencial o las claves de prueba acaban en el repositorio público | Alto | Media | `.gitignore`. Historial reescrito para quitar datos personales | Pendiente: Gitleaks ([#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39)) |
-| **I** | La clave de firma del APK o `keystore.properties` se filtran | Alto | Baja | Fuera de git, con copia | Pendiente: reglas de Gitleaks para `keystore.properties` ([#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39)) |
+| **I** | La credencial o las claves de prueba acaban en el repositorio público | Alto | Media | `.gitignore`. Historial reescrito para quitar datos personales | Hecho: Gitleaks con reglas propias y *push protection* de GitHub ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)) |
+| **I** | La clave de firma del APK o `keystore.properties` se filtran | Alto | Baja | Fuera de git, con copia | Hecho: reglas de Gitleaks para `keystore.properties`, `*.jks` y `storePassword` ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)) |
 | **D** | Un script con un bucle agota la cuota diaria | Bajo | Baja | Se ejecutan a mano, con confirmación | — |
 | **E** | El SDK de administración se salta `firestore.rules` | Alto | Baja | Es su propósito. Solo vive en el PC del admin | Aceptado: fuera de alcance (control del PC) |
 
@@ -88,38 +89,58 @@ Por HTTP sin cifrar, dentro de la wifi de casa. LM Studio no tiene HTTPS y su IP
 El dispositivo puede ser compartido por varios estudiantes y no tiene servicios de Google
 ([ADR-0004](../adr/0004-sin-servicios-de-google.md)).
 
-| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Pendiente / aceptado |
+| STRIDE | Amenaza | Imp. | Prob. | Mitigación existente | Estado |
 |---|---|---|---|---|---|
-| **S** | A3 usa la sesión abierta de otro estudiante | Medio | Media | Botón para salir, que avisa si hay datos sin subir | Aceptado: dispositivos de la familia. La sesión de admin se trata en [#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60) |
+| **S** | A3 usa la sesión abierta de otro estudiante | Medio | Media | Botón para salir, que avisa si hay datos sin subir | Aceptado: dispositivos de la familia. La sesión de admin se cierra al salir de la app ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)) |
 | **T** | A4 se salta el bloqueo de Kiwi en una prueba o el reloj del examen | Bajo | Baja | Un único punto de control en `:dominio` | Aceptado: las notas no son oficiales ([ADR-0008](../adr/0008-ayuda-permitida-unica-puerta.md)) |
 | **T** | A4 cambia el paquete de contenido para ver las respuestas | Bajo | Baja | El paquete va dentro del APK firmado | Aceptado ([ADR-0005](../adr/0005-contenido-dentro-del-apk.md), [ADR-0008](../adr/0008-ayuda-permitida-unica-puerta.md)) |
 | **T** | Alguien instala un APK modificado como si fuera una actualización | Alto | Baja | Android rechaza una actualización con otra firma. Clave de firma fuera de git | Pendiente: APK firmado solo desde el Environment `produccion` (épica CI/CD, #43) |
 | **R** | — | — | — | Sin consecuencias: no hay transacciones entre usuarios | — |
 | **I** | A3 ve el progreso de otro estudiante en la misma tablet | Medio | Media | Toda consulta de Room filtra por `usuario_id`, comprobado por `ArquitecturaTest` ([ADR-0017](../adr/0017-tests-de-arquitectura-con-konsist.md)) | — |
 | **I** | Los datos de Room salen del dispositivo en una copia de seguridad del sistema | Medio | Media | — | Pendiente: excluir la base de las copias (`allowBackup`, `dataExtractionRules`) ([#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61)) |
-| **I** | Un registro (`Log`) imprime un Writing, un mensaje de Kiwi o un nombre | Medio | Media | Un solo `Log` en el código (consola del WebView de fórmulas) | Pendiente: prohibido por test y corregido el de `Formula.kt` ([#42](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/42)) |
+| **I** | Un registro (`Log`) imprime un Writing, un mensaje de Kiwi o un nombre | Medio | Media | Un solo `Log` en el código (consola del WebView de fórmulas) | Hecho: `RegistrosTest` lo prohíbe y el de `Formula.kt` ya no imprime contenido ([ADR-0019](../adr/0019-registros-sin-datos-personales.md)) |
 | **D** | Varios estudiantes llenan el almacenamiento de un dispositivo | Bajo | Baja | Datos pequeños; la cola se vacía al subir | — |
-| **E** | A4 consigue el panel de admin con la sesión de un adulto abierta | Medio | Baja | Las reglas no dejan al admin escribir progreso, solo leerlo y crear estudiantes | Pendiente: cerrar la sesión de admin al salir de la app ([#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60)) |
+| **E** | A4 consigue el panel de admin con la sesión de un adulto abierta | Medio | Baja | Las reglas no dejan al admin escribir progreso, solo leerlo y crear estudiantes | Hecho: la sesión de admin se cierra al pasar a segundo plano y no se recupera al abrir la app ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)) |
 
 ## Transversal: cadena de suministro y repositorio público (A5)
 
-| Amenaza | Imp. | Prob. | Mitigación existente | Pendiente |
+| Amenaza | Imp. | Prob. | Mitigación existente | Estado |
 |---|---|---|---|---|
-| Una dependencia con una vulnerabilidad conocida llega al APK | Alto | Media | Dependabot (`.github/dependabot.yml`) | Revisión de dependencias en el PR y CodeQL ([#40](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/40)) |
-| No se sabe qué versiones lleva un APK concreto | Medio | Media | Versiones fijadas en `libs.versions.toml` | SBOM CycloneDX ([#41](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/41)) |
-| Una GitHub Action comprometida (por ejemplo, una etiqueta movida) | Alto | Baja | — | Acciones fijadas por SHA ([#40](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/40)) |
-| Un secreto publicado en el repositorio público | Alto | Media | `.gitignore`, historial reescrito, `SECURITY.md` | Gitleaks ([#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39)) |
+| Una dependencia con una vulnerabilidad conocida llega al APK | Alto | Media | Dependabot (`.github/dependabot.yml`) | Hecho: revisión de dependencias en cada PR y CodeQL ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)). Encontró Guava 32.1.3 (CVE-2026-102554), ya corregido |
+| No se sabe qué versiones lleva un APK concreto | Medio | Media | Versiones fijadas en `libs.versions.toml` | Hecho: SBOM CycloneDX en cada push a `main`. Adjuntarlo al Release queda en [#48](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/48) |
+| Una GitHub Action comprometida (por ejemplo, una etiqueta movida) | Alto | Baja | — | Hecho: todas las acciones fijadas por SHA ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)) |
+| Un secreto publicado en el repositorio público | Alto | Media | `.gitignore`, historial reescrito, `SECURITY.md` | Hecho: Gitleaks y *secret scanning* con *push protection* ([ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md)) |
 | El código minimizado no se usa y el APK es fácil de leer | Bajo | Alta | Las respuestas no dan ventaja: la nota no es oficial | Aceptado por ahora: activar R8 se evaluará con la MatePad ([ADR-0008](../adr/0008-ayuda-permitida-unica-puerta.md)) |
 
-## Resumen de pendientes
+## Resumen
+
+Mitigado en la fase 4 (épica [#36](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/36)):
+
+| Issue | Mitiga | Decisión |
+|---|---|---|
+| [#38](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/38) HTTP solo hacia la red local | F1-I, F2-S | [ADR-0018](../adr/0018-http-solo-en-la-red-local.md) |
+| [#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39) Gitleaks | F3-S, F3-I, A5 | [ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md) |
+| [#40](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/40) CodeQL y revisión de dependencias | A5 | [ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md) |
+| [#41](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/41) SBOM | A5 | [ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md) |
+| [#42](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/42) Registros sin datos personales | F4-I | [ADR-0019](../adr/0019-registros-sin-datos-personales.md) |
+| [#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60) Claves y sesión de admin | F1-S, F4-S, F4-E | [ADR-0021](../adr/0021-claves-y-sesion-de-admin.md) |
+
+Pendiente:
 
 | Issue | Mitiga |
 |---|---|
-| [#38](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/38) HTTP solo hacia la red local | F1-I, F2-S |
-| [#39](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/39) Gitleaks | F3-S, F3-I, A5 |
-| [#40](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/40) CodeQL y revisión de dependencias | A5 |
-| [#41](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/41) SBOM | A5 |
-| [#42](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/42) Registros sin datos personales | F4-I |
-| [#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60) Endurecer Firebase Auth y la sesión de admin | F1-S, F4-S, F4-E |
 | [#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61) Excluir los datos de las copias de seguridad | F4-I |
-| #43 (épica CI/CD) APK firmado con aprobación | F4-T |
+| [#48](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/48) Release con APK firmado y SBOM adjunto (épica CI/CD #43) | F4-T, A5 |
+
+## Configuración manual (fuera del código)
+
+Se revisa al instalar en un proyecto de Firebase nuevo y antes del uso real (fase 7):
+
+- [ ] Firebase → Authentication → Settings → *User account management*: **protección contra la enumeración de
+  correos** activada ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)).
+- [ ] Claves de las cuentas de pruebas y de las claves cortas anteriores cambiadas con
+  `python herramientas/cuentas.py cambiar-clave <usuario>`.
+- [x] GitHub → Settings → Advanced Security: grafo de dependencias, alertas de Dependabot, *secret scanning* y
+  *push protection* activados (2026-11-26).
+- [ ] `firestore.rules` publicadas en la consola después de cada cambio (las pruebas de `pruebas-reglas/` pasan).
+- [ ] LM Studio solo en el perfil de red "Privada" del firewall de Windows.

@@ -4,7 +4,9 @@ package com.preparate.dominio
 object Usuario {
     /** Dominio reservado (RFC 2606): nunca recibe mensajes. */
     const val DOMINIO = "preparate.invalid"
-    const val CLAVE_MINIMA = 6
+
+    /** Para claves nuevas o cambiadas (ADR-0021). Entrar con una clave más corta, de antes, sigue funcionando. */
+    const val CLAVE_MINIMA = 8
     private val VALIDO = Regex("^[a-z0-9._-]{3,20}$")
 
     /** Lo que escribe el estudiante, limpio: sin espacios alrededor y en minúsculas. */

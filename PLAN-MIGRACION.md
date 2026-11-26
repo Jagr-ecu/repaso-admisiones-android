@@ -398,7 +398,7 @@ estudiantes/{uid}/puntos/{motivo_referencia}
 
 **Entrar:** todos escriben solo usuario y clave, sin ningún correo real. Firebase Auth exige un formato de correo, así que la app convierte `ana` en `ana@preparate.invalid`. Ese dominio está reservado y nunca recibe mensajes.
 
-**Usuarios:** de 3 a 20 caracteres, con minúsculas, números, `.`, `_` y `-`, sin tildes, `ñ` ni espacios. Firebase garantiza que no se repitan. La clave tiene al menos 6 caracteres, el mínimo de Firebase.
+**Usuarios:** de 3 a 20 caracteres, con minúsculas, números, `.`, `_` y `-`, sin tildes, `ñ` ni espacios. Firebase garantiza que no se repitan. La clave tiene al menos 8 caracteres (ADR-0021; antes 6, el mínimo de Firebase).
 
 **Clave olvidada:** sin correo no hay recuperación automática, y la app no puede cambiar la clave de otra persona. Por eso el admin ejecuta en el PC `herramientas/cambiar_clave.py <usuario>`, que usa el SDK de administración de Firebase. La credencial de ese script se queda solo en el PC: nunca va en el APK ni en git.
 

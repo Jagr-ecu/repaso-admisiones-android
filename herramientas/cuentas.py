@@ -25,7 +25,7 @@ from pathlib import Path
 
 DOMINIO = "preparate.invalid"
 USUARIO_VALIDO = re.compile(r"^[a-z0-9._-]{3,20}$")
-CLAVE_MINIMA = 6
+CLAVE_MINIMA = 8  # igual que Usuario.CLAVE_MINIMA en :dominio (ADR-0021)
 CREDENCIAL = Path(os.environ.get("PREPARATE_CREDENCIAL", Path(__file__).parent / "credencial-firebase.json"))
 
 

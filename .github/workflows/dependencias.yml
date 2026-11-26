@@ -1,0 +1,66 @@
+# Dependencias (ADR-0020).
+# - Envío: GitHub no lee las dependencias de Gradle por sí solo. dependency-submission las calcula (también las
+#   transitivas) y las manda al grafo de dependencias. Así Dependabot y la revisión de dependencias las ven.
+# - Revisión: en cada PR, falla si una dependencia nueva o actualizada tiene una vulnerabilidad alta o crítica.
+# Las acciones van fijadas por SHA, con su versión en el comentario.
+name: Dependencias
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dependencias-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  enviar:
+    name: Enviar dependencias de Gradle
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: write # la API de envío de dependencias lo exige
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: google-services.json de prueba
+        run: cp .github/ci/google-services.prueba.json app/google-services.json
+
+      - name: Calcular y enviar el grafo de dependencias
+        uses: gradle/actions/dependency-submission@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          # Solo lo que va en el APK o se ejecuta en los tests; no los plugins de Gradle ni el propio build.
+          dependency-graph-include-configurations: ".*(RuntimeClasspath|runtimeClasspath)$"
+
+  revisar:
+    name: Revisar dependencias del PR
+    if: github.event_name == 'pull_request'
+    needs: enviar
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: write # deja un comentario con el resumen
+    steps:
+      - uses: actions/dependency-review-action@bbc44d14a204704ccc493733616cd1e93a0321ec # v5.0.1
+        with:
+          fail-on-severity: high
+          comment-summary-in-pr: on-failure
+          # El envío de Gradle del job anterior puede tardar unos segundos en aparecer.
+          retry-on-snapshot-warnings: true
+          retry-on-snapshot-warnings-timeout: 120
