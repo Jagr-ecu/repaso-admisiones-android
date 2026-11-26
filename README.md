@@ -29,6 +29,7 @@ flowchart TD
 | `datos/` | Room y lectura del paquete de contenido |
 | `tutor/` | Cliente de LM Studio, prompts y servicio de Kiwi. Sin Android |
 | `sincro/` | Subida, descarga y unión con Firestore; cuentas y panel de admin |
+| `arquitectura/` | Solo tests: reglas de módulos y de datos con Konsist (ADR-0017) |
 | `app/` | Pantallas Compose y navegación |
 | `herramientas/` | Scripts de PC: cuentas (`cuentas.py`) y traspaso desde la web (`traspasar.py`) |
 | `pruebas-reglas/` | Tests de `firestore.rules` con el emulador de Firebase |
@@ -68,6 +69,7 @@ El APK queda en `app/build/outputs/apk/debug/app-debug.apk`. En Windows, usa el 
 | Todos los tests de la JVM | `./gradlew test` |
 | Formato, detekt, lint, tests y cobertura (antes de cada PR) | `./gradlew check` |
 | Informe de cobertura de `:dominio` y `:tutor` | `./gradlew koverHtmlReport` |
+| Reglas de arquitectura (Konsist) | `./gradlew :arquitectura:test` |
 | Corregir el formato | `./gradlew spotlessApply` |
 | Room, sincronización y migraciones (emulador abierto) | `./gradlew :datos:connectedDebugAndroidTest` |
 | Reglas de Firestore (emulador de Firebase) | `cd pruebas-reglas && npm install && npm test` |

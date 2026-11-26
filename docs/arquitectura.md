@@ -65,10 +65,11 @@ flowchart TD
 | `:datos` | Room (sesiones, intentos, memoria, puntos, cola de subida), `Estudios`, `LectorContenido` | Sí | Dispositivo o emulador |
 | `:sincro` | `Sincronizacion`, `SubidaWorker`, `Cuentas`, `PanelAdmin` | Sí | Dispositivo o emulador |
 | `:app` | Pantallas Compose, `WindowSizeClass`, KaTeX en WebView | Sí | Manual en emulador y MatePad |
+| `:arquitectura` | Solo tests: comprueba con Konsist las reglas de dependencias, el filtro por `usuario_id` y que no se guarde el chat de Kiwi | No | JVM ([ADR-0017](adr/0017-tests-de-arquitectura-con-konsist.md)) |
 
 **Regla de dependencias:** todo apunta hacia `:dominio`, que no depende de nada de Android. Así la lógica
 que decide notas, respuestas y bloqueos se prueba rápido y se compara con Python
-([ADR-0006](adr/0006-dominio-kotlin-puro.md)).
+([ADR-0006](adr/0006-dominio-kotlin-puro.md)). `./gradlew :arquitectura:test` lo comprueba en cada `check`.
 
 ## Flujo de una respuesta
 

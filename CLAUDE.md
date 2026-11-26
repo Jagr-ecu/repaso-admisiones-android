@@ -23,6 +23,7 @@ datos/     Room y lectura del paquete de contenido
 tutor/     Kotlin puro (sin Android): cliente de LM Studio, prompts y servicio de Kiwi. Tests en la JVM
 sincro/    subida, descarga y reconstrucción con Firestore
 app/       pantallas Compose y navegación
+arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew :arquitectura:test`)
 
 ## Comandos
 - Usar el JDK de Android Studio: `JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"`
