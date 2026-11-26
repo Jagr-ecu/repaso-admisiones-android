@@ -44,4 +44,6 @@ Las amenazas de cada frontera, con su mitigación y su estado, están en
 - Nunca subas secretos. Revisa `.gitignore` antes de añadir archivos de configuración. Gitleaks los busca antes
   del commit (si está instalado) y en cada PR (`.gitleaks.toml`, [ADR-0020](docs/adr/0020-escaneo-de-seguridad-en-ci.md)).
 - No uses datos reales de estudiantes en tests, capturas ni issues.
+- No escribas datos personales en los registros (`Log`, `println`). `RegistrosTest` lo comprueba
+  ([ADR-0019](docs/adr/0019-registros-sin-datos-personales.md)).
 - No registres (`Log`) datos personales, respuestas de Writing ni mensajes de Kiwi.
