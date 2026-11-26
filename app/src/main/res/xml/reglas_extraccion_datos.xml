@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Android 12 o superior: nada de la app sale del dispositivo, ni en la copia en la nube ni al pasar los datos a un
+  dispositivo nuevo (issue #61). La base de Room guarda el progreso y los Writing de todos los estudiantes que usan
+  este dispositivo, y las preferencias guardan la sesión. La copia buena del progreso es Firestore (ADR-0002): al
+  entrar en otro dispositivo, el progreso se reconstruye desde la nube, con firestore.rules.
+
+  Para Android 10 y 11 basta con android:allowBackup="false" en el manifiesto.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+        <exclude domain="device_root" path="." />
+        <exclude domain="device_file" path="." />
+        <exclude domain="device_database" path="." />
+        <exclude domain="device_sharedpref" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="root" path="." />
+        <exclude domain="file" path="." />
+        <exclude domain="database" path="." />
+        <exclude domain="sharedpref" path="." />
+        <exclude domain="external" path="." />
+        <exclude domain="device_root" path="." />
+        <exclude domain="device_file" path="." />
+        <exclude domain="device_database" path="." />
+        <exclude domain="device_sharedpref" path="." />
+    </device-transfer>
+</data-extraction-rules>
