@@ -32,6 +32,7 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
 - Antes de cada PR: `./gradlew check` (formato con Spotless/ktlint, detekt, lint, tests y cobertura mínima de 70 % en `:dominio` y `:tutor` con Kover; informe con `./gradlew koverHtmlReport`). `./gradlew spotlessApply` corrige el formato; `./gradlew detektBaseline` regenera el baseline, solo si se acepta deuda a propósito
+- SBOM CycloneDX de las dependencias del APK: `./gradlew :app:cyclonedxDirectBom` (deja `app/build/reports/sbom/sbom.cdx.json`)
 - APK firmado: `./gradlew :app:assembleRelease`. Necesita `keystore.properties` en la raíz (ver `app/build.gradle.kts`); sin él, sale sin firmar
 - Traspasar el progreso de la web a una cuenta: `python herramientas/traspasar.py --usuario <usuario>` (solo muestra) y luego con `--subir`
 - Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`. La política de red (HTTP solo hacia la red local): `./gradlew :app:connectedDebugAndroidTest`

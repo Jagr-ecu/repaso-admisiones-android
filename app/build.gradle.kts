@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.cyclonedx)
 }
 
 /*
@@ -56,6 +57,17 @@ android {
         compose = true
         buildConfig = true
     }
+}
+
+// SBOM CycloneDX (ADR-0020): las dependencias que van dentro del APK de release, con sus versiones y licencias.
+// ./gradlew :app:cyclonedxDirectBom  ->  app/build/reports/sbom/sbom.cdx.json
+tasks.named<org.cyclonedx.gradle.CyclonedxDirectTask>("cyclonedxDirectBom") {
+    includeConfigs.set(listOf("releaseRuntimeClasspath"))
+    projectType.set(org.cyclonedx.model.Component.Type.APPLICATION)
+    componentName.set("preparate")
+    componentVersion.set(android.defaultConfig.versionName)
+    jsonOutput.set(layout.buildDirectory.file("reports/sbom/sbom.cdx.json"))
+    xmlOutput.unsetConvention()
 }
 
 dependencies {
