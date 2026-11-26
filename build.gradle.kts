@@ -1,6 +1,9 @@
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import kotlinx.kover.gradle.plugin.dsl.AggregationType
+import kotlinx.kover.gradle.plugin.dsl.CoverageUnit
+import kotlinx.kover.gradle.plugin.dsl.KoverProjectExtension
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -13,6 +16,7 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.spotless)
     alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.kover) apply false
 }
 
 // Formato (ADR-0015): ktlint lee el estilo de .editorconfig. `./gradlew spotlessApply` lo corrige.
@@ -69,5 +73,28 @@ subprojects {
                 useVersion(io.gitlab.arturbosch.detekt.getSupportedKotlinVersion())
             }
         }
+    }
+}
+
+// Cobertura (ADR-0016): cada módulo con Kover (hoy :dominio y :tutor) exige un mínimo de líneas cubiertas.
+// El mínimo se cambia sin tocar el código: ./gradlew koverVerify -Pcobertura.minima=80
+val coberturaMinima = providers.gradleProperty("cobertura.minima").map(String::toInt).orElse(70)
+
+subprojects {
+    plugins.withId("org.jetbrains.kotlinx.kover") {
+        extensions.configure<KoverProjectExtension> {
+            reports {
+                verify {
+                    rule("Cobertura de líneas de ${project.name}") {
+                        bound {
+                            minValue.set(coberturaMinima)
+                            coverageUnits.set(CoverageUnit.LINE)
+                            aggregationForGroup.set(AggregationType.COVERED_PERCENTAGE)
+                        }
+                    }
+                }
+            }
+        }
+        tasks.named("check") { dependsOn("koverVerify") }
     }
 }
