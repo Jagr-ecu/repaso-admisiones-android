@@ -139,7 +139,7 @@ estudiantes/{uid}/puntos/{motivo_referencia}
 | Frontera | Qué la protege |
 |---|---|
 | App ↔ Firestore | Firebase Auth y `firestore.rules`, probadas con el emulador |
-| App ↔ LM Studio | Red local por HTTP sin cifrar (permitido en toda la app); la guardia revisa cada texto antes de mostrarlo |
+| App ↔ LM Studio | HTTP sin cifrar solo hacia direcciones de la red local; Firebase y Google siempre por HTTPS ([ADR-0018](adr/0018-http-solo-en-la-red-local.md)). La guardia revisa cada texto antes de mostrarlo |
 | PC ↔ Firebase (scripts) | Credencial del SDK de administración, solo en el PC |
 | Estudiante ↔ su dispositivo | Ninguna: el bloqueo de ayuda y el reloj viven en la app (riesgo aceptado, ADR-0008) |
 
