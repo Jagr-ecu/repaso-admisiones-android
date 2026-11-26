@@ -45,6 +45,7 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 - `app/google-services.json`, la configuración de Firebase.
 - La clave de firma del APK (`*.jks`) y `keystore.properties`. Guárdala con copia: sin ella no se puede actualizar la app.
 - La credencial del SDK de administración que usa `herramientas/cuentas.py` (`crear-admin`, `cambiar-clave`). Solo se guarda en el PC.
+- Buscar secretos: `gitleaks git --config .gitleaks.toml --redact .` (todo el historial). Lo repite `.github/workflows/security.yml` en cada PR
 
 ## Reglas inviolables
 1. La respuesta correcta la calcula siempre el código: Python al exportar y `:dominio` al verificar. Nunca el LLM.
@@ -77,4 +78,4 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 - Cada intento guarda la semilla de su variante para poder reconstruirla.
 - Se diseña primero para tablet y luego se adapta al celular con `WindowSizeClass`.
 - La interfaz se inspira en Duolingo **sin** copiar su marca: mascota y paleta propias.
-- Ramas `feature|fix|chore|docs|refactor/<issue>-<slug>`, Conventional Commits (tipo en inglés, descripción en español) y PR con squash. Detalle en `CONTRIBUTING.md`. `npm install` en la raíz activa los hooks de commit y push.
+- Ramas `feature|fix|chore|docs|refactor/<issue>-<slug>`, Conventional Commits (tipo en inglés, descripción en español) y PR con squash. Detalle en `CONTRIBUTING.md`. `npm install` en la raíz activa los hooks de commit (commitlint y Gitleaks, si está instalado) y de push.
