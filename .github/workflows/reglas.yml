@@ -1,0 +1,74 @@
+# Reglas de Firestore (#46): las pruebas de pruebas-reglas/ con el emulador de Firestore, sin tocar el proyecto
+# real (demo-preparate solo existe en el emulador). Corre cuando cambian las reglas, sus pruebas o este workflow.
+# El nombre del job (reglas-firestore) es un check requerido en el ruleset de main (docs/proteccion-main.md); por
+# eso el workflow arranca en todos los PR y el filtro de rutas va dentro del job.
+# Las acciones van fijadas por SHA, con su versión en el comentario.
+name: Reglas de Firestore
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - "firestore.rules"
+      - "firebase.json"
+      - "pruebas-reglas/**"
+      - ".github/workflows/reglas.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reglas-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  reglas-firestore:
+    name: reglas-firestore
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: ¿Cambiaron las reglas?
+        id: cambios
+        env:
+          EVENTO: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$EVENTO" != "pull_request" ]; then
+            echo "probar=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only "$BASE" HEAD | grep -qE '^(firestore\.rules|firebase\.json|pruebas-reglas/|\.github/workflows/reglas\.yml)'; then
+            echo "probar=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Este PR no cambia las reglas ni sus pruebas: no hace falta el emulador."
+            echo "probar=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        if: steps.cambios.outputs.probar == 'true'
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        if: steps.cambios.outputs.probar == 'true'
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: pruebas-reglas/package-lock.json
+
+      - name: Instalar dependencias
+        if: steps.cambios.outputs.probar == 'true'
+        working-directory: pruebas-reglas
+        run: npm ci
+
+      - name: Probar las reglas con el emulador
+        if: steps.cambios.outputs.probar == 'true'
+        working-directory: pruebas-reglas
+        run: npm test
