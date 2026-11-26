@@ -98,7 +98,8 @@ Un cambio está terminado cuando:
 - [ ] Lo portado de Python coincide con los casos de referencia.
 - [ ] Si cambia el esquema de Room, hay una migración con su test.
 - [ ] Si cambia `firestore.rules`, pasan las pruebas de `pruebas-reglas/`.
-- [ ] Los checks del PR están en verde (cuando exista el CI) y no hay vulnerabilidades altas o críticas.
+- [ ] Los checks del PR están en verde (`build-y-tests` de `ci.yml` corre `./gradlew check` y arma el APK de
+  depuración) y no hay vulnerabilidades altas o críticas.
 - [ ] No hay secretos, credenciales ni datos de estudiantes en el código, los tests ni los registros.
 - [ ] Los textos nuevos están en `strings.xml`, en español sencillo para 11–12 años.
 - [ ] La documentación está al día. Un cambio de decisión lleva un ADR en `docs/adr/`.
