@@ -68,6 +68,7 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 ## Cuentas y datos
 - Solo hay dos roles: `estudiante` y `admin`. No hay registro público.
 - Se entra con usuario y clave. Por dentro, `ana` se convierte en `ana@preparate.invalid`.
+- Las claves nuevas tienen al menos 8 caracteres. La sesión de admin se cierra al salir de la app; la del estudiante no (ADR-0021).
 - Toda consulta local filtra por `usuario_id`, el UID de Firebase, porque varios estudiantes pueden compartir un dispositivo.
 - Los cursos nunca se mezclan. Los ids de temas y plantillas solo son únicos dentro de su curso, así que todo el progreso guarda también el `curso_id`.
 - Las conversaciones con Kiwi no se guardan nunca, ni en Room ni en Firestore.
