@@ -27,6 +27,11 @@ Solo la última versión instalada en los dispositivos de la familia. No hay ver
 | Clave de firma del APK | Fuera de git, con copia de seguridad |
 | `google-services.json` | Fuera de git |
 
+## Modelo de amenazas
+
+Las amenazas de cada frontera, con su mitigación y su estado, están en
+[`docs/security/threat-model.md`](docs/security/threat-model.md).
+
 ## Fuera de alcance (riesgos aceptados)
 
 - El bloqueo de Kiwi en pruebas y el reloj del examen viven en el dispositivo y podrían saltarse con
