@@ -44,7 +44,7 @@
     <string name="cuenta_usuario_largo">El usuario puede tener hasta 20 letras o números.</string>
     <string name="cuenta_usuario_caracteres">Usa solo letras sin tilde, números, punto, guion o guion bajo. Sin espacios ni ñ.</string>
     <string name="cuenta_clave_vacia">Escribe tu clave.</string>
-    <string name="cuenta_clave_corta">La clave necesita al menos 6 caracteres.</string>
+    <string name="cuenta_clave_corta">La clave necesita al menos %1$d caracteres.</string>
     <string name="cuenta_claves_distintas">Las dos claves nuevas no son iguales.</string>
     <string name="cuenta_clave_igual">La clave nueva tiene que ser distinta de la actual.</string>
     <string name="cuenta_clave_actual_mal">Tu clave actual no es esa.</string>
@@ -183,7 +183,7 @@
     <string name="solo_nombre">Solo el nombre, sin apellidos.</string>
     <string name="nombre">Nombre</string>
     <string name="usuario_reglas">De 3 a 20: letras sin tilde, números, punto, guion o guion bajo.</string>
-    <string name="clave_reglas">Al menos 6 caracteres.</string>
+    <string name="clave_reglas">Al menos %1$d caracteres.</string>
     <string name="reintentar">Reintentar</string>
     <string name="creando">Creando…</string>
     <string name="crear">Crear</string>
