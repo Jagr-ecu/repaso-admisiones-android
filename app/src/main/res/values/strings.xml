@@ -226,5 +226,6 @@
     <string name="kiwi_activo">Kiwi está activo. Modelo: %1$s</string>
     <string name="kiwi_dice">Kiwi: %1$s</string>
     <string name="kiwi_pensando">Kiwi está pensando…</string>
+    <string name="kiwi_no_local">Esa dirección no es de la red de la casa. Escribe la del PC con LM Studio, por ejemplo http://192.168.1.50:1234</string>
     <string name="kiwi_no_contesta">LM Studio responde, pero no pudo contestar: %1$s</string>
 </resources>
