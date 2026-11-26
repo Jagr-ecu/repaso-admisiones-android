@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$0.7</ID>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$0.8</ID>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$1.5</ID>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$20</ID>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$200</ID>
+    <ID>MagicNumber:ClienteKiwi.kt$ClienteKiwi$299</ID>
+    <ID>ReturnCount:Tutor.kt$Tutor$private suspend fun hablar(mensajes: List&lt;Mensaje&gt;, ctx: ContextoTutor, vistas: Set&lt;String&gt;?): Dicho?</ID>
+    <ID>SwallowedException:ClienteKiwi.kt$ClienteKiwi$e: Exception</ID>
+    <ID>SwallowedException:Tutor.kt$Tutor$e: CalificacionInvalida</ID>
+    <ID>SwallowedException:Tutor.kt$Tutor$e: TutorNoDisponible</ID>
+    <ID>TooGenericExceptionCaught:ClienteKiwi.kt$ClienteKiwi$e: Exception</ID>
+    <ID>TooManyFunctions:Tutor.kt$Tutor</ID>
+  </CurrentIssues>
+</SmellBaseline>

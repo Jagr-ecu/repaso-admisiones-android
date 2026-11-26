@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:Sincronizacion.kt$Sincronizacion$60_000</ID>
+    <ID>MagicNumber:SubidaWorker.kt$SubidaWorker.Companion$30</ID>
+    <ID>ReturnCount:Cuentas.kt$Cuentas$fun sesionGuardada(): Sesion?</ID>
+    <ID>ReturnCount:Documentos.kt$Documentos$fun intento(uid: String, d: DocumentSnapshot): IntentoFila?</ID>
+    <ID>ReturnCount:Documentos.kt$Documentos$fun puntos(uid: String, d: DocumentSnapshot): PuntosFila?</ID>
+    <ID>ReturnCount:Documentos.kt$Documentos$fun sesion(uid: String, d: DocumentSnapshot): SesionFila?</ID>
+    <ID>ReturnCount:SubidaWorker.kt$SubidaWorker$override suspend fun doWork(): Result</ID>
+    <ID>SwallowedException:Cuentas.kt$Cuentas$e: Exception</ID>
+    <ID>SwallowedException:SubidaWorker.kt$SubidaWorker$e: Exception</ID>
+    <ID>ThrowsCount:Cuentas.kt$Cuentas$suspend fun cambiarClave(actual: String, nueva: String, repetida: String)</ID>
+    <ID>ThrowsCount:Cuentas.kt$Cuentas$suspend fun crearEstudiante(nombre: String, textoUsuario: String, clave: String): String</ID>
+    <ID>ThrowsCount:Cuentas.kt$Cuentas$suspend fun entrar(textoUsuario: String, clave: String): Sesion</ID>
+    <ID>TooGenericExceptionCaught:Cuentas.kt$Cuentas$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SubidaWorker.kt$SubidaWorker$e: Exception</ID>
+    <ID>TooManyFunctions:Documentos.kt$Documentos</ID>
+    <ID>TooManyFunctions:Sincronizacion.kt$Sincronizacion</ID>
+  </CurrentIssues>
+</SmellBaseline>
