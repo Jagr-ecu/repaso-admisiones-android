@@ -24,4 +24,5 @@ nuevo y el anterior pasa a "reemplazado por".
 | [0015](0015-formato-y-analisis-estatico.md) | Formato con Spotless y ktlint, y análisis estático con detekt | Aceptado | 2026-11-25 |
 | [0016](0016-cobertura-con-kover.md) | Cobertura con Kover: mínimo de 70 % de líneas en `:dominio` y `:tutor` | Aceptado | 2026-11-25 |
 | [0017](0017-tests-de-arquitectura-con-konsist.md) | Tests de arquitectura con Konsist en un módulo `:arquitectura` | Aceptado | 2026-11-25 |
+| [0019](0019-registros-sin-datos-personales.md) | Registros sin datos personales, comprobado con Konsist | Aceptado | 2026-11-25 |
 | [0020](0020-escaneo-de-seguridad-en-ci.md) | Escaneo de seguridad en CI: Gitleaks, CodeQL, revisión de dependencias y SBOM | Aceptado | 2026-11-25 |

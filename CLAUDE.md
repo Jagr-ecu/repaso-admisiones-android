@@ -70,6 +70,7 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 - Toda consulta local filtra por `usuario_id`, el UID de Firebase, porque varios estudiantes pueden compartir un dispositivo.
 - Los cursos nunca se mezclan. Los ids de temas y plantillas solo son únicos dentro de su curso, así que todo el progreso guarda también el `curso_id`.
 - Las conversaciones con Kiwi no se guardan nunca, ni en Room ni en Firestore.
+- Ningún dato personal en los registros: sin `println`, y `Log` solo en los archivos que permite `RegistrosTest` y sin nombres, Writing ni mensajes de Kiwi (ADR-0019).
 - Los datos son de menores: solo se guarda el nombre, sin apellidos.
 
 ## Convenciones

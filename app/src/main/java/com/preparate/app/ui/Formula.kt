@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.preparate.app.BuildConfig
 import org.json.JSONObject
 
 enum class ModoFormula(val css: String) {
@@ -59,8 +60,11 @@ fun Formula(texto: String, modifier: Modifier = Modifier, modo: ModoFormula = Mo
                     setBackgroundColor(Color.TRANSPARENT)
                     isVerticalScrollBarEnabled = modo == ModoFormula.LECCION
                     webChromeClient = object : WebChromeClient() {
-                        override fun onConsoleMessage(mensaje: ConsoleMessage): Boolean {
-                            Log.w("Formula", "${mensaje.message()} (${mensaje.sourceId()}:${mensaje.lineNumber()})")
+                        override fun onConsoleMessage(consola: ConsoleMessage): Boolean {
+                            // Sin el contenido del aviso: puede llevar el texto de un mensaje de Kiwi (ADR-0019).
+                            if (BuildConfig.DEBUG) {
+                                Log.w("Formula", "Aviso de JavaScript en ${consola.sourceId()}:${consola.lineNumber()}")
+                            }
                             return true
                         }
                     }
