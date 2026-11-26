@@ -21,3 +21,4 @@ nuevo y el anterior pasa a "reemplazado por".
 | [0012](0012-login-con-dominio-invalid.md) | Usuario y clave con `@preparate.invalid` | Aceptado | 2026-11-06 |
 | [0013](0013-katex-en-webview.md) | Fórmulas con KaTeX en WebView | Aceptado | 2026-11-06 |
 | [0014](0014-fsrs-portado.md) | FSRS portado de py-fsrs | Aceptado | 2026-11-09 |
+| [0015](0015-formato-y-analisis-estatico.md) | Formato con Spotless y ktlint, y análisis estático con detekt | Aceptado | 2026-11-25 |
