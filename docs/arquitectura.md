@@ -143,4 +143,4 @@ estudiantes/{uid}/puntos/{motivo_referencia}
 | PC ↔ Firebase (scripts) | Credencial del SDK de administración, solo en el PC |
 | Estudiante ↔ su dispositivo | Ninguna: el bloqueo de ayuda y el reloj viven en la app (riesgo aceptado, ADR-0008) |
 
-El modelo de amenazas completo se escribe en la fase 4 (`docs/security/threat-model.md`).
+El modelo de amenazas completo, con STRIDE en cada frontera, está en [`security/threat-model.md`](security/threat-model.md).
