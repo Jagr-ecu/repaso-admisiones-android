@@ -39,7 +39,7 @@ El modelo de amenazas (`docs/security/threat-model.md`) deja tres riesgos en las
   apagada), en `MainActivity.onStop`, salvo que sea un giro de pantalla. Tampoco se recupera al abrir la app:
   si Android mató el proceso con el admin dentro, hay que entrar otra vez.
 * **La sesión del estudiante no cambia:** sigue abierta, como hasta ahora.
-* **En la consola de Firebase**, Authentication → Settings → *User account management*: activar la
+* **En la consola de Firebase**, Authentication → Settings → *User actions*: activar la
   **protección contra la enumeración de correos** (*Email enumeration protection*). Así un atacante no puede
   saber si un usuario existe por el mensaje de error. Es un paso manual: está en la lista de comprobación de
   `docs/security/threat-model.md` y en el runbook cuando exista (fase 7).

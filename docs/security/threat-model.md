@@ -97,7 +97,7 @@ El dispositivo puede ser compartido por varios estudiantes y no tiene servicios 
 | **T** | Alguien instala un APK modificado como si fuera una actualización | Alto | Baja | Android rechaza una actualización con otra firma. Clave de firma fuera de git | Pendiente: APK firmado solo desde el Environment `produccion` (épica CI/CD, #43) |
 | **R** | — | — | — | Sin consecuencias: no hay transacciones entre usuarios | — |
 | **I** | A3 ve el progreso de otro estudiante en la misma tablet | Medio | Media | Toda consulta de Room filtra por `usuario_id`, comprobado por `ArquitecturaTest` ([ADR-0017](../adr/0017-tests-de-arquitectura-con-konsist.md)) | — |
-| **I** | Los datos de Room salen del dispositivo en una copia de seguridad del sistema | Medio | Media | — | Pendiente: excluir la base de las copias (`allowBackup`, `dataExtractionRules`) ([#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61)) |
+| **I** | Los datos de Room salen del dispositivo en una copia de seguridad del sistema | Medio | Media | La copia buena del progreso es Firestore ([ADR-0002](../adr/0002-room-fuente-de-verdad.md)) | Hecho: `allowBackup="false"` y `dataExtractionRules` que excluyen todo, comprobado por `SinCopiasDeSeguridadTest` ([#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61)). Paso manual: confirmarlo en la copia de HarmonyOS |
 | **I** | Un registro (`Log`) imprime un Writing, un mensaje de Kiwi o un nombre | Medio | Media | Un solo `Log` en el código (consola del WebView de fórmulas) | Hecho: `RegistrosTest` lo prohíbe y el de `Formula.kt` ya no imprime contenido ([ADR-0019](../adr/0019-registros-sin-datos-personales.md)) |
 | **D** | Varios estudiantes llenan el almacenamiento de un dispositivo | Bajo | Baja | Datos pequeños; la cola se vacía al subir | — |
 | **E** | A4 consigue el panel de admin con la sesión de un adulto abierta | Medio | Baja | Las reglas no dejan al admin escribir progreso, solo leerlo y crear estudiantes | Hecho: la sesión de admin se cierra al pasar a segundo plano y no se recupera al abrir la app ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)) |
@@ -124,20 +124,24 @@ Mitigado en la fase 4 (épica [#36](https://github.com/Jagr-ecu/repaso-admisione
 | [#41](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/41) SBOM | A5 | [ADR-0020](../adr/0020-escaneo-de-seguridad-en-ci.md) |
 | [#42](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/42) Registros sin datos personales | F4-I | [ADR-0019](../adr/0019-registros-sin-datos-personales.md) |
 | [#60](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/60) Claves y sesión de admin | F1-S, F4-S, F4-E | [ADR-0021](../adr/0021-claves-y-sesion-de-admin.md) |
+| [#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61) Datos fuera de las copias de seguridad | F4-I | `reglas_extraccion_datos.xml` |
 
 Pendiente:
 
 | Issue | Mitiga |
 |---|---|
-| [#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61) Excluir los datos de las copias de seguridad | F4-I |
 | [#48](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/48) Release con APK firmado y SBOM adjunto (épica CI/CD #43) | F4-T, A5 |
 
 ## Configuración manual (fuera del código)
 
 Se revisa al instalar en un proyecto de Firebase nuevo y antes del uso real (fase 7):
 
-- [ ] Firebase → Authentication → Settings → *User account management*: **protección contra la enumeración de
-  correos** activada ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)).
+- [x] Firebase → Authentication → Settings → *User actions*: **protección contra la enumeración de
+  correos** activada ([ADR-0021](../adr/0021-claves-y-sesion-de-admin.md)) (2026-11-26).
+- [ ] Firebase → Authentication → Settings → *User actions*: **creación de cuentas (sign-up)** desactivada. No hay
+  registro público; `herramientas/cuentas.py` crea las cuentas con el SDK de administración.
+- [ ] Copia de seguridad de HarmonyOS en la MatePad: la app no aparece o no guarda datos
+  ([#61](https://github.com/Jagr-ecu/repaso-admisiones-android/issues/61)).
 - [ ] Claves de las cuentas de pruebas y de las claves cortas anteriores cambiadas con
   `python herramientas/cuentas.py cambiar-clave <usuario>`.
 - [x] GitHub → Settings → Advanced Security: grafo de dependencias, alertas de Dependabot, *secret scanning* y
