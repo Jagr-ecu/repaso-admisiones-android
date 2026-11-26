@@ -39,7 +39,7 @@ service cloud.firestore {
     }
 
     match /estudiantes/{uid}/{coleccion}/{doc} {
-      allow read: if entro();
+      allow read: if esElEstudiante(uid) || esAdmin();
       allow create, update: if esElEstudiante(uid)
         && coleccion in ['sesiones', 'intentos', 'puntos', 'resumen'];
       allow delete: if false;
