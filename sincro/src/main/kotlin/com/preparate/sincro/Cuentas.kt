@@ -17,7 +17,8 @@ import kotlinx.coroutines.tasks.await
 
 enum class Rol(val valor: String) {
     ESTUDIANTE("estudiante"),
-    ADMIN("admin");
+    ADMIN("admin"),
+    ;
 
     companion object {
         fun desde(valor: String?): Rol? = entries.firstOrNull { it.valor == valor }
@@ -54,7 +55,8 @@ open class ErrorCuenta(
 ) : Exception(motivo.name, causa)
 
 /** La cuenta se creó en Firebase Auth, pero falta su documento usuarios/{uid}. */
-class PerfilSinGuardar(val uid: String, val nombre: String, val usuario: String) : ErrorCuenta(MotivoCuenta.PERFIL_SIN_GUARDAR)
+class PerfilSinGuardar(val uid: String, val nombre: String, val usuario: String) :
+    ErrorCuenta(MotivoCuenta.PERFIL_SIN_GUARDAR)
 
 /**
  * Inicio de sesión con usuario y clave, sin correos a la vista.
@@ -161,20 +163,25 @@ class Cuentas(private val contexto: Context) {
 
     private fun traducirError(e: Exception): ErrorCuenta = when (e) {
         is ErrorCuenta -> e
+
         is FirebaseNetworkException -> ErrorCuenta(MotivoCuenta.SIN_INTERNET, causa = e)
+
         is FirebaseTooManyRequestsException -> ErrorCuenta(MotivoCuenta.DEMASIADOS_INTENTOS, causa = e)
+
         is FirebaseAuthUserCollisionException -> ErrorCuenta(MotivoCuenta.USUARIO_REPETIDO, causa = e)
+
         is FirebaseAuthWeakPasswordException -> ErrorCuenta(MotivoCuenta.CLAVE_CORTA, causa = e)
+
         is FirebaseAuthInvalidUserException, is FirebaseAuthInvalidCredentialsException ->
             ErrorCuenta(MotivoCuenta.USUARIO_O_CLAVE, causa = e)
+
         else -> ErrorCuenta(MotivoCuenta.OTRO, causa = e)
     }
 
     companion object {
         private const val APP_CREAR = "crear-estudiantes"
 
-        private fun preferencias(contexto: Context) =
-            contexto.getSharedPreferences("sesion", Context.MODE_PRIVATE)
+        private fun preferencias(contexto: Context) = contexto.getSharedPreferences("sesion", Context.MODE_PRIVATE)
 
         /** El rol guardado al entrar; null si en este dispositivo nunca entró. */
         fun rolGuardado(contexto: Context, uid: String): Rol? =

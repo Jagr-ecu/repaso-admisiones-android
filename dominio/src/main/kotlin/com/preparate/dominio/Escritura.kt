@@ -1,5 +1,7 @@
 package com.preparate.dominio
 
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
@@ -9,8 +11,6 @@ import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 /** Un criterio de la rúbrica ya calificado. */
 @Serializable
@@ -45,7 +45,13 @@ object Escritura {
         rubrica.joinToString("\n") { "- ${it.criterio} (máximo ${numero(it.puntos)} puntos): ${it.descripcion}" }
 
     /** `{x:g}` de Python para los puntos de la rúbrica: 4.0 → "4", 2.5 → "2.5". */
-    private fun numero(x: Double): String = if (x == Math.floor(x) && !x.isInfinite()) x.toLong().toString() else x.toString()
+    private fun numero(x: Double): String = if (x == Math.floor(x) &&
+        !x.isInfinite()
+    ) {
+        x.toLong().toString()
+    } else {
+        x.toString()
+    }
 
     fun revision(rubrica: List<CriterioRubrica>, respuestaDelModelo: String): Revision {
         require(rubrica.isNotEmpty()) { "un Writing necesita su rúbrica" }

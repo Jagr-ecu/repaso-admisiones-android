@@ -10,12 +10,24 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class TipoEjercicio(val valor: String) {
-    @SerialName("abierta") ABIERTA("abierta"),
-    @SerialName("opcion_multiple") OPCION_MULTIPLE("opcion_multiple"),
-    @SerialName("completar") COMPLETAR("completar"),
-    @SerialName("ordenar") ORDENAR("ordenar"),
-    @SerialName("escritura") ESCRITURA("escritura"),
-    @SerialName("cuaderno") CUADERNO("cuaderno");
+    @SerialName("abierta")
+    ABIERTA("abierta"),
+
+    @SerialName("opcion_multiple")
+    OPCION_MULTIPLE("opcion_multiple"),
+
+    @SerialName("completar")
+    COMPLETAR("completar"),
+
+    @SerialName("ordenar")
+    ORDENAR("ordenar"),
+
+    @SerialName("escritura")
+    ESCRITURA("escritura"),
+
+    @SerialName("cuaderno")
+    CUADERNO("cuaderno"),
+    ;
 
     companion object {
         fun desde(valor: String): TipoEjercicio = entries.first { it.valor == valor }
@@ -24,8 +36,12 @@ enum class TipoEjercicio(val valor: String) {
 
 @Serializable
 enum class TipoVerificador(val valor: String) {
-    @SerialName("sympy") SYMPY("sympy"),
-    @SerialName("texto") TEXTO("texto");
+    @SerialName("sympy")
+    SYMPY("sympy"),
+
+    @SerialName("texto")
+    TEXTO("texto"),
+    ;
 
     companion object {
         fun desde(valor: String): TipoVerificador = entries.first { it.valor == valor }
@@ -56,12 +72,7 @@ data class Cursos(val cursos: List<Curso>)
  * se mezclan, y el progreso de cada uno se guarda aparte.
  */
 @Serializable
-data class Curso(
-    val id: String,
-    val nombre: String,
-    val descripcion: String = "",
-    val materias: List<MateriaCurso>,
-)
+data class Curso(val id: String, val nombre: String, val descripcion: String = "", val materias: List<MateriaCurso>)
 
 @Serializable
 data class MateriaCurso(

@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.Flow
 enum class Tabla(val valor: String) {
     SESIONES("sesiones"),
     INTENTOS("intentos"),
-    PUNTOS("puntos");
+    PUNTOS("puntos"),
+    ;
 
     companion object {
         fun desde(valor: String): Tabla? = entries.firstOrNull { it.valor == valor }
@@ -78,16 +79,21 @@ class AlmacenSincro(private val db: BaseDatos, private val usuarioId: String) {
      */
     suspend fun lote(cuantos: Int): List<Cambio> {
         val cola = dao.cola(usuarioId, cuantos)
-        val ultimos = cola.groupBy { Triple(it.tabla, it.cursoId, it.ref) }.mapValues { (_, filas) -> filas.maxOf { it.id } }
+        val ultimos = cola.groupBy {
+            Triple(it.tabla, it.cursoId, it.ref)
+        }.mapValues { (_, filas) -> filas.maxOf { it.id } }
         return ultimos.mapNotNull { (clave, hasta) ->
             val (tabla, curso, ref) = clave
             val cambio = when (Tabla.desde(tabla)) {
                 Tabla.SESIONES -> dao.sesion(usuarioId, ref)?.let { Cambio.DeSesion(it, hasta) }
+
                 Tabla.INTENTOS -> dao.intento(usuarioId, ref)?.let { Cambio.DeIntento(it, hasta) }
+
                 Tabla.PUNTOS -> {
                     val motivo = ref.substringBefore(':')
                     dao.puntos(usuarioId, curso, motivo, ref.substringAfter(':'))?.let { Cambio.DePuntos(it, hasta) }
                 }
+
                 null -> null
             }
             if (cambio == null) dao.quitar(usuarioId, tabla, curso, ref, hasta)
@@ -113,33 +119,57 @@ class AlmacenSincro(private val db: BaseDatos, private val usuarioId: String) {
         val cursosConIntentos = mutableSetOf<String>()
 
         for (remota in descarga.sesiones) {
-            if (remota.usuarioId != usuarioId) { omitidos++; continue }
+            if (remota.usuarioId != usuarioId) {
+                omitidos++
+                continue
+            }
             val local = dao.sesion(usuarioId, remota.id)
             val unida = Union.sesion(local?.aDominio(), remota.aDominio())
             val fila = (local ?: remota).conSesion(unida).copy(subida = false)
             if (fila == local?.copy(subida = false)) continue
             dao.guardarSesion(fila)
-            if (fila == remota.copy(subida = false)) dao.quitarTodo(usuarioId, Tabla.SESIONES.valor, fila.cursoId, fila.id)
+            if (fila ==
+                remota.copy(subida = false)
+            ) {
+                dao.quitarTodo(usuarioId, Tabla.SESIONES.valor, fila.cursoId, fila.id)
+            }
             sesiones++
         }
 
         for (remoto in descarga.intentos) {
             // Un intento sin su sesión no se puede guardar (llave foránea): se omite hasta que llegue.
-            if (remoto.usuarioId != usuarioId || dao.sesion(usuarioId, remoto.sesionId) == null) { omitidos++; continue }
+            if (remoto.usuarioId != usuarioId ||
+                dao.sesion(usuarioId, remoto.sesionId) == null
+            ) {
+                omitidos++
+                continue
+            }
             val local = dao.intento(usuarioId, remoto.id)
             val unido = Union.intento(local?.aDominio(), remoto.aDominio())
             val fila = (local ?: remoto).conIntento(unido).copy(subida = false)
             if (fila == local?.copy(subida = false)) continue
             dao.guardarIntento(fila)
-            if (fila == remoto.copy(subida = false)) dao.quitarTodo(usuarioId, Tabla.INTENTOS.valor, fila.cursoId, fila.id)
+            if (fila ==
+                remoto.copy(subida = false)
+            ) {
+                dao.quitarTodo(usuarioId, Tabla.INTENTOS.valor, fila.cursoId, fila.id)
+            }
             cursosConIntentos += fila.cursoId
             intentos++
         }
 
         for (remotos in descarga.puntos) {
-            if (remotos.usuarioId != usuarioId) { omitidos++; continue }
+            if (remotos.usuarioId != usuarioId) {
+                omitidos++
+                continue
+            }
             if (dao.otorgar(remotos.copy(subida = false)) != -1L) {
-                dao.quitarTodo(usuarioId, Tabla.PUNTOS.valor, remotos.cursoId, "${remotos.motivo}:${remotos.referencia}")
+                dao.quitarTodo(
+                    usuarioId,
+                    Tabla.PUNTOS.valor,
+                    remotos.cursoId,
+                    "${remotos.motivo}:${remotos.referencia}",
+                )
                 puntos++
             }
         }

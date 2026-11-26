@@ -44,12 +44,7 @@ enum class ModoFormula(val css: String) {
  */
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun Formula(
-    texto: String,
-    modifier: Modifier = Modifier,
-    modo: ModoFormula = ModoFormula.TEXTO,
-    tamano: Int = 20,
-) {
+fun Formula(texto: String, modifier: Modifier = Modifier, modo: ModoFormula = ModoFormula.TEXTO, tamano: Int = 20) {
     val color = MaterialTheme.colorScheme.onSurface.toArgb()
     val html = remember(texto, modo, color, tamano) { pagina(texto, modo, color, tamano) }
     var altura by remember(html) { mutableIntStateOf(0) }

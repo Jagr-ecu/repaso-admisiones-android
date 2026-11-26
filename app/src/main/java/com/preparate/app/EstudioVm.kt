@@ -18,17 +18,17 @@ import com.preparate.dominio.Pista
 import com.preparate.dominio.ProgresoMateria
 import com.preparate.dominio.ReglaError
 import com.preparate.dominio.Resultado
+import com.preparate.dominio.Revision
 import com.preparate.dominio.Sesion
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.TipoVerificador
-import com.preparate.dominio.Revision
 import com.preparate.dominio.ayudaPermitida
+import com.preparate.dominio.esPractica
 import com.preparate.tutor.Dicho
 import com.preparate.tutor.Turno
 import com.preparate.tutor.Tutor
 import com.preparate.tutor.TutorNoDisponible
-import com.preparate.dominio.esPractica
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -64,7 +64,11 @@ data class EjercicioUi(
     val listo: Boolean
         get() = when (variante.plantilla.tipo) {
             TipoEjercicio.ORDENAR -> orden.size == variante.fragmentos.size
-            TipoEjercicio.CUADERNO -> casillas.size == variante.cuenta!!.casillas && casillas.values.all { it.isNotEmpty() }
+
+            TipoEjercicio.CUADERNO ->
+                casillas.size == variante.cuenta!!.casillas &&
+                    casillas.values.all { it.isNotEmpty() }
+
             else -> entrada.isNotBlank()
         }
 }
@@ -83,7 +87,13 @@ data class MensajeKiwi(
 )
 
 /** Cómo terminó un tema o repaso; las pruebas van a su pantalla de resultado. */
-data class FinPractica(val cierre: Cierre, val tipo: TipoSesion, val cursoId: String, val leccionId: String?, val materiaId: String)
+data class FinPractica(
+    val cierre: Cierre,
+    val tipo: TipoSesion,
+    val cursoId: String,
+    val leccionId: String?,
+    val materiaId: String,
+)
 
 /** Las pantallas de estudio de UN estudiante. */
 class EstudioVm(
@@ -95,17 +105,28 @@ class EstudioVm(
     /** Kiwi, si hay una dirección de LM Studio guardada en este dispositivo. */
     private val tutor: () -> Tutor? = { null },
 ) {
-    var ocupado by mutableStateOf(false); private set
-    @get:StringRes var bloqueo by mutableStateOf<Int?>(null); private set
-    var error by mutableStateOf<String?>(null); private set
+    var ocupado by mutableStateOf(false)
+        private set
 
-    var leccion by mutableStateOf<Leccion?>(null); private set
-    var temaAbierto by mutableStateOf<Sesion?>(null); private set
-    var vencidos by mutableStateOf<List<String>>(emptyList()); private set
-    var abiertas by mutableStateOf<List<Sesion>>(emptyList()); private set
-    var actual by mutableStateOf<EjercicioUi?>(null); private set
-    var fin by mutableStateOf<FinPractica?>(null); private set
-    var resultado by mutableStateOf<ResultadoPrueba?>(null); private set
+    @get:StringRes var bloqueo by mutableStateOf<Int?>(null)
+        private set
+    var error by mutableStateOf<String?>(null)
+        private set
+
+    var leccion by mutableStateOf<Leccion?>(null)
+        private set
+    var temaAbierto by mutableStateOf<Sesion?>(null)
+        private set
+    var vencidos by mutableStateOf<List<String>>(emptyList())
+        private set
+    var abiertas by mutableStateOf<List<Sesion>>(emptyList())
+        private set
+    var actual by mutableStateOf<EjercicioUi?>(null)
+        private set
+    var fin by mutableStateOf<FinPractica?>(null)
+        private set
+    var resultado by mutableStateOf<ResultadoPrueba?>(null)
+        private set
 
     fun progreso(cursoId: String): Flow<List<ProgresoMateria>> = estudios.observarProgreso(cursoId)
 
@@ -222,8 +243,15 @@ class EstudioVm(
             // Lo guardado en Room entra solo en la cola de subida (un trigger de la base).
             val resultado = when (v.plantilla.tipo) {
                 TipoEjercicio.ORDENAR -> estudios.responder(a.ejercicio.intento.id, a.orden.map { v.fragmentos[it] })
+
                 TipoEjercicio.CUADERNO ->
-                    estudios.responder(a.ejercicio.intento.id, (0 until v.cuenta!!.casillas).map { a.casillas[it].orEmpty() })
+                    estudios.responder(
+                        a.ejercicio.intento.id,
+                        (0 until v.cuenta!!.casillas).map {
+                            a.casillas[it].orEmpty()
+                        },
+                    )
+
                 else -> estudios.responder(a.ejercicio.intento.id, a.entrada.trim())
             }
             if (resultado.estado == EstadoRespuesta.FORMATO_INVALIDO) {
@@ -282,8 +310,15 @@ class EstudioVm(
         Dicho.Bloqueado -> MensajeKiwi(true, bloqueado = true)
     }
 
-    private fun agregar(intentoId: String, dicho: Dicho?) =
-        enEste(intentoId) { if (dicho == null) it.copy(kiwiDescansa = true) else it.copy(kiwi = it.kiwi + mensaje(dicho), kiwiDescansa = false) }
+    private fun agregar(intentoId: String, dicho: Dicho?) = enEste(intentoId) {
+        if (dicho ==
+            null
+        ) {
+            it.copy(kiwiDescansa = true)
+        } else {
+            it.copy(kiwi = it.kiwi + mensaje(dicho), kiwiDescansa = false)
+        }
+    }
 
     private fun kiwiTrasFallo(intentoId: String) = conKiwi(intentoId) { t ->
         val a = actual ?: return@conKiwi
@@ -308,7 +343,13 @@ class EstudioVm(
         val previas = actual?.kiwi.orEmpty().filter { it.pista != null }.mapNotNull { it.texto }
         val texto = t.pista(estudios.contextoTutor(intentoId), nivel, previas)
         enEste(intentoId) {
-            if (texto == null) it.copy(kiwiDescansa = true) else it.copy(kiwi = it.kiwi + MensajeKiwi(true, texto, pista = nivel), kiwiDescansa = false)
+            if (texto ==
+                null
+            ) {
+                it.copy(kiwiDescansa = true)
+            } else {
+                it.copy(kiwi = it.kiwi + MensajeKiwi(true, texto, pista = nivel), kiwiDescansa = false)
+            }
         }
     }
 

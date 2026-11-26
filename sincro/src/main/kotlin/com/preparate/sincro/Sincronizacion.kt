@@ -5,8 +5,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.Source
@@ -17,15 +17,15 @@ import com.preparate.datos.ResultadoUnion
 import com.preparate.datos.local.BaseDatos
 import com.preparate.dominio.Panel
 import com.preparate.dominio.ResumenPanel
+import java.time.Instant
+import java.time.ZoneId
+import java.util.Date
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeout
-import java.time.Instant
-import java.time.ZoneId
-import java.util.Date
 
 /** Lo que hizo una sincronización. */
 data class Informe(val bajados: Int, val subidos: Int)
@@ -84,7 +84,10 @@ class Sincronizacion(contexto: Context) {
             var q: Query = estudiante(uid).collection(coleccion)
             if (corte != null) q = q.whereGreaterThan(Documentos.ACTUALIZADO, corte)
             val docs = conTiempo { q.get(Source.SERVER).await() }.documents
-            docs.mapNotNull { it.getTimestamp(Documentos.ACTUALIZADO)?.toDate()?.time }.maxOrNull()?.let { masNuevo = maxOf(masNuevo, it) }
+            docs.mapNotNull { it.getTimestamp(Documentos.ACTUALIZADO)?.toDate()?.time }.maxOrNull()?.let {
+                masNuevo =
+                    maxOf(masNuevo, it)
+            }
             return docs
         }
 
@@ -122,15 +125,27 @@ class Sincronizacion(contexto: Context) {
     private suspend fun subirResumen(uid: String) {
         comprobarSesion(uid)
         val (sesiones, intentos) = AlmacenSincro(db, uid).todo()
-        val resumen = Panel.resumen(contenido.cursos, sesiones, intentos, Instant.now(), ZoneId.systemDefault()) { curso, i ->
-            runCatching { contenido.variantes(curso, i.plantillaId).firstOrNull { it.semilla == i.semilla }?.enunciado }.getOrNull()
+        val resumen = Panel.resumen(contenido.cursos, sesiones, intentos, Instant.now(), ZoneId.systemDefault()) {
+                curso,
+                i,
+            ->
+            runCatching {
+                contenido.variantes(curso, i.plantillaId).firstOrNull { it.semilla == i.semilla }?.enunciado
+            }.getOrNull()
         }
         conTiempo {
             estudiante(uid).collection("resumen").document("panel").set(
-                mapOf("json" to resumen.aJson(), "version" to resumen.version, Documentos.ACTUALIZADO to FieldValue.serverTimestamp()),
+                mapOf(
+                    "json" to resumen.aJson(),
+                    "version" to resumen.version,
+                    Documentos.ACTUALIZADO to FieldValue.serverTimestamp(),
+                ),
             ).await()
         }
-        estado.edit().putLong("resumen_$uid", System.currentTimeMillis()).putInt("resumen_version_$uid", resumen.version).apply()
+        estado.edit().putLong(
+            "resumen_$uid",
+            System.currentTimeMillis(),
+        ).putInt("resumen_version_$uid", resumen.version).apply()
     }
 
     private fun resumenAlDia(uid: String) =

@@ -74,17 +74,24 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     private val db by lazy { BaseDatos.abrir(app) }
     private val ajustes = app.getSharedPreferences("ajustes", Context.MODE_PRIVATE)
 
-    var sesion by mutableStateOf(cuentas.sesionGuardada()); private set
+    var sesion by mutableStateOf(cuentas.sesionGuardada())
+        private set
 
     /** El estudio del estudiante que entró; null para un admin o sin sesión. */
-    var estudio by mutableStateOf<EstudioVm?>(null); private set
-    var pantalla by mutableStateOf<Pantalla>(if (sesion == null) Pantalla.Entrar else Pantalla.Inicio); private set
-    var ocupado by mutableStateOf(false); private set
-    var error by mutableStateOf<String?>(null); private set
-    var nube by mutableStateOf(EstadoNube.SIN_REVISAR); private set
+    var estudio by mutableStateOf<EstudioVm?>(null)
+        private set
+    var pantalla by mutableStateOf<Pantalla>(if (sesion == null) Pantalla.Entrar else Pantalla.Inicio)
+        private set
+    var ocupado by mutableStateOf(false)
+        private set
+    var error by mutableStateOf<String?>(null)
+        private set
+    var nube by mutableStateOf(EstadoNube.SIN_REVISAR)
+        private set
 
     /** Al entrar: el mensaje mientras baja el progreso. */
-    @get:StringRes var paso by mutableStateOf<Int?>(null); private set
+    @get:StringRes var paso by mutableStateOf<Int?>(null)
+        private set
 
     private val uidEstudiante = MutableStateFlow(sesion?.takeIf { it.rol == Rol.ESTUDIANTE }?.uid)
 
@@ -104,10 +111,18 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         val sesionActual = e?.actual?.ejercicio?.sesion ?: e?.resultado?.cierre?.sesion
         when (val p = pantalla) {
             is Pantalla.Materia -> ir(Pantalla.Curso(p.cursoId))
+
             is Pantalla.Curso -> ir(Pantalla.Inicio)
+
             is Pantalla.Explicacion -> e?.leccion?.let { e.abrirMateria(p.cursoId, it.materia) } ?: volverAlInicio()
-            is Pantalla.Ejercicio, is Pantalla.Resultado -> sesionActual?.let { e?.abrirMateria(it.cursoId, it.materiaId) } ?: volverAlInicio()
+
+            is Pantalla.Ejercicio, is Pantalla.Resultado -> sesionActual?.let {
+                e?.abrirMateria(it.cursoId, it.materiaId)
+            }
+                ?: volverAlInicio()
+
             Pantalla.FinPractica -> e?.fin?.let { e.abrirMateria(it.cursoId, it.materiaId) } ?: volverAlInicio()
+
             else -> volverAlInicio()
         }
     }
@@ -164,24 +179,39 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     private fun texto(e: ErrorCuenta): String {
         val id = when (e.motivo) {
             MotivoCuenta.OTRO -> return textos.getString(R.string.error_inesperado, e.cause?.message.orEmpty())
+
             MotivoCuenta.USUARIO_NO_VALIDO -> when (e.problemaUsuario) {
                 ProblemaUsuario.MUY_CORTO -> R.string.cuenta_usuario_corto
                 ProblemaUsuario.MUY_LARGO -> R.string.cuenta_usuario_largo
                 ProblemaUsuario.CARACTERES, null -> R.string.cuenta_usuario_caracteres
             }
+
             MotivoCuenta.SIN_INTERNET -> R.string.cuenta_sin_internet
+
             MotivoCuenta.USUARIO_O_CLAVE -> R.string.cuenta_usuario_o_clave
+
             MotivoCuenta.USUARIO_REPETIDO -> R.string.cuenta_usuario_repetido
+
             MotivoCuenta.CLAVE_VACIA -> R.string.cuenta_clave_vacia
+
             MotivoCuenta.CLAVE_CORTA -> R.string.cuenta_clave_corta
+
             MotivoCuenta.CLAVES_DISTINTAS -> R.string.cuenta_claves_distintas
+
             MotivoCuenta.CLAVE_IGUAL -> R.string.cuenta_clave_igual
+
             MotivoCuenta.CLAVE_ACTUAL_MAL -> R.string.cuenta_clave_actual_mal
+
             MotivoCuenta.DEMASIADOS_INTENTOS -> R.string.cuenta_demasiados_intentos
+
             MotivoCuenta.FALTA_NOMBRE -> R.string.cuenta_falta_nombre
+
             MotivoCuenta.NO_PUDE_REVISAR -> R.string.cuenta_no_pude_revisar
+
             MotivoCuenta.CUENTA_NO_LISTA -> R.string.cuenta_no_lista
+
             MotivoCuenta.PERFIL_SIN_GUARDAR -> R.string.cuenta_perfil_sin_guardar
+
             MotivoCuenta.SIN_SESION -> R.string.cuenta_sin_sesion
         }
         return textos.getString(id)
@@ -228,7 +258,8 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
     }
 
     /** Con registros sin subir, la pantalla avisa antes de salir. */
-    var avisoSalir by mutableStateOf(false); private set
+    var avisoSalir by mutableStateOf(false)
+        private set
 
     fun pedirSalir() {
         if (pendientes.value > 0) avisoSalir = true else salir()
@@ -247,7 +278,13 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         } catch (e: Exception) {
             nube = EstadoNube.SIN_INTERNET
         }
-        if (pendientes.value == 0 && sincro.pendientes(uid).first() == 0) salir() else error = textos.getString(R.string.salir_no_subio)
+        if (pendientes.value == 0 &&
+            sincro.pendientes(uid).first() == 0
+        ) {
+            salir()
+        } else {
+            error = textos.getString(R.string.salir_no_subio)
+        }
     }
 
     /** Lo que no subió se queda en la tablet y sube cuando este estudiante vuelva a entrar. */
@@ -261,7 +298,8 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         ir(Pantalla.Entrar)
     }
 
-    var claveCambiada by mutableStateOf(false); private set
+    var claveCambiada by mutableStateOf(false)
+        private set
 
     fun abrirCambiarClave() {
         claveCambiada = false
@@ -274,10 +312,12 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
         claveCambiada = true
     }
 
-    var estudianteCreado by mutableStateOf<String?>(null); private set
+    var estudianteCreado by mutableStateOf<String?>(null)
+        private set
 
     /** Cuenta creada sin perfil: el botón Reintentar solo vuelve a guardar el perfil. */
-    var perfilPendiente by mutableStateOf<PerfilSinGuardar?>(null); private set
+    var perfilPendiente by mutableStateOf<PerfilSinGuardar?>(null)
+        private set
 
     fun crearEstudiante(nombre: String, usuario: String, clave: String) = tarea {
         estudianteCreado = null
@@ -306,8 +346,10 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
 
     // --- Kiwi -----------------------------------------------------------------
 
-    var direccionKiwi by mutableStateOf(ajustes.getString("kiwi", "").orEmpty()); private set
-    var estadoKiwi by mutableStateOf<EstadoKiwi>(EstadoKiwi.SinProbar); private set
+    var direccionKiwi by mutableStateOf(ajustes.getString("kiwi", "").orEmpty())
+        private set
+    var estadoKiwi by mutableStateOf<EstadoKiwi>(EstadoKiwi.SinProbar)
+        private set
 
     /** Un solo cliente por dirección: recuerda si LM Studio estaba apagado y no espera 2 s en cada pista. */
     private var cliente = ClienteKiwi(direccionKiwi)
@@ -331,7 +373,11 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
             estadoKiwi = try {
                 EstadoKiwi.Activo(modelos.first(), nuevo.saludar())
             } catch (e: Exception) {
-                EstadoKiwi.Activo(modelos.first(), null, textos.getString(R.string.kiwi_no_contesta, e.message.orEmpty()))
+                EstadoKiwi.Activo(
+                    modelos.first(),
+                    null,
+                    textos.getString(R.string.kiwi_no_contesta, e.message.orEmpty()),
+                )
             }
             // Con Kiwi encendido, se califican los Writing que esperaban.
             estudio?.calificarPendientes()
@@ -340,9 +386,12 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
 
     // --- Panel de admin -------------------------------------------------------
 
-    var estudiantes by mutableStateOf<List<FichaEstudiante>?>(null); private set
-    var respuestas by mutableStateOf<List<RespuestaSubida>?>(null); private set
-    var resumenAbierto by mutableStateOf<ResumenPanel?>(null); private set
+    var estudiantes by mutableStateOf<List<FichaEstudiante>?>(null)
+        private set
+    var respuestas by mutableStateOf<List<RespuestaSubida>?>(null)
+        private set
+    var resumenAbierto by mutableStateOf<ResumenPanel?>(null)
+        private set
 
     fun cargarEstudiantes() = tarea { estudiantes = panel.estudiantes() }
 

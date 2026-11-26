@@ -7,10 +7,13 @@ import java.text.Normalizer
 enum class EstadoRespuesta(val valor: String) {
     CORRECTA("correcta"),
     INCORRECTA("incorrecta"),
+
     /** Valor correcto, pero no en la forma pedida (sin simplificar). */
     FORMA_INCORRECTA("forma_incorrecta"),
+
     /** No se pudo leer, por ejemplo letras donde va un número. */
     FORMATO_INVALIDO("formato_invalido"),
+
     /** Escritura: la califica Kiwi con la rúbrica. */
     PENDIENTE("pendiente"),
 }
@@ -69,6 +72,7 @@ object Verificador {
 
     /** Un Writing de una o dos palabras («asdf», «no se») no es una oración: se pide de nuevo. */
     const val MIN_PALABRAS_ESCRITURA = 3
+
     // Como `[^\W\d_]` de Python: letras y números que no son cifras (², ½), sin el guion bajo.
     private const val LETRAS = """[\p{L}\p{Nl}\p{No}]+"""
     private val PALABRA = Regex("$LETRAS(?:['’]$LETRAS)?")
@@ -84,11 +88,19 @@ object Verificador {
         val plantilla = variante.plantilla
         when (plantilla.tipo) {
             TipoEjercicio.ESCRITURA -> return Resultado(
-                if (PALABRA.findAll(entrada).count() >= MIN_PALABRAS_ESCRITURA) EstadoRespuesta.PENDIENTE
-                else EstadoRespuesta.FORMATO_INVALIDO,
+                if (PALABRA.findAll(entrada).count() >= MIN_PALABRAS_ESCRITURA) {
+                    EstadoRespuesta.PENDIENTE
+                } else {
+                    EstadoRespuesta.FORMATO_INVALIDO
+                },
             )
+
             // Un texto es la cuenta como se lee: «68 340 408».
-            TipoEjercicio.CUADERNO -> return verificarCuaderno(variante, checkNotNull(variante.cuenta).desdeTexto(entrada))
+            TipoEjercicio.CUADERNO -> return verificarCuaderno(
+                variante,
+                checkNotNull(variante.cuenta).desdeTexto(entrada),
+            )
+
             else -> {}
         }
         val respuesta = checkNotNull(variante.respuesta) { "${plantilla.id}: la variante no tiene respuesta" }
@@ -129,8 +141,11 @@ object Verificador {
         val valor = when {
             g("mixto") != null -> Racional.de(g("mixto")!!.toBigInteger(), BigInteger.ONE) +
                 Racional.de(g("mnum")!!.toBigInteger(), g("mden")!!.toBigInteger())
+
             g("num") != null -> Racional.de(g("num")!!.toBigInteger(), g("den")!!.toBigInteger())
+
             g("decimal") != null -> Racional.deDecimal(g("decimal")!!)
+
             else -> Racional.de(g("entero")!!.toBigInteger(), BigInteger.ONE)
         }
         return if (g("signo") == "-" || g("signo") == "−") -valor else valor

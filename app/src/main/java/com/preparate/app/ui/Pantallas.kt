@@ -34,11 +34,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.preparate.app.AppViewModel
-import com.preparate.app.R
 import com.preparate.app.BuildConfig
 import com.preparate.app.EstadoKiwi
 import com.preparate.app.EstadoNube
 import com.preparate.app.Pantalla
+import com.preparate.app.R
 import com.preparate.dominio.EstadoNodo
 import com.preparate.dominio.ResumenPanel
 import com.preparate.dominio.TipoSesion
@@ -112,7 +112,9 @@ fun PantallaInicio(vm: AppViewModel) {
                 Text(stringResource(R.string.cambiar_mi_clave))
             }
         }
-        OutlinedButton(onClick = { vm.pedirSalir() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
+        OutlinedButton(onClick = {
+            vm.pedirSalir()
+        }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
     }
     if (vm.avisoSalir) AvisoSalir(vm, pendientes)
 }
@@ -131,12 +133,16 @@ private fun AvisoSalir(vm: AppViewModel, pendientes: Int) {
             }
         },
         confirmButton = {
-            Button(onClick = { vm.subirYSalir() }, enabled = !vm.ocupado) { Text(stringResource(R.string.salir_subir_primero)) }
+            Button(onClick = {
+                vm.subirYSalir()
+            }, enabled = !vm.ocupado) { Text(stringResource(R.string.salir_subir_primero)) }
         },
         dismissButton = {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 TextButton(onClick = { vm.cancelarSalir() }) { Text(stringResource(R.string.cancelar)) }
-                TextButton(onClick = { vm.salir() }, enabled = !vm.ocupado) { Text(stringResource(R.string.salir_igual)) }
+                TextButton(onClick = {
+                    vm.salir()
+                }, enabled = !vm.ocupado) { Text(stringResource(R.string.salir_igual)) }
             }
         },
     )
@@ -148,7 +154,10 @@ private fun InicioAdmin(vm: AppViewModel) {
     LaunchedEffect(Unit) { vm.cargarEstudiantes() }
     Marco(stringResource(R.string.panel_de, sesion.nombre.ifEmpty { sesion.usuario })) {
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = { vm.limpiarCreacion(); vm.ir(Pantalla.CrearEstudiante) }) { Text(stringResource(R.string.crear_estudiante)) }
+            Button(onClick = {
+                vm.limpiarCreacion()
+                vm.ir(Pantalla.CrearEstudiante)
+            }) { Text(stringResource(R.string.crear_estudiante)) }
             OutlinedButton(onClick = { vm.cargarEstudiantes() }) { Text(stringResource(R.string.actualizar)) }
         }
         TextoError(vm.error)
@@ -156,12 +165,17 @@ private fun InicioAdmin(vm: AppViewModel) {
         val lista = vm.estudiantes
         when {
             lista == null && vm.ocupado -> CircularProgressIndicator()
+
             lista.isNullOrEmpty() -> Text(stringResource(R.string.sin_estudiantes))
+
             else -> lista.forEach { ficha ->
                 Card(Modifier.fillMaxWidth().clickable { vm.abrirEstudiante(ficha) }) {
                     Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         Text(ficha.nombre, style = MaterialTheme.typography.titleMedium)
-                        Text(stringResource(R.string.usuario_es, ficha.usuario), style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            stringResource(R.string.usuario_es, ficha.usuario),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
                         val r = ficha.resumen
                         val ultima = r?.ultimaActividad
                         Text(
@@ -184,9 +198,15 @@ private fun InicioAdmin(vm: AppViewModel) {
             }
         }
         HorizontalDivider()
-        OutlinedButton(onClick = { vm.ir(Pantalla.Kiwi) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.kiwi_direccion_pc)) }
-        OutlinedButton(onClick = { vm.abrirCambiarClave() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.cambiar_mi_clave)) }
-        OutlinedButton(onClick = { vm.salir() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
+        OutlinedButton(onClick = {
+            vm.ir(Pantalla.Kiwi)
+        }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.kiwi_direccion_pc)) }
+        OutlinedButton(onClick = {
+            vm.abrirCambiarClave()
+        }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.cambiar_mi_clave)) }
+        OutlinedButton(onClick = {
+            vm.salir()
+        }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.salir)) }
     }
 }
 
@@ -198,15 +218,36 @@ fun PantallaCrearEstudiante(vm: AppViewModel) {
     val pendiente = vm.perfilPendiente
     Marco(stringResource(R.string.crear_estudiante), alVolver = { vm.volverAlInicio() }) {
         Text(stringResource(R.string.solo_nombre), style = MaterialTheme.typography.bodyMedium)
-        OutlinedTextField(nombre, { nombre = it }, label = { Text(stringResource(R.string.nombre)) }, singleLine = true,
-            enabled = pendiente == null, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(usuario, { usuario = it }, label = { Text(stringResource(R.string.usuario)) }, singleLine = true,
+        OutlinedTextField(
+            nombre,
+            { nombre = it },
+            label = { Text(stringResource(R.string.nombre)) },
+            singleLine = true,
+            enabled = pendiente == null,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        OutlinedTextField(
+            usuario,
+            {
+                usuario = it
+            },
+            label = { Text(stringResource(R.string.usuario)) },
+            singleLine = true,
             enabled = pendiente == null,
             supportingText = { Text(stringResource(R.string.usuario_reglas)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii), modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(clave, { clave = it }, label = { Text(stringResource(R.string.clave)) }, singleLine = true,
-            enabled = pendiente == null, supportingText = { Text(stringResource(R.string.clave_reglas)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii), modifier = Modifier.fillMaxWidth())
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        OutlinedTextField(
+            clave,
+            { clave = it },
+            label = { Text(stringResource(R.string.clave)) },
+            singleLine = true,
+            enabled = pendiente == null,
+            supportingText = { Text(stringResource(R.string.clave_reglas)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+            modifier = Modifier.fillMaxWidth(),
+        )
         TextoError(vm.error)
         vm.estudianteCreado?.let { Text(it, color = MaterialTheme.colorScheme.primary) }
         Button(
@@ -216,7 +257,19 @@ fun PantallaCrearEstudiante(vm: AppViewModel) {
             },
             enabled = !vm.ocupado,
             modifier = Modifier.fillMaxWidth(),
-        ) { Text(if (pendiente != null) stringResource(R.string.reintentar) else if (vm.ocupado) stringResource(R.string.creando) else stringResource(R.string.crear)) }
+        ) {
+            Text(
+                if (pendiente !=
+                    null
+                ) {
+                    stringResource(R.string.reintentar)
+                } else if (vm.ocupado) {
+                    stringResource(R.string.creando)
+                } else {
+                    stringResource(R.string.crear)
+                },
+            )
+        }
     }
 }
 
@@ -243,7 +296,8 @@ fun PantallaCambiarClave(vm: AppViewModel) {
 @Composable
 private fun CampoClave(valor: String, alCambiar: (String) -> Unit, etiqueta: String, ayuda: String? = null) {
     OutlinedTextField(
-        valor, alCambiar,
+        valor,
+        alCambiar,
         label = { Text(etiqueta) },
         singleLine = true,
         visualTransformation = PasswordVisualTransformation(),
@@ -273,7 +327,9 @@ fun PantallaDetalleEstudiante(vm: AppViewModel, destino: Pantalla.DetalleEstudia
         val lista = vm.respuestas
         when {
             lista == null -> CircularProgressIndicator()
+
             lista.isEmpty() -> Text(stringResource(R.string.sin_respuestas))
+
             else -> lista.forEach { intento ->
                 Card(Modifier.fillMaxWidth()) {
                     Column(Modifier.padding(12.dp)) {
@@ -282,7 +338,12 @@ fun PantallaDetalleEstudiante(vm: AppViewModel, destino: Pantalla.DetalleEstudia
                             style = MaterialTheme.typography.bodyLarge,
                         )
                         Text(
-                            stringResource(R.string.detalle_intento, intento.pistasUsadas, hora(intento.respondidoEn), hora(intento.subidoEn)),
+                            stringResource(
+                                R.string.detalle_intento,
+                                intento.pistasUsadas,
+                                hora(intento.respondidoEn),
+                                hora(intento.subidoEn),
+                            ),
                             style = MaterialTheme.typography.bodySmall,
                         )
                     }
@@ -298,8 +359,12 @@ fun PantallaKiwi(vm: AppViewModel) {
     Marco(stringResource(R.string.kiwi), alVolver = { vm.volverAlInicio() }) {
         Text(stringResource(R.string.kiwi_ayuda))
         OutlinedTextField(
-            direccion, { direccion = it }, label = { Text(stringResource(R.string.direccion)) }, singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri), modifier = Modifier.fillMaxWidth(),
+            direccion,
+            { direccion = it },
+            label = { Text(stringResource(R.string.direccion)) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+            modifier = Modifier.fillMaxWidth(),
         )
         Button(
             onClick = { vm.probarKiwi(direccion) },
@@ -308,18 +373,23 @@ fun PantallaKiwi(vm: AppViewModel) {
         ) { Text(stringResource(R.string.guardar_probar)) }
         when (val estado = vm.estadoKiwi) {
             EstadoKiwi.SinProbar -> Unit
+
             EstadoKiwi.Probando -> Text(stringResource(R.string.kiwi_buscando))
+
             EstadoKiwi.Apagado -> Text(
                 stringResource(R.string.kiwi_apagado),
                 color = MaterialTheme.colorScheme.error,
             )
+
             is EstadoKiwi.Activo -> {
                 Text(stringResource(R.string.kiwi_activo, estado.modelo), color = MaterialTheme.colorScheme.primary)
                 when {
                     estado.saludo != null -> Card(Modifier.fillMaxWidth()) {
                         Text(stringResource(R.string.kiwi_dice, estado.saludo), Modifier.padding(16.dp))
                     }
+
                     estado.error != null -> TextoError(estado.error)
+
                     else -> Text(stringResource(R.string.kiwi_pensando))
                 }
             }
@@ -354,7 +424,16 @@ private fun DetalleResumen(r: ResumenPanel) {
     r.materias.forEach { m ->
         HorizontalDivider()
         Text(m.nombre, style = MaterialTheme.typography.titleLarge)
-        Text(stringResource(R.string.panel_materia_avance, m.temasHechos, m.temasTotal, m.seccionesAprobadas, m.seccionesTotal, m.minutos))
+        Text(
+            stringResource(
+                R.string.panel_materia_avance,
+                m.temasHechos,
+                m.temasTotal,
+                m.seccionesAprobadas,
+                m.seccionesTotal,
+                m.minutos,
+            ),
+        )
         val examen = when (m.examen) {
             EstadoNodo.COMPLETADO.valor -> R.string.panel_examen_completado
             EstadoNodo.DISPONIBLE.valor -> R.string.panel_examen_disponible
@@ -377,13 +456,19 @@ private fun DetalleResumen(r: ResumenPanel) {
                         stringResource(if (n.aprobada == true) R.string.bien_marca else R.string.mal_marca),
                     )
                 } ?: stringResource(R.string.panel_nota_pendiente)
-                Text(stringResource(R.string.panel_nota, nombre, fecha(n.fecha), nota), style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    stringResource(R.string.panel_nota, nombre, fecha(n.fecha), nota),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
             }
         }
         if (m.temas.isNotEmpty()) {
             Text(stringResource(R.string.panel_temas), style = MaterialTheme.typography.titleSmall)
             m.temas.forEach { t ->
-                Text(stringResource(R.string.panel_tema, t.titulo, t.fallos, t.respondidos, t.conPista), style = MaterialTheme.typography.bodyMedium)
+                Text(
+                    stringResource(R.string.panel_tema, t.titulo, t.fallos, t.respondidos, t.conPista),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
             }
         }
     }

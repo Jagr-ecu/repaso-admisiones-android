@@ -3,11 +3,11 @@ package com.preparate.sincro
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.preparate.dominio.ResumenPanel
+import java.time.Instant
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
-import java.time.Instant
 
 /** Un estudiante en la lista del admin. `resumen` es null si su dispositivo aún no lo subió. */
 data class FichaEstudiante(val uid: String, val nombre: String, val usuario: String, val resumen: ResumenPanel?)

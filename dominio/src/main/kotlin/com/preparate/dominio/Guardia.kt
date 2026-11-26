@@ -38,7 +38,9 @@ object Guardia {
         if (plantilla.verificador == TipoVerificador.SYMPY) {
             val compacta = compacto(respuesta)
             val vistos = (listOf(variante.enunciado) + aLaVista).flatMap(::numeros).toSet() - compacta
-            return numeros(texto).any { n -> compacto(n) !in vistos && Verificador.equivalentes(plantilla, n, respuesta) }
+            return numeros(texto).any { n ->
+                compacto(n) !in vistos && Verificador.equivalentes(plantilla, n, respuesta)
+            }
         }
         val buscada = Verificador.normalizar(respuesta, ignorarTildes = true)
         if (buscada.isEmpty()) return false

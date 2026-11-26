@@ -1,11 +1,11 @@
 package com.preparate.dominio
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 /*
  * El resumen que ve el admin. Puerto de app/domain/panel.py, sin las conversaciones con Kiwi,
@@ -172,14 +172,30 @@ object Panel {
         return minOf(MINUTOS_MAXIMOS_POR_SESION, redondeados).toInt()
     }
 
-    private fun materia(curso: Curso, m: MateriaCurso, sesiones: List<Sesion>, intentos: List<Intento>, minutos: Int): MateriaPanel {
+    private fun materia(
+        curso: Curso,
+        m: MateriaCurso,
+        sesiones: List<Sesion>,
+        intentos: List<Intento>,
+        minutos: Int,
+    ): MateriaPanel {
         val progreso = calcularProgreso(m, Estudio.historial(sesiones))
         val nombres = m.secciones.associate { it.id to it.nombre }
         val notas = sesiones
             .filter { (it.tipo == TipoSesion.PRUEBA_SECCION || it.tipo == TipoSesion.EXAMEN_FINAL) && it.fin != null }
             .sortedByDescending { it.fin }
             .take(NOTAS_POR_MATERIA)
-            .map { NotaPanel(it.tipo.valor, it.seccionId?.let { id -> nombres[id] ?: id }, it.fin!!.toEpochMilli(), it.nota, it.aprobada) }
+            .map {
+                NotaPanel(
+                    it.tipo.valor,
+                    it.seccionId?.let { id ->
+                        nombres[id] ?: id
+                    },
+                    it.fin!!.toEpochMilli(),
+                    it.nota,
+                    it.aprobada,
+                )
+            }
         return MateriaPanel(
             cursoId = curso.id,
             materiaId = m.id,

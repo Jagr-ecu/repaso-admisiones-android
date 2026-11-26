@@ -1,5 +1,8 @@
 package com.preparate.dominio
 
+import java.io.File
+import java.time.Instant
+import kotlin.random.Random
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -7,9 +10,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
-import java.time.Instant
-import kotlin.random.Random
 
 /** El paquete que va en el APK, leído desde el disco. */
 object PaqueteDePrueba {
@@ -21,7 +21,8 @@ object PaqueteDePrueba {
 
     fun materia(id: String) = curso.materias.single { it.id == id }
     fun leccion(id: String) = Paquete.leccion(leer("admisiones/lecciones/$id.json"))
-    fun variantes(id: String) = plantillas.getOrPut(id) { Paquete.plantilla(leer("admisiones/variantes/$id.json")) }.variantes
+    fun variantes(id: String) =
+        plantillas.getOrPut(id) { Paquete.plantilla(leer("admisiones/variantes/$id.json")) }.variantes
 }
 
 /** Puerto de los tests de reglas, pruebas y cuaderno de la web, sobre la lógica pura. */
@@ -46,11 +47,21 @@ class EstudioTest {
 
     private fun nuevo(plantillaId: String, sesion: String = "s1"): Intento {
         val v = PaqueteDePrueba.variantes(plantillaId)[siguienteId % 5]
-        return Intento("i${siguienteId++}", sesion, plantillaId, v.plantilla.concepto, v.plantilla.version, v.semilla, v.huella, ahora)
+        return Intento(
+            "i${siguienteId++}",
+            sesion,
+            plantillaId,
+            v.plantilla.concepto,
+            v.plantilla.version,
+            v.semilla,
+            v.huella,
+            ahora,
+        )
     }
 
     private fun responder(i: Intento, bien: Boolean) = i.copy(
-        respondido = ahora, correcta = bien,
+        respondido = ahora,
+        correcta = bien,
         estado = if (bien) EstadoRespuesta.CORRECTA else EstadoRespuesta.INCORRECTA,
     )
 
@@ -113,7 +124,8 @@ class EstudioTest {
 
     @Test
     fun unWritingConNotaBajaNoEsUnErrorDelTemaPeroSiEnLaPrueba() {
-        val escrito = Intento("w", "s", "p", "c", "v", 1, "h", ahora, respondido = ahora, estado = EstadoRespuesta.PENDIENTE)
+        val escrito =
+            Intento("w", "s", "p", "c", "v", 1, "h", ahora, respondido = ahora, estado = EstadoRespuesta.PENDIENTE)
         val calificado = Estudio.registrarEscritura(escrito, 5.0)
         assertEquals(false, calificado.correcta)
         assertTrue(Estudio.fallos(listOf(calificado)).isEmpty())
@@ -149,8 +161,14 @@ class EstudioTest {
 
     private val matematica = PaqueteDePrueba.materia("matematica")
 
-    private fun prueba(conceptos: List<String>, cantidad: Int, vistas: Map<String, Set<String>> = emptyMap(), semilla: Int = 1) =
-        Estudio.preguntasDePrueba(matematica, conceptos, cantidad, Random(semilla), PaqueteDePrueba::variantes) { vistas[it].orEmpty() }
+    private fun prueba(
+        conceptos: List<String>,
+        cantidad: Int,
+        vistas: Map<String, Set<String>> = emptyMap(),
+        semilla: Int = 1,
+    ) = Estudio.preguntasDePrueba(matematica, conceptos, cantidad, Random(semilla), PaqueteDePrueba::variantes) {
+        vistas[it].orEmpty()
+    }
 
     @Test
     fun laPruebaDeSeccionTiene10PreguntasQueAlternanLosConceptos() {
@@ -166,7 +184,10 @@ class EstudioTest {
     fun laPruebaNoRepiteEjerciciosYaVistos() {
         val concepto = "mat.fracciones.suma-igual-denominador"
         val plantillas = matematica.secciones.flatMap { it.plantillas }.filter { it.concepto == concepto }
-        val vistas = plantillas.associate { p -> p.id to PaqueteDePrueba.variantes(p.id).drop(3).map { it.huella }.toSet() }
+        val vistas = plantillas.associate { p ->
+            p.id to
+                PaqueteDePrueba.variantes(p.id).drop(3).map { it.huella }.toSet()
+        }
         val preguntas = prueba(listOf(concepto), 3, vistas)
         assertTrue(preguntas.none { it.huella in vistas.getValue(it.plantilla.id) })
     }
@@ -177,7 +198,15 @@ class EstudioTest {
         val conector = ingles.secciones.flatMap { it.plantillas }.single { it.id.endsWith(".connector") }
         val plantilla = PaqueteDePrueba.variantes(conector.id).first().plantilla
         assertEquals(3, plantilla.opcionesFijas.size)
-        val preguntas = Estudio.preguntasDePrueba(ingles, listOf(conector.concepto), 3, Random(5), PaqueteDePrueba::variantes) { emptySet() }
+        val preguntas = Estudio.preguntasDePrueba(
+            ingles,
+            listOf(conector.concepto),
+            3,
+            Random(5),
+            PaqueteDePrueba::variantes,
+        ) {
+            emptySet()
+        }
             .filter { it.plantilla.id == conector.id }
         assertEquals(preguntas.size, preguntas.map { it.respuesta }.toSet().size)
     }
@@ -189,18 +218,35 @@ class EstudioTest {
             if (n < 7) responder(i, true) else i
         }
         assertEquals(NotaPrueba(7.0, true), Estudio.calificarPrueba(intentos))
-        assertEquals(NotaPrueba(6.0, false), Estudio.calificarPrueba(intentos.mapIndexed { n, i -> if (n == 0) responder(i, false) else i }))
+        assertEquals(
+            NotaPrueba(6.0, false),
+            Estudio.calificarPrueba(
+                intentos.mapIndexed { n, i ->
+                    if (n ==
+                        0
+                    ) {
+                        responder(i, false)
+                    } else {
+                        i
+                    }
+                },
+            ),
+        )
     }
 
     @Test
     fun conUnWritingSinCalificarLaPruebaQuedaPendiente() {
-        val escrito = Intento("w", "p", "x", "c", "v", 1, "h", ahora, respondido = ahora, estado = EstadoRespuesta.PENDIENTE)
+        val escrito =
+            Intento("w", "p", "x", "c", "v", 1, "h", ahora, respondido = ahora, estado = EstadoRespuesta.PENDIENTE)
         assertTrue(Estudio.calificarPrueba(listOf(escrito)).pendiente)
     }
 
     @Test
     fun alReprobarSeRepasanLosTemasConMasErrores() {
-        val intentos = listOf("a" to false, "b" to false, "b" to false, "c" to true, "a" to true).mapIndexed { n, (c, ok) ->
+        val intentos = listOf("a" to false, "b" to false, "b" to false, "c" to true, "a" to true).mapIndexed {
+                n,
+                (c, ok),
+            ->
             responder(Intento("$n", "p", "x", c, "v", n, "h", ahora), ok)
         }
         assertEquals(listOf("b", "a"), Estudio.temasParaRepasar(intentos))
@@ -227,12 +273,28 @@ class EstudioTest {
         val fracciones = matematica.secciones.single { it.id == "fracciones" }
         val temas = fracciones.lecciones.map { it.id }.toSet()
         val sinTerminar = calcularProgreso(matematica, Historial(temas.drop(1).toSet()))
-        assertEquals(Bloqueo.PRUEBA_BLOQUEADA, assertThrows(ReglaError::class.java) { Estudio.comprobarPrueba(sinTerminar, "fracciones") }.motivo)
+        assertEquals(
+            Bloqueo.PRUEBA_BLOQUEADA,
+            assertThrows(ReglaError::class.java) {
+                Estudio.comprobarPrueba(sinTerminar, "fracciones")
+            }.motivo,
+        )
         val listos = calcularProgreso(matematica, Historial(temas))
         assertEquals(fracciones.lecciones.map { it.concepto }.distinct(), Estudio.comprobarPrueba(listos, "fracciones"))
-        val reprobo = calcularProgreso(matematica, Historial(temas, listOf(ResultadoPrueba("fracciones", false, ahora))))
-        assertEquals(Bloqueo.REPASO_REQUERIDO, assertThrows(ReglaError::class.java) { Estudio.comprobarPrueba(reprobo, "fracciones") }.motivo)
-        assertEquals(Bloqueo.EXAMEN_BLOQUEADO, assertThrows(ReglaError::class.java) { Estudio.comprobarExamen(listos) }.motivo)
+        val reprobo =
+            calcularProgreso(matematica, Historial(temas, listOf(ResultadoPrueba("fracciones", false, ahora))))
+        assertEquals(
+            Bloqueo.REPASO_REQUERIDO,
+            assertThrows(ReglaError::class.java) {
+                Estudio.comprobarPrueba(reprobo, "fracciones")
+            }.motivo,
+        )
+        assertEquals(
+            Bloqueo.EXAMEN_BLOQUEADO,
+            assertThrows(ReglaError::class.java) {
+                Estudio.comprobarExamen(listos)
+            }.motivo,
+        )
     }
 
     @Test
@@ -250,21 +312,36 @@ class EstudioTest {
         val conceptos = listOf("mat.fracciones.suma-igual-denominador", "mat.fracciones.equivalentes")
         val sesion = Sesion("r", TipoSesion.REPASO, "admisiones", "matematica", conceptos = conceptos, inicio = ahora)
         val azar = Random(3)
-        val elegidas = (0 until Reglas.EJERCICIOS_REPASO).map { Estudio.siguienteDeRepaso(matematica, sesion, it, azar)!! }
+        val elegidas = (0 until Reglas.EJERCICIOS_REPASO).map {
+            Estudio.siguienteDeRepaso(matematica, sesion, it, azar)!!
+        }
         assertTrue(elegidas.all { it.id.startsWith("mat.") })
-        assertEquals(listOf(conceptos[0], conceptos[1], conceptos[0], conceptos[1], conceptos[0]), elegidas.map { it.concepto })
+        assertEquals(
+            listOf(conceptos[0], conceptos[1], conceptos[0], conceptos[1], conceptos[0]),
+            elegidas.map {
+                it.concepto
+            },
+        )
         assertNull(Estudio.siguienteDeRepaso(matematica, sesion, Reglas.EJERCICIOS_REPASO, azar))
     }
 
     @Test
     fun elRepasoLibreTomaLosConceptosMasAtrasados() {
         val proximas = mapOf(
-            "a" to ahora.minusSeconds(10), "b" to ahora.minusSeconds(1000), "c" to ahora.plusSeconds(60),
-            "d" to ahora.minusSeconds(5), "e" to ahora.minusSeconds(7), "f" to ahora.minusSeconds(8),
+            "a" to ahora.minusSeconds(10),
+            "b" to ahora.minusSeconds(1000),
+            "c" to ahora.plusSeconds(60),
+            "d" to ahora.minusSeconds(5),
+            "e" to ahora.minusSeconds(7),
+            "f" to ahora.minusSeconds(8),
         )
         assertEquals(listOf("b", "a", "f", "e"), Estudio.conceptosDelRepasoLibre(proximas, ahora))
-        assertEquals(Bloqueo.NADA_PARA_REPASAR,
-            assertThrows(ReglaError::class.java) { Estudio.conceptosDelRepasoLibre(mapOf("c" to ahora.plusSeconds(1)), ahora) }.motivo)
+        assertEquals(
+            Bloqueo.NADA_PARA_REPASAR,
+            assertThrows(ReglaError::class.java) {
+                Estudio.conceptosDelRepasoLibre(mapOf("c" to ahora.plusSeconds(1)), ahora)
+            }.motivo,
+        )
     }
 
     // --- Cuaderno ---------------------------------------------------------------------

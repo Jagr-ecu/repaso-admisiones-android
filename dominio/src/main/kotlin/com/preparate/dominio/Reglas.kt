@@ -8,8 +8,7 @@ enum class TipoSesion(val valor: String) {
     EXAMEN_FINAL("examen_final"),
 }
 
-fun esPractica(tipo: TipoSesion): Boolean =
-    tipo == TipoSesion.LECCION || tipo == TipoSesion.REPASO
+fun esPractica(tipo: TipoSesion): Boolean = tipo == TipoSesion.LECCION || tipo == TipoSesion.REPASO
 
 /**
  * Regla 3: tutor y pistas solo en práctica; en pruebas y exámenes, nunca.
@@ -65,7 +64,10 @@ object Reglas {
      * Conceptos con más fallos en una prueba, para el repaso tras reprobar. `resultados` son pares
      * (concepto, correcta). Los empates se resuelven por orden de aparición en la prueba.
      */
-    fun temasConMasErrores(resultados: List<Pair<String, Boolean>>, cuantos: Int = TEMAS_REPASO_TRAS_REPROBAR): List<String> {
+    fun temasConMasErrores(
+        resultados: List<Pair<String, Boolean>>,
+        cuantos: Int = TEMAS_REPASO_TRAS_REPROBAR,
+    ): List<String> {
         val fallos = LinkedHashMap<String, Int>()
         for ((concepto, correcta) in resultados) {
             fallos[concepto] = (fallos[concepto] ?: 0) + if (correcta) 0 else 1

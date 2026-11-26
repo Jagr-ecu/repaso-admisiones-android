@@ -56,7 +56,8 @@ class ReglasReferenciaTest {
     fun calificacionDelRepaso() {
         for (caso in lista("calificacion_memoria")) {
             val r = Reglas.calificacionMemoria(
-                caso.getValue("correcta").jsonPrimitive.boolean, caso.getValue("pistas").jsonPrimitive.int,
+                caso.getValue("correcta").jsonPrimitive.boolean,
+                caso.getValue("pistas").jsonPrimitive.int,
             )
             assertEquals(caso.toString(), caso.getValue("calificacion").jsonPrimitive.int, r.valor)
         }
@@ -66,10 +67,15 @@ class ReglasReferenciaTest {
     fun temasConMasErrores() {
         for (caso in lista("temas_con_mas_errores")) {
             val resultados = caso.getValue("resultados").jsonArray.map {
-                it.jsonObject.getValue("concepto").jsonPrimitive.content to it.jsonObject.getValue("correcta").jsonPrimitive.boolean
+                it.jsonObject.getValue("concepto").jsonPrimitive.content to
+                    it.jsonObject.getValue("correcta").jsonPrimitive.boolean
             }
             val esperados = caso.getValue("conceptos").jsonArray.map { it.jsonPrimitive.content }
-            assertEquals(caso.toString(), esperados, Reglas.temasConMasErrores(resultados, caso.getValue("cuantos").jsonPrimitive.int))
+            assertEquals(
+                caso.toString(),
+                esperados,
+                Reglas.temasConMasErrores(resultados, caso.getValue("cuantos").jsonPrimitive.int),
+            )
         }
     }
 }
