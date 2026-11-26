@@ -66,7 +66,8 @@ El APK queda en `app/build/outputs/apk/debug/app-debug.apk`. En Windows, usa el 
 | Lógica del dominio (JVM, rápido) | `./gradlew :dominio:test` |
 | Kiwi: puerta de ayuda, guardia, Writing (JVM) | `./gradlew :tutor:test` |
 | Todos los tests de la JVM | `./gradlew test` |
-| Formato, detekt, lint y tests (antes de cada PR) | `./gradlew check` |
+| Formato, detekt, lint, tests y cobertura (antes de cada PR) | `./gradlew check` |
+| Informe de cobertura de `:dominio` y `:tutor` | `./gradlew koverHtmlReport` |
 | Corregir el formato | `./gradlew spotlessApply` |
 | Room, sincronización y migraciones (emulador abierto) | `./gradlew :datos:connectedDebugAndroidTest` |
 | Reglas de Firestore (emulador de Firebase) | `cd pruebas-reglas && npm install && npm test` |
