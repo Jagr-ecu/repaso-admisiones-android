@@ -23,6 +23,7 @@ ktlint = "1.8.0"
 detekt = "1.23.8"
 kover = "0.9.9"
 konsist = "0.18.1"
+cyclonedx = "3.6.1"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -66,3 +67,4 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+cyclonedx = { id = "org.cyclonedx.bom", version.ref = "cyclonedx" }
