@@ -1,6 +1,7 @@
 package com.preparate.tutor
 
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -41,7 +42,10 @@ interface Modelo {
  */
 class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::currentTimeMillis) : Modelo {
     val base: String = normalizar(direccion)
-    val configurado: Boolean get() = base.isNotEmpty()
+
+    /** La dirección apunta a la red de la casa. Si no, Kiwi no se usa: el chat no sale sin cifrar (ADR-0018). */
+    val deRedLocal: Boolean = esDeRedLocal(base)
+    val configurado: Boolean get() = base.isNotEmpty() && deRedLocal
 
     @Volatile private var apagadoHasta = 0L
 
@@ -117,6 +121,8 @@ class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::cur
         val conexion = URL(base + ruta).openConnection() as HttpURLConnection
         try {
             conexion.requestMethod = metodo
+            // Una redirección podría llevar el chat fuera de la red local.
+            conexion.instanceFollowRedirects = false
             conexion.connectTimeout = minOf(timeoutMs, TIMEOUT_COMPROBACION_MS)
             conexion.readTimeout = timeoutMs
             if (cuerpo != null) {
@@ -151,5 +157,52 @@ class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::cur
             if (!d.startsWith("http://") && !d.startsWith("https://")) d = "http://$d"
             return d.removeSuffix("/v1").trimEnd('/')
         }
+
+        /**
+         * La dirección (ya normalizada) es de la red local: IP privada (10/8, 172.16/12, 192.168/16), de enlace
+         * local (169.254/16, fe80::/10), local de IPv6 (fc00::/7), el propio dispositivo (127/8, ::1, localhost),
+         * un nombre `.local`, `.lan` o `.home.arpa`, o un nombre sin punto. No consulta el DNS: solo mira el texto.
+         */
+        fun esDeRedLocal(base: String): Boolean {
+            val host = runCatching { URI(base).host }.getOrNull()?.lowercase()?.removeSurrounding("[", "]")
+            return when {
+                host.isNullOrEmpty() -> false
+                host == "localhost" -> true
+                ':' in host -> esIpv6Local(host)
+                Regex("""\d{1,3}(\.\d{1,3}){3}""").matches(host) -> esIpv4Local(host)
+                SUFIJOS_LOCALES.any { host.endsWith(it) } -> true
+                else -> '.' !in host
+            }
+        }
+
+        private val SUFIJOS_LOCALES = listOf(".local", ".lan", ".home.arpa")
+
+        /** Privadas (RFC 1918), el propio dispositivo y enlace local. */
+        private val REDES_IPV4_LOCALES =
+            listOf("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "127.0.0.0/8", "169.254.0.0/16")
+
+        /** Locales únicas (fc00::/7) y enlace local (fe80::/10). El propio dispositivo (::1) se compara aparte. */
+        private val PREFIJOS_IPV6_LOCALES = listOf("fc", "fd", "fe8", "fe9", "fea", "feb")
+
+        private const val BITS_POR_OCTETO = 8
+        private const val MAX_OCTETO = 255
+        private const val BITS_IPV4 = 32
+
+        private fun ipv4ANumero(ip: String): Long? {
+            val octetos = ip.split('.').map { it.toInt() }
+            if (octetos.any { it > MAX_OCTETO }) return null
+            return octetos.fold(0L) { acc, o -> (acc shl BITS_POR_OCTETO) or o.toLong() }
+        }
+
+        private fun esIpv4Local(ip: String): Boolean {
+            val numero = ipv4ANumero(ip) ?: return false
+            return REDES_IPV4_LOCALES.any { red ->
+                val (inicio, bits) = red.split('/')
+                val desplazamiento = BITS_IPV4 - bits.toInt()
+                (numero shr desplazamiento) == (ipv4ANumero(inicio)!! shr desplazamiento)
+            }
+        }
+
+        private fun esIpv6Local(ip: String): Boolean = ip == "::1" || PREFIJOS_IPV6_LOCALES.any { ip.startsWith(it) }
     }
 }

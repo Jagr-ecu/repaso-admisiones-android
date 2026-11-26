@@ -100,6 +100,47 @@ class ClienteKiwiTest {
         assertTrue(peticiones.isEmpty())
     }
 
+    // --- Solo la red local (ADR-0018) ----------------------------------------------------------
+
+    @Test
+    fun aceptaLasDireccionesDeLaRedDeCasa() {
+        val locales = listOf(
+            "192.168.1.50:1234", "10.0.0.5:1234", "172.16.0.1:1234", "172.31.255.254:1234", "169.254.3.4:1234",
+            "127.0.0.1:1234", "localhost:1234", "http://pc-casa.local:1234", "pc.lan:1234", "pc.home.arpa:1234",
+            "pc-casa:1234", "http://[fe80::1]:1234", "http://[fd12:3456::1]:1234", "http://[::1]:1234",
+        )
+        for (d in locales) assertTrue(d, ClienteKiwi(d).deRedLocal)
+    }
+
+    @Test
+    fun rechazaLasDireccionesDeInternet() {
+        val deInternet = listOf(
+            "8.8.8.8:1234", "172.32.0.1:1234", "172.15.0.1:1234", "192.169.1.1:1234", "11.0.0.1:1234",
+            "999.168.1.1:1234", "mi-servidor.com:1234", "https://api.ejemplo.org", "pc.local.ejemplo.com:1234",
+            "localhost.ejemplo.com:1234", "http://[2001:db8::1]:1234", "",
+        )
+        for (d in deInternet) assertFalse(d, ClienteKiwi(d).deRedLocal)
+    }
+
+    @Test
+    fun conUnaDireccionDeInternetNoLlamaANadie() = runBlocking<Unit> {
+        val kiwi = cliente("8.8.8.8:1234")
+        assertFalse(kiwi.configurado)
+        assertNull(kiwi.modelos())
+        assertThrows(TutorNoDisponible::class.java) { runBlocking { kiwi.chat(pregunta) } }
+    }
+
+    @Test
+    fun noSigueRedireccionesFueraDeLaRedLocal() = runBlocking<Unit> {
+        servidor.removeContext("/v1/models")
+        servidor.createContext("/v1/models") {
+            it.responseHeaders.add("Location", "http://8.8.8.8:1234/v1/models")
+            it.sendResponseHeaders(302, -1)
+            it.close()
+        }
+        assertNull(cliente().modelos())
+    }
+
     // --- Modelos -------------------------------------------------------------------------------
 
     @Test

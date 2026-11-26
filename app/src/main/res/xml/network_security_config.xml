@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  LM Studio en el PC de la casa solo habla HTTP sin cifrar, y su IP la elige el admin
-  (no se puede listar de antemano). Por eso se permite HTTP. Firebase sigue usando HTTPS.
+  HTTP sin cifrar solo hacia la red de la casa (ADR-0018).
+
+  LM Studio, en el PC de la casa, solo habla HTTP, y su IP la elige el admin. Android no deja permitir HTTP
+  por rangos de IP, así que:
+  1. Por defecto se permite HTTP (base-config): así funciona cualquier IP del PC.
+  2. Firebase y Google, siempre por HTTPS (domain-config): Android bloquea cualquier petición http:// a ellos,
+     también las del SDK de Firebase.
+  3. ClienteKiwi (:tutor) solo acepta direcciones de la red local (ClienteKiwi.esDeRedLocal), con sus tests.
 -->
 <network-security-config>
     <base-config cleartextTrafficPermitted="true" />
+
+    <domain-config cleartextTrafficPermitted="false">
+        <!-- Firestore, Auth y el resto de API de Google -->
+        <domain includeSubdomains="true">googleapis.com</domain>
+        <domain includeSubdomains="true">firebaseio.com</domain>
+        <domain includeSubdomains="true">firebaseapp.com</domain>
+        <domain includeSubdomains="true">firebase.com</domain>
+        <domain includeSubdomains="true">google.com</domain>
+        <domain includeSubdomains="true">gstatic.com</domain>
+    </domain-config>
 </network-security-config>

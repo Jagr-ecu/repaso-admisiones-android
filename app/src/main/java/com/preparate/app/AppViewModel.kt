@@ -56,6 +56,9 @@ sealed interface EstadoKiwi {
     data object Probando : EstadoKiwi
     data class Activo(val modelo: String, val saludo: String?, val error: String? = null) : EstadoKiwi
     data object Apagado : EstadoKiwi
+
+    /** La dirección no es de la red de la casa: no se guarda ni se usa (ADR-0018). */
+    data object NoLocal : EstadoKiwi
 }
 
 /** Cómo va la copia en la nube del estudiante que entró. */
@@ -359,6 +362,10 @@ class AppViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun probarKiwi(direccion: String) {
         val nuevo = ClienteKiwi(direccion)
+        if (nuevo.base.isNotEmpty() && !nuevo.deRedLocal) {
+            estadoKiwi = EstadoKiwi.NoLocal
+            return
+        }
         cliente = nuevo
         direccionKiwi = nuevo.base
         ajustes.edit().putString("kiwi", nuevo.base).apply()

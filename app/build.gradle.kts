@@ -29,6 +29,7 @@ android {
         // Cada APK que se instala encima de otro necesita un versionCode mayor.
         versionCode = 1
         versionName = "0.1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         if (firma != null) {
@@ -73,4 +74,8 @@ dependencies {
     implementation(libs.compose.material3.window)
     implementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)
+
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.test.runner)
 }

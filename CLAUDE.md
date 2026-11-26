@@ -34,7 +34,7 @@ arquitectura/  solo tests: reglas de módulos y de datos con Konsist (`./gradlew
 - Antes de cada PR: `./gradlew check` (formato con Spotless/ktlint, detekt, lint, tests y cobertura mínima de 70 % en `:dominio` y `:tutor` con Kover; informe con `./gradlew koverHtmlReport`). `./gradlew spotlessApply` corrige el formato; `./gradlew detektBaseline` regenera el baseline, solo si se acepta deuda a propósito
 - APK firmado: `./gradlew :app:assembleRelease`. Necesita `keystore.properties` en la raíz (ver `app/build.gradle.kts`); sin él, sale sin firmar
 - Traspasar el progreso de la web a una cuenta: `python herramientas/traspasar.py --usuario <usuario>` (solo muestra) y luego con `--subir`
-- Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
+- Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`. La política de red (HTTP solo hacia la red local): `./gradlew :app:connectedDebugAndroidTest`
 - Reglas de Firestore con su emulador: `npm test` dentro de `pruebas-reglas/` (ver su README)
 - Regenerar el contenido y los casos de referencia, desde la carpeta del proyecto web:
   `.venv/Scripts/python.exe -m app.cli exportar-paquete ../repaso-admisiones-android/app/src/main/assets/contenido --borradores`

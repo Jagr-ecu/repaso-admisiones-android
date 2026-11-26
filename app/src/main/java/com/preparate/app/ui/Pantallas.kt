@@ -381,6 +381,11 @@ fun PantallaKiwi(vm: AppViewModel) {
                 color = MaterialTheme.colorScheme.error,
             )
 
+            EstadoKiwi.NoLocal -> Text(
+                stringResource(R.string.kiwi_no_local),
+                color = MaterialTheme.colorScheme.error,
+            )
+
             is EstadoKiwi.Activo -> {
                 Text(stringResource(R.string.kiwi_activo, estado.modelo), color = MaterialTheme.colorScheme.primary)
                 when {
