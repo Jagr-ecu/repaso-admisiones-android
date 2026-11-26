@@ -10,18 +10,18 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.preparate.app.ui.Disposicion
 import com.preparate.app.ui.LocalDisposicion
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.preparate.app.ui.PantallaCambiarClave
 import com.preparate.app.ui.PantallaCrearEstudiante
-import com.preparate.app.ui.PantallaDetalleEstudiante
-import com.preparate.app.ui.PantallaEntrar
-import com.preparate.app.ui.PantallaInicio
 import com.preparate.app.ui.PantallaCurso
+import com.preparate.app.ui.PantallaDetalleEstudiante
 import com.preparate.app.ui.PantallaEjercicio
+import com.preparate.app.ui.PantallaEntrar
 import com.preparate.app.ui.PantallaExplicacion
 import com.preparate.app.ui.PantallaFinPractica
+import com.preparate.app.ui.PantallaInicio
 import com.preparate.app.ui.PantallaKiwi
 import com.preparate.app.ui.PantallaMateria
 import com.preparate.app.ui.PantallaResultado
@@ -34,7 +34,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val clase = calculateWindowSizeClass(this)
-            val disposicion = if (clase.widthSizeClass == WindowWidthSizeClass.Expanded) Disposicion.TABLET else Disposicion.CELULAR
+            val disposicion = if (clase.widthSizeClass ==
+                WindowWidthSizeClass.Expanded
+            ) {
+                Disposicion.TABLET
+            } else {
+                Disposicion.CELULAR
+            }
             CompositionLocalProvider(LocalDisposicion provides disposicion) {
                 TemaPreparate {
                     App(viewModel())
@@ -51,19 +57,29 @@ fun App(vm: AppViewModel) {
     val estudio = vm.estudio
     when (pantalla) {
         Pantalla.Entrar -> PantallaEntrar(vm)
+
         Pantalla.Inicio -> PantallaInicio(vm)
+
         Pantalla.Kiwi -> PantallaKiwi(vm)
+
         Pantalla.CrearEstudiante -> PantallaCrearEstudiante(vm)
+
         Pantalla.CambiarClave -> PantallaCambiarClave(vm)
+
         is Pantalla.DetalleEstudiante -> PantallaDetalleEstudiante(vm, pantalla)
-        else -> if (estudio == null) PantallaInicio(vm) else when (pantalla) {
-            is Pantalla.Curso -> PantallaCurso(vm, estudio, pantalla.cursoId)
-            is Pantalla.Materia -> PantallaMateria(vm, estudio, pantalla.cursoId, pantalla.materiaId)
-            is Pantalla.Explicacion -> PantallaExplicacion(vm, estudio, pantalla.cursoId, pantalla.leccionId)
-            is Pantalla.Ejercicio -> PantallaEjercicio(vm, estudio)
-            Pantalla.FinPractica -> PantallaFinPractica(vm, estudio)
-            is Pantalla.Resultado -> PantallaResultado(vm, estudio)
-            else -> PantallaInicio(vm)
+
+        else -> if (estudio == null) {
+            PantallaInicio(vm)
+        } else {
+            when (pantalla) {
+                is Pantalla.Curso -> PantallaCurso(vm, estudio, pantalla.cursoId)
+                is Pantalla.Materia -> PantallaMateria(vm, estudio, pantalla.cursoId, pantalla.materiaId)
+                is Pantalla.Explicacion -> PantallaExplicacion(vm, estudio, pantalla.cursoId, pantalla.leccionId)
+                is Pantalla.Ejercicio -> PantallaEjercicio(vm, estudio)
+                Pantalla.FinPractica -> PantallaFinPractica(vm, estudio)
+                is Pantalla.Resultado -> PantallaResultado(vm, estudio)
+                else -> PantallaInicio(vm)
+            }
         }
     }
 }

@@ -19,7 +19,8 @@ import kotlin.math.min
 enum class EstadoTarjeta(val valor: Int) {
     APRENDIENDO(1),
     REPASO(2),
-    REAPRENDIENDO(3);
+    REAPRENDIENDO(3),
+    ;
 
     companion object {
         fun desde(valor: Int): EstadoTarjeta = entries.first { it.valor == valor }
@@ -93,21 +94,25 @@ object Memoria {
                             paso = 0
                             pasos[0]
                         }
+
                         Calificacion.DIFICIL -> when {
                             p == 0 && pasos.size == 1 -> pasos[0].multipliedBy(3).dividedBy(2)
                             p == 0 -> pasos[0].plus(pasos[1]).dividedBy(2)
                             else -> pasos[p]
                         }
+
                         Calificacion.BIEN -> if (p + 1 == pasos.size) {
                             aRepaso()
                         } else {
                             paso = p + 1
                             pasos[p + 1]
                         }
+
                         Calificacion.FACIL -> aRepaso()
                     }
                 }
             }
+
             EstadoTarjeta.REPASO -> {
                 s = if (dias != null && dias < 1) {
                     estabilidadCortoPlazo(s!!, r)

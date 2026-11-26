@@ -3,8 +3,8 @@ package com.preparate.tutor
 import com.preparate.dominio.AyudaProhibida
 import com.preparate.dominio.CalificacionInvalida
 import com.preparate.dominio.ContextoTutor
-import com.preparate.dominio.EstadoRespuesta
 import com.preparate.dominio.Escritura
+import com.preparate.dominio.EstadoRespuesta
 import com.preparate.dominio.Guardia
 import com.preparate.dominio.Revision
 import com.preparate.dominio.TipoEjercicio
@@ -78,7 +78,11 @@ class Tutor(private val modelo: Modelo) {
         val mensajes = buildList {
             add(sistema(ctx))
             add(Mensaje("user", turnoInicial(ctx)))
-            for (t in historial.takeLast(MENSAJES_EN_MEMORIA)) add(Mensaje(if (t.deKiwi) "assistant" else "user", t.texto))
+            for (t in historial.takeLast(
+                MENSAJES_EN_MEMORIA,
+            )) {
+                add(Mensaje(if (t.deKiwi) "assistant" else "user", t.texto))
+            }
             add(Mensaje("user", mensaje))
         }
         return hablar(mensajes, ctx, vistas)
@@ -96,7 +100,11 @@ class Tutor(private val modelo: Modelo) {
         val rubrica = variante.plantilla.rubrica
         val sistema = Prompts.completar(
             Prompts.ESCRITURA,
-            mapOf("rubrica" to Escritura.rubricaEnTexto(rubrica), "enunciado" to variante.enunciado, "contexto" to ctx.material),
+            mapOf(
+                "rubrica" to Escritura.rubricaEnTexto(rubrica),
+                "enunciado" to variante.enunciado,
+                "contexto" to ctx.material,
+            ),
         )
         val texto = modelo.chat(
             listOf(Mensaje("system", sistema), Mensaje("user", ctx.intento.respuesta.orEmpty())),
@@ -120,7 +128,9 @@ class Tutor(private val modelo: Modelo) {
     private fun exigirTrasResponder(ctx: ContextoTutor) {
         val i = ctx.intento
         check(i.respondido != null) { "primero responde el ejercicio" }
-        check(i.correcta != true || ctx.variante.plantilla.tipo == TipoEjercicio.ESCRITURA) { "acertaste: no hace falta Kiwi" }
+        check(i.correcta != true || ctx.variante.plantilla.tipo == TipoEjercicio.ESCRITURA) {
+            "acertaste: no hace falta Kiwi"
+        }
     }
 
     private fun sistema(ctx: ContextoTutor, nivel: Int? = null): Mensaje {
@@ -138,7 +148,8 @@ class Tutor(private val modelo: Modelo) {
                     "enunciado" to v.enunciado,
                     "pistas" to v.pistas.joinToString(" / ").ifEmpty { "ninguna" },
                     "respuesta" to (v.respuesta ?: SIN_RESPUESTA_UNICA),
-                    "respuesta_estudiante" to (if (i.respondido != null) i.respuesta.orEmpty() else Prompts.SIN_RESPONDER),
+                    "respuesta_estudiante" to
+                        (if (i.respondido != null) i.respuesta.orEmpty() else Prompts.SIN_RESPONDER),
                     "diagnostico" to diagnostico(ctx),
                 ),
             ),

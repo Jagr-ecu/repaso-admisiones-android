@@ -147,7 +147,11 @@ object Estudio {
     }
 
     /** El repaso obligatorio tras reprobar: los temas que más falló en la última prueba de la sección. */
-    fun conceptosDelRepasoObligatorio(progreso: ProgresoMateria, seccionId: String, ultimaPrueba: List<Intento>): List<String> {
+    fun conceptosDelRepasoObligatorio(
+        progreso: ProgresoMateria,
+        seccionId: String,
+        ultimaPrueba: List<Intento>,
+    ): List<String> {
         if (progreso.seccion(seccionId)?.prueba != EstadoPrueba.REPASO_REQUERIDO) {
             throw ReglaError(Bloqueo.SIN_REPASO_PENDIENTE)
         }
@@ -234,10 +238,9 @@ object Estudio {
     )
 
     /** Todo respondido y cada fallo corregido al repetirlo, sin pasarse de los errores permitidos. */
-    fun temaCompleto(leccion: Leccion, intentos: List<Intento>): Boolean =
-        !temaPerdido(intentos) &&
-            intentos.all { it.respondido != null } &&
-            siguienteDelTema(leccion, intentos) == SiguienteDelTema.Ninguno
+    fun temaCompleto(leccion: Leccion, intentos: List<Intento>): Boolean = !temaPerdido(intentos) &&
+        intentos.all { it.respondido != null } &&
+        siguienteDelTema(leccion, intentos) == SiguienteDelTema.Ninguno
 
     /** Puntos al cerrar un tema: solo si se completó y la primera vez. Nunca por velocidad. */
     fun puntosDelTema(completo: Boolean, yaTeniaPuntos: Boolean): Int =
@@ -252,13 +255,19 @@ object Estudio {
         return Seleccion.plantillasIntercaladas(materia, listOf(concepto), 1, azar).firstOrNull()
     }
 
-    fun repasoCompleto(intentos: List<Intento>): Boolean = intentos.count { it.respondido != null } >= Reglas.EJERCICIOS_REPASO
+    fun repasoCompleto(intentos: List<Intento>): Boolean =
+        intentos.count { it.respondido != null } >= Reglas.EJERCICIOS_REPASO
 
     // --- Pruebas y examen -----------------------------------------------------------
 
     /** Hora en que se acaba el tiempo; solo el examen final tiene límite. */
-    fun limite(sesion: Sesion): Instant? =
-        if (sesion.tipo == TipoSesion.EXAMEN_FINAL) sesion.inicio.plus(Duration.ofMinutes(Reglas.MINUTOS_EXAMEN_FINAL.toLong())) else null
+    fun limite(sesion: Sesion): Instant? = if (sesion.tipo ==
+        TipoSesion.EXAMEN_FINAL
+    ) {
+        sesion.inicio.plus(Duration.ofMinutes(Reglas.MINUTOS_EXAMEN_FINAL.toLong()))
+    } else {
+        null
+    }
 
     /** Se acabó el tiempo, con unos segundos de margen para una respuesta enviada justo al final. */
     fun vencida(sesion: Sesion, ahora: Instant): Boolean {
@@ -295,7 +304,13 @@ object Estudio {
     fun cuenta(resultado: Resultado): Boolean = resultado.estado != EstadoRespuesta.FORMATO_INVALIDO
 
     /** El intento ya respondido. En un Writing, `correcta` queda null hasta que Kiwi lo califique. */
-    fun responder(intento: Intento, variante: Variante, respuesta: String, resultado: Resultado, ahora: Instant): Intento {
+    fun responder(
+        intento: Intento,
+        variante: Variante,
+        respuesta: String,
+        resultado: Resultado,
+        ahora: Instant,
+    ): Intento {
         check(intento.respondido == null) { "este ejercicio ya fue respondido" }
         check(cuenta(resultado)) { "una respuesta ilegible no se guarda" }
         return intento.copy(

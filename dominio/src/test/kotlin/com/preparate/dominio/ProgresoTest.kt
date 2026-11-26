@@ -1,5 +1,6 @@
 package com.preparate.dominio
 
+import java.time.OffsetDateTime
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.boolean
@@ -8,11 +9,13 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.OffsetDateTime
 
 class ProgresoTest {
     private fun materia(vararg secciones: Pair<String, List<String>>) = MateriaCurso(
-        id = "matematica", nombre = "Matemática", prefijo = "mat", peso = 1.0,
+        id = "matematica",
+        nombre = "Matemática",
+        prefijo = "mat",
+        peso = 1.0,
         secciones = secciones.map { (id, lecciones) ->
             SeccionCurso(id, id, lecciones.map { LeccionResumen(it, it, it) }, emptyList())
         },
@@ -45,17 +48,23 @@ class ProgresoTest {
     fun coincideConLosCasosDeReferencia() {
         var casos = 0
         for (m in Referencia.leer("progreso").getValue("materias").jsonArray.map { it.jsonObject }) {
-            val materia = materia(*m.getValue("secciones").jsonArray.map {
-                val s = it.jsonObject
-                s.texto("id")!! to s.getValue("lecciones").jsonArray.map { l -> l.jsonPrimitive.content }
-            }.toTypedArray())
+            val materia = materia(
+                *m.getValue("secciones").jsonArray.map {
+                    val s = it.jsonObject
+                    s.texto("id")!! to s.getValue("lecciones").jsonArray.map { l -> l.jsonPrimitive.content }
+                }.toTypedArray(),
+            )
             for (caso in m.getValue("casos").jsonArray.map { it.jsonObject }) {
                 val p = calcularProgreso(materia, historial(caso.getValue("historial").jsonObject))
                 val obtenido = mapOf(
                     "secciones" to p.secciones.map { s ->
                         mapOf(
-                            "id" to s.seccion.id, "estado" to s.estado.valor, "prueba" to s.prueba.valor,
-                            "lecciones" to s.lecciones.map { mapOf("id" to it.leccion.id, "estado" to it.estado.valor) },
+                            "id" to s.seccion.id,
+                            "estado" to s.estado.valor,
+                            "prueba" to s.prueba.valor,
+                            "lecciones" to s.lecciones.map {
+                                mapOf("id" to it.leccion.id, "estado" to it.estado.valor)
+                            },
                         )
                     },
                     "examen_final" to p.examenFinal.valor,

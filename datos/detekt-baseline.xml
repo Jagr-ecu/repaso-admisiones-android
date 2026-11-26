@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:AlmacenSincro.kt$AlmacenSincro$suspend fun unir(descarga: Descarga): ResultadoUnion</ID>
+    <ID>LongMethod:AlmacenSincro.kt$AlmacenSincro$suspend fun unir(descarga: Descarga): ResultadoUnion</ID>
+    <ID>LongParameterList:Estudios.kt$Estudios$( tipo: TipoSesion, cursoId: String, materiaId: String, seccionId: String?, conceptos: List&lt;String&gt;, cantidad: Int, )</ID>
+    <ID>LongParameterList:Estudios.kt$Estudios$( tipo: TipoSesion, cursoId: String, materiaId: String, seccionId: String?, leccionId: String? = null, conceptos: List&lt;String&gt; = emptyList(), )</ID>
+    <ID>LoopWithTooManyJumpStatements:AlmacenSincro.kt$AlmacenSincro$for</ID>
+    <ID>NestedBlockDepth:LectorContenidoTest.kt$LectorContenidoTest$@Test fun lasMateriasNoSeMezclan()</ID>
+    <ID>NestedBlockDepth:LectorContenidoTest.kt$LectorContenidoTest$@Test fun leeTodoElCursoConSusVariantes()</ID>
+    <ID>ReturnCount:Estudios.kt$Estudios$suspend fun cerrar(sesionId: String): Cierre</ID>
+    <ID>ReturnCount:Estudios.kt$Estudios$suspend fun siguiente(sesionId: String): Ejercicio?</ID>
+    <ID>SwallowedException:Estudios.kt$Estudios$e: ReglaError</ID>
+    <ID>SwallowedException:EstudiosTest.kt$EstudiosTest$e: IllegalStateException</ID>
+    <ID>TooManyFunctions:BaseDatos.kt$EstudioDao</ID>
+    <ID>TooManyFunctions:BaseDatos.kt$SincroDao</ID>
+    <ID>TooManyFunctions:Estudios.kt$Estudios</ID>
+  </CurrentIssues>
+</SmellBaseline>

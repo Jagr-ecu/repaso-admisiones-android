@@ -1,11 +1,11 @@
 package com.preparate.dominio
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
 import java.time.Duration
 import java.time.Instant
 import java.time.ZoneId
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Test
 
 class PanelTest {
     private val curso = PaqueteDePrueba.curso
@@ -17,16 +17,22 @@ class PanelTest {
     private val seccion = mat.secciones.first { it.lecciones.isNotEmpty() }
     private val leccion = seccion.lecciones.first()
 
-    private fun intento(id: String, sesion: String, en: Instant, bien: Boolean?, pistas: Int = 0, concepto: String = leccion.concepto) =
-        Intento(
-            id, sesion, "p", concepto, "v", 1, "h", en.minusSeconds(30),
-            respondido = en, respuesta = "r$id", correcta = bien, pistasUsadas = pistas,
-            estado = when (bien) {
-                true -> EstadoRespuesta.CORRECTA
-                false -> EstadoRespuesta.INCORRECTA
-                null -> EstadoRespuesta.PENDIENTE
-            },
-        )
+    private fun intento(
+        id: String,
+        sesion: String,
+        en: Instant,
+        bien: Boolean?,
+        pistas: Int = 0,
+        concepto: String = leccion.concepto,
+    ) = Intento(
+        id, sesion, "p", concepto, "v", 1, "h", en.minusSeconds(30),
+        respondido = en, respuesta = "r$id", correcta = bien, pistasUsadas = pistas,
+        estado = when (bien) {
+            true -> EstadoRespuesta.CORRECTA
+            false -> EstadoRespuesta.INCORRECTA
+            null -> EstadoRespuesta.PENDIENTE
+        },
+    )
 
     private fun resumen(sesiones: List<Sesion>, intentos: List<Intento>) =
         Panel.resumen(listOf(curso), sesiones, intentos, ahora, zona) { _, i -> "enunciado de ${i.id}" }
@@ -44,12 +50,24 @@ class PanelTest {
 
     @Test
     fun cuentaMinutosTemasYNotas() {
-        val tema = Sesion("s1", TipoSesion.LECCION, curso.id, "matematica", seccion.id, leccion.id, inicio = antes(60), fin = antes(48), aprobada = true)
+        val tema =
+            Sesion(
+                "s1", TipoSesion.LECCION, curso.id, "matematica", seccion.id, leccion.id,
+                inicio = antes(
+                    60,
+                ),
+                fin = antes(48), aprobada = true,
+            )
         // Abierta y olvidada: cuenta hasta su última respuesta.
         val olvidada = Sesion("s2", TipoSesion.REPASO, curso.id, "matematica", inicio = antes(30))
         // Ayer en Ecuador.
-        val prueba = Sesion("s3", TipoSesion.PRUEBA_SECCION, curso.id, "matematica", seccion.id,
-            inicio = ahora.minus(Duration.ofHours(20)), fin = ahora.minus(Duration.ofHours(20)).plusSeconds(600), nota = 6.0, aprobada = false)
+        val prueba = Sesion(
+            "s3", TipoSesion.PRUEBA_SECCION, curso.id, "matematica", seccion.id,
+            inicio = ahora.minus(
+                Duration.ofHours(20),
+            ),
+            fin = ahora.minus(Duration.ofHours(20)).plusSeconds(600), nota = 6.0, aprobada = false,
+        )
         val intentos = listOf(
             intento("a", "s1", antes(55), false, pistas = 2),
             intento("b", "s1", antes(50), true),

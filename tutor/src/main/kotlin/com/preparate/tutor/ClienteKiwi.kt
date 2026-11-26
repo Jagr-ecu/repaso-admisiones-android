@@ -1,9 +1,12 @@
 package com.preparate.tutor
 
+import java.net.HttpURLConnection
+import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.addJsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
@@ -12,9 +15,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
-import kotlinx.serialization.json.addJsonObject
-import java.net.HttpURLConnection
-import java.net.URL
 
 /** Un mensaje para el modelo: `rol` es "system", "user" o "assistant". */
 data class Mensaje(val rol: String, val texto: String)
@@ -49,7 +49,9 @@ class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::cur
         if (!configurado) return null
         return withContext(Dispatchers.IO) {
             runCatching {
-                val datos = json.parseToJsonElement(pedir("GET", "/v1/models", null, TIMEOUT_COMPROBACION_MS)).jsonObject
+                val datos = json.parseToJsonElement(
+                    pedir("GET", "/v1/models", null, TIMEOUT_COMPROBACION_MS),
+                ).jsonObject
                 datos.getValue("data").jsonArray.map { it.jsonObject.getValue("id").jsonPrimitive.content }
             }.getOrNull()
         }.also { apagadoHasta = if (it == null) reloj() + RECUERDA_APAGADO_MS else 0L }
@@ -58,11 +60,18 @@ class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::cur
     override suspend fun chat(mensajes: List<Mensaje>, esquema: JsonObject?, maxTokens: Int): String {
         if (reloj() < apagadoHasta) throw TutorNoDisponible("LM Studio no estaba encendido hace un momento")
         val lista = modelos() ?: throw TutorNoDisponible("LM Studio no está encendido")
-        val modelo = lista.firstOrNull { !esDeEmbeddings(it) } ?: throw TutorNoDisponible("LM Studio no tiene un modelo adecuado")
+        val modelo =
+            lista.firstOrNull { !esDeEmbeddings(it) }
+                ?: throw TutorNoDisponible("LM Studio no tiene un modelo adecuado")
         val cuerpo = buildJsonObject {
             put("model", modelo)
             putJsonArray("messages") {
-                for (m in mensajes) addJsonObject { put("role", m.rol); put("content", m.texto) }
+                for (m in mensajes) {
+                    addJsonObject {
+                        put("role", m.rol)
+                        put("content", m.texto)
+                    }
+                }
             }
             put("max_tokens", maxTokens)
             // Qwen en modo instruct (sin razonamiento), como en la web.
@@ -93,7 +102,9 @@ class ClienteKiwi(direccion: String, private val reloj: () -> Long = System::cur
             json.parseToJsonElement(respuesta).jsonObject.getValue("choices").jsonArray[0].jsonObject
                 .getValue("message").jsonObject["content"]?.jsonPrimitive?.contentOrNull.orEmpty()
         }.getOrElse { throw TutorNoDisponible("LM Studio devolvió algo que no se entiende") }
-        return PENSAMIENTO.replace(texto, "").trim().ifEmpty { throw TutorNoDisponible("el modelo devolvió una respuesta vacía") }
+        return PENSAMIENTO.replace(texto, "").trim().ifEmpty {
+            throw TutorNoDisponible("el modelo devolvió una respuesta vacía")
+        }
     }
 
     /** Un saludo corto, para probar a Kiwi desde los ajustes. */

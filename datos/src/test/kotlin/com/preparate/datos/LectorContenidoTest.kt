@@ -1,13 +1,13 @@
 package com.preparate.datos
 
 import com.preparate.dominio.TipoEjercicio
+import java.io.File
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 /** Lee el paquete que va dentro del APK, tal como lo hace la app. */
 class LectorContenidoTest {
@@ -42,8 +42,11 @@ class LectorContenidoTest {
                             assertNull(v.respuesta)
                             assertFalse(plantilla.rubrica.isEmpty())
                         }
+
                         TipoEjercicio.CUADERNO -> assertEquals(v.cuenta!!.casillas, v.cuenta!!.esperadas.size)
+
                         TipoEjercicio.ORDENAR -> assertEquals(v.respuesta!!.split(" ").sorted(), v.fragmentos.sorted())
+
                         else -> assertNotNull(v.respuesta)
                     }
                     if (plantilla.tipo != TipoEjercicio.ESCRITURA) assertEquals(3, v.pistas.size)

@@ -1,5 +1,6 @@
 package com.preparate.dominio
 
+import java.io.File
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonNull
@@ -12,7 +13,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.io.File
 
 class VerificadorTest {
     private val numerica = Plantilla("p", TipoEjercicio.ABIERTA, TipoVerificador.SYMPY, formaIrreducible = true)

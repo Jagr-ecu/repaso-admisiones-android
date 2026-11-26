@@ -26,7 +26,8 @@ corta y un PR con los checks en verde.
    | `refactor/` | Cambio interno sin cambiar comportamiento | `refactor/45-separar-estudios` |
 
    Formato: `<prefijo>/<número de issue>-<slug-en-minúsculas>`.
-3. **Commits pequeños** con Conventional Commits (abajo).
+3. **Commits pequeños** con Conventional Commits (abajo). Antes de abrir el PR, `./gradlew check` en verde
+   (formato, detekt, lint y tests). Si falla el formato, `./gradlew spotlessApply` lo corrige.
 4. **PR** hacia `main` con la plantilla completa y `Closes #N`. Un PR resuelve una sola cosa.
 5. **Merge** con *squash* cuando los checks están en verde y las conversaciones resueltas. El título del PR
    queda como mensaje del commit en `main`, así que también sigue Conventional Commits.

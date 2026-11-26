@@ -166,13 +166,19 @@ interface EstudioDao {
     suspend fun intentosDeSesion(usuario: String, sesion: String): List<IntentoFila>
 
     /** Los Writing que esperan la nota de Kiwi, del más antiguo al más nuevo. */
-    @Query("SELECT id FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL ORDER BY respondido")
+    @Query(
+        "SELECT id FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL ORDER BY respondido",
+    )
     suspend fun writingPendientes(usuario: String): List<String>
 
-    @Query("SELECT COUNT(*) FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL")
+    @Query(
+        "SELECT COUNT(*) FROM intentos WHERE usuario_id = :usuario AND estado = 'pendiente' AND respondido IS NOT NULL",
+    )
     fun observarWritingPendientes(usuario: String): Flow<Int>
 
-    @Query("SELECT huella FROM intentos WHERE usuario_id = :usuario AND curso_id = :curso AND plantilla_id = :plantilla")
+    @Query(
+        "SELECT huella FROM intentos WHERE usuario_id = :usuario AND curso_id = :curso AND plantilla_id = :plantilla",
+    )
     suspend fun huellas(usuario: String, curso: String, plantilla: String): List<String>
 
     @Query("SELECT * FROM memoria WHERE usuario_id = :usuario AND curso_id = :curso AND concepto = :concepto")
@@ -181,14 +187,18 @@ interface EstudioDao {
     @Upsert
     suspend fun guardarMemoria(memoria: MemoriaFila)
 
-    @Query("SELECT concepto, vence FROM memoria WHERE usuario_id = :usuario AND curso_id = :curso AND materia_id = :materia")
+    @Query(
+        "SELECT concepto, vence FROM memoria WHERE usuario_id = :usuario AND curso_id = :curso AND materia_id = :materia",
+    )
     suspend fun vencimientos(usuario: String, curso: String, materia: String): List<ConceptoVence>
 
     /** Devuelve -1 si ya tenía esos puntos. */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun otorgar(puntos: PuntosFila): Long
 
-    @Query("SELECT COUNT(*) > 0 FROM puntos WHERE usuario_id = :usuario AND curso_id = :curso AND motivo = :motivo AND referencia = :referencia")
+    @Query(
+        "SELECT COUNT(*) > 0 FROM puntos WHERE usuario_id = :usuario AND curso_id = :curso AND motivo = :motivo AND referencia = :referencia",
+    )
     suspend fun tienePuntos(usuario: String, curso: String, motivo: String, referencia: String): Boolean
 
     @Query("SELECT COALESCE(SUM(cantidad), 0) FROM puntos WHERE usuario_id = :usuario AND curso_id = :curso")
@@ -204,10 +214,14 @@ interface SincroDao {
     suspend fun cola(usuario: String, cuantos: Int): List<ColaFila>
 
     /** Quita lo que ya subió; lo que entró después (id mayor) se queda para la próxima. */
-    @Query("DELETE FROM cola_subida WHERE usuario_id = :usuario AND tabla = :tabla AND curso_id = :curso AND ref = :ref AND id <= :hasta")
+    @Query(
+        "DELETE FROM cola_subida WHERE usuario_id = :usuario AND tabla = :tabla AND curso_id = :curso AND ref = :ref AND id <= :hasta",
+    )
     suspend fun quitar(usuario: String, tabla: String, curso: String, ref: String, hasta: Long)
 
-    @Query("DELETE FROM cola_subida WHERE usuario_id = :usuario AND tabla = :tabla AND curso_id = :curso AND ref = :ref")
+    @Query(
+        "DELETE FROM cola_subida WHERE usuario_id = :usuario AND tabla = :tabla AND curso_id = :curso AND ref = :ref",
+    )
     suspend fun quitarTodo(usuario: String, tabla: String, curso: String, ref: String)
 
     @Query("SELECT * FROM sesiones WHERE usuario_id = :usuario AND id = :id")
@@ -216,7 +230,9 @@ interface SincroDao {
     @Query("SELECT * FROM intentos WHERE usuario_id = :usuario AND id = :id")
     suspend fun intento(usuario: String, id: String): IntentoFila?
 
-    @Query("SELECT * FROM puntos WHERE usuario_id = :usuario AND curso_id = :curso AND motivo = :motivo AND referencia = :referencia")
+    @Query(
+        "SELECT * FROM puntos WHERE usuario_id = :usuario AND curso_id = :curso AND motivo = :motivo AND referencia = :referencia",
+    )
     suspend fun puntos(usuario: String, curso: String, motivo: String, referencia: String): PuntosFila?
 
     @Query("SELECT * FROM sesiones WHERE usuario_id = :usuario")
@@ -316,7 +332,9 @@ abstract class BaseDatos : RoomDatabase() {
                 val sinNube = "WHERE usuario_id <> '$SIN_NUBE'"
                 db.execSQL("$encolar SELECT usuario_id, 'sesiones', curso_id, id FROM sesiones $sinNube")
                 db.execSQL("$encolar SELECT usuario_id, 'intentos', curso_id, id FROM intentos $sinNube")
-                db.execSQL("$encolar SELECT usuario_id, 'puntos', curso_id, motivo || ':' || referencia FROM puntos $sinNube")
+                db.execSQL(
+                    "$encolar SELECT usuario_id, 'puntos', curso_id, motivo || ':' || referencia FROM puntos $sinNube",
+                )
             }
         }
 

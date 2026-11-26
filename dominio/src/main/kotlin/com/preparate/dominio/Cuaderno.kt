@@ -16,12 +16,11 @@ const val DIVISION = "division"
 data class ErrorCuaderno(val grupo: Int, val consejo: String)
 
 /** El número al que llega la cuenta, según sus propias casillas: el producto o el cociente. */
-fun Cuenta.resultado(): String =
-    if (operacion == DIVISION) {
-        grupos.filter { it.clase == "cociente" }.joinToString("") { it.texto(esperadas) }
-    } else {
-        grupos.last().texto(esperadas)
-    }
+fun Cuenta.resultado(): String = if (operacion == DIVISION) {
+    grupos.filter { it.clase == "cociente" }.joinToString("") { it.texto(esperadas) }
+} else {
+    grupos.last().texto(esperadas)
+}
 
 /** Tal como se lee en el cuaderno: «68 340 408». Es lo que se guarda en el intento. */
 fun Cuenta.aTexto(entradas: List<String>): String = grupos.joinToString(" ") { it.texto(entradas) }

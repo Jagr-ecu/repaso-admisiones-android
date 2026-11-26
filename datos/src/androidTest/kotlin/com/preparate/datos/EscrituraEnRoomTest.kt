@@ -11,6 +11,9 @@ import com.preparate.dominio.Revision
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.Variante
+import java.time.Duration
+import java.time.Instant
+import kotlin.random.Random
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -22,9 +25,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.Duration
-import java.time.Instant
-import kotlin.random.Random
 
 /** Lo que Kiwi necesita de Room: el contexto del ejercicio y la nota del Writing. */
 @RunWith(AndroidJUnit4::class)
@@ -51,8 +51,12 @@ class EscrituraEnRoomTest {
 
     private fun bien(v: Variante): Any = when {
         v.cuenta != null -> v.cuenta!!.esperadas
+
         v.plantilla.tipo == TipoEjercicio.ORDENAR -> v.respuesta!!.split(" ")
-        v.plantilla.tipo == TipoEjercicio.ESCRITURA -> "My family is big. I have two brothers and one sister. We play football on Sundays."
+
+        v.plantilla.tipo == TipoEjercicio.ESCRITURA ->
+            "My family is big. I have two brothers and one sister. We play football on Sundays."
+
         else -> v.respuesta!!
     }
 

@@ -40,7 +40,9 @@ class VerificadorEnDispositivoTest {
                 JsonObject(datos + ("variantes" to JsonArray(emptyList()))),
             ).plantilla()
             for (v in datos.getValue("variantes").jsonArray) {
-                val variante = json.decodeFromJsonElement<VarianteJson>(JsonObject(v.jsonObject - "casos")).aDominio(plantilla)
+                val variante = json.decodeFromJsonElement<VarianteJson>(
+                    JsonObject(v.jsonObject - "casos"),
+                ).aDominio(plantilla)
                 for (c in v.jsonObject.getValue("casos").jsonArray) yield(variante to c.jsonObject)
             }
         }
@@ -55,7 +57,8 @@ class VerificadorEnDispositivoTest {
             val aLaVista = c.getValue("a_la_vista").jsonArray.map { it.jsonPrimitive.content }
             assertEquals(
                 "${variante.plantilla.id} semilla ${variante.semilla}: «$texto»",
-                c.getValue("revela").jsonPrimitive.boolean, Guardia.revelaRespuesta(variante, texto, aLaVista),
+                c.getValue("revela").jsonPrimitive.boolean,
+                Guardia.revelaRespuesta(variante, texto, aLaVista),
             )
             total++
         }

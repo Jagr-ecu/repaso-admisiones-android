@@ -23,7 +23,13 @@ object Union {
 
     fun intento(local: Intento?, remoto: Intento): Intento {
         if (local == null) return remoto
-        val (base, otro) = if (local.respondido == null && remoto.respondido != null) remoto to local else local to remoto
+        val (base, otro) = if (local.respondido == null &&
+            remoto.respondido != null
+        ) {
+            remoto to local
+        } else {
+            local to remoto
+        }
         val unido = base.copy(pistasUsadas = maxOf(base.pistasUsadas, otro.pistasUsadas))
         // Un Writing calificado en otro dispositivo trae su nota: no se pierde.
         return if (unido.puntaje == null && otro.puntaje != null && unido.estado == EstadoRespuesta.PENDIENTE) {

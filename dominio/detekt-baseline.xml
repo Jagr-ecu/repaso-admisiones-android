@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>ComplexCondition:Estudio.kt$Estudio$usadas &gt;= pistas.size &amp;&amp; intento.respondido != null &amp;&amp; !solucion.isNullOrEmpty() &amp;&amp; solucionPermitida(tipo, intento.repite != null)</ID>
+    <ID>CyclomaticComplexMethod:Memoria.kt$Memoria$fun repasar(tarjeta: Tarjeta?, calificacion: Calificacion, ahora: Instant): Tarjeta</ID>
+    <ID>LongMethod:Memoria.kt$Memoria$fun repasar(tarjeta: Tarjeta?, calificacion: Calificacion, ahora: Instant): Tarjeta</ID>
+    <ID>LongParameterList:Estudio.kt$Estudio$( materia: MateriaCurso, conceptos: List&lt;String&gt;, cantidad: Int, azar: Random, variantes: (String) -&gt; List&lt;Variante&gt;, vistas: (String) -&gt; Set&lt;String&gt;, )</ID>
+    <ID>LongParameterList:Panel.kt$Panel$( cursos: List&lt;Curso&gt;, sesiones: List&lt;Sesion&gt;, intentos: List&lt;Intento&gt;, ahora: Instant, zona: ZoneId, enunciado: (cursoId: String, intento: Intento) -&gt; String?, )</ID>
+    <ID>LongParameterList:PanelTest.kt$PanelTest$( id: String, sesion: String, en: Instant, bien: Boolean?, pistas: Int = 0, concepto: String = leccion.concepto, )</ID>
+    <ID>MagicNumber:Cuaderno.kt$10</ID>
+    <ID>MagicNumber:Estudio.kt$Estudio$3</ID>
+    <ID>MagicNumber:Guardia.kt$Guardia$10</ID>
+    <ID>MagicNumber:Memoria.kt$EstadoTarjeta.REAPRENDIENDO$3</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$10</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$10.0</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$11</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$12</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$13</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$14</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$15</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$16</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$17</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$18</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$19</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$3</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$4</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$5</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$6</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$7</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$8</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$86_400L</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$9</ID>
+    <ID>MagicNumber:Memoria.kt$Memoria$9.0</ID>
+    <ID>MagicNumber:Panel.kt$Panel$60_000.0</ID>
+    <ID>MagicNumber:Reglas.kt$Calificacion.BIEN$3</ID>
+    <ID>MagicNumber:Reglas.kt$Calificacion.FACIL$4</ID>
+    <ID>MagicNumber:Usuario.kt$Usuario$20</ID>
+    <ID>MagicNumber:Usuario.kt$Usuario$3</ID>
+    <ID>NestedBlockDepth:Memoria.kt$Memoria$fun repasar(tarjeta: Tarjeta?, calificacion: Calificacion, ahora: Instant): Tarjeta</ID>
+    <ID>ReturnCount:ContextoTutor.kt$ContextoTutor.Companion$fun material(lecciones: List&lt;Leccion&gt;): String</ID>
+    <ID>ReturnCount:Cuaderno.kt$fun Cuenta.desdeTexto(texto: String): List&lt;String&gt;?</ID>
+    <ID>ReturnCount:Cuaderno.kt$private fun Cuenta.consejo(grupo: Grupo, entradas: List&lt;String&gt;): String</ID>
+    <ID>ReturnCount:Estudio.kt$Estudio$fun pista(tipo: TipoSesion, intento: Intento, variante: Variante): Pista?</ID>
+    <ID>ReturnCount:Estudio.kt$Estudio$fun segundosRestantes(sesion: Sesion, ahora: Instant): Long?</ID>
+    <ID>ReturnCount:Estudio.kt$Estudio$fun siguienteDelTema(leccion: Leccion, intentos: List&lt;Intento&gt;): SiguienteDelTema</ID>
+    <ID>ReturnCount:Guardia.kt$Guardia$fun revelaRespuesta(variante: Variante, texto: String, aLaVista: List&lt;String&gt; = emptyList()): Boolean</ID>
+    <ID>ReturnCount:Memoria.kt$Memoria$private fun recuperabilidad(t: Tarjeta, ahora: Instant): Double</ID>
+    <ID>ReturnCount:Progreso.kt$private fun estadoPrueba(seccionId: String, temasTerminados: Boolean, historial: Historial): EstadoPrueba</ID>
+    <ID>ReturnCount:Verificador.kt$Verificador$fun irreducible(texto: String): Boolean</ID>
+    <ID>ReturnCount:Verificador.kt$Verificador$fun leerNumero(texto: String): Racional?</ID>
+    <ID>ReturnCount:Verificador.kt$Verificador$fun verificar(variante: Variante, entrada: String): Resultado</ID>
+    <ID>ReturnCount:Verificador.kt$Verificador$private fun verificarCuaderno(variante: Variante, entradas: List&lt;String&gt;?): Resultado</ID>
+    <ID>SwallowedException:Escritura.kt$Escritura$e: SerializationException</ID>
+    <ID>ThrowsCount:Estudio.kt$Estudio$fun comprobarPrueba(progreso: ProgresoMateria, seccionId: String): List&lt;String&gt;</ID>
+    <ID>TooManyFunctions:Estudio.kt$Estudio</ID>
+    <ID>TooManyFunctions:Memoria.kt$Memoria</ID>
+    <ID>UnusedParameter:Estudio.kt$Estudio$variante: Variante</ID>
+  </CurrentIssues>
+</SmellBaseline>

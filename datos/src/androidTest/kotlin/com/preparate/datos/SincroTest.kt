@@ -6,6 +6,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.preparate.datos.local.BaseDatos
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.Variante
+import java.time.Duration
+import java.time.Instant
+import kotlin.random.Random
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -15,9 +18,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.Duration
-import java.time.Instant
-import kotlin.random.Random
 
 /** La cola de subida, la unión de lo que baja y la migración a la versión 2, sobre Room real. */
 @RunWith(AndroidJUnit4::class)
@@ -115,13 +115,15 @@ class SincroTest {
         jugarTema(estudios(usuario = BaseDatos.SIN_NUBE))
         assertEquals(0, AlmacenSincro(db, "leo").observarPendientes().first())
         assertEquals(0, AlmacenSincro(db, BaseDatos.SIN_NUBE).observarPendientes().first())
-        assertTrue(AlmacenSincro(db, "ana").lote(500).all {
-            when (it) {
-                is Cambio.DeSesion -> it.fila.usuarioId == "ana"
-                is Cambio.DeIntento -> it.fila.usuarioId == "ana"
-                is Cambio.DePuntos -> it.fila.usuarioId == "ana"
-            }
-        })
+        assertTrue(
+            AlmacenSincro(db, "ana").lote(500).all {
+                when (it) {
+                    is Cambio.DeSesion -> it.fila.usuarioId == "ana"
+                    is Cambio.DeIntento -> it.fila.usuarioId == "ana"
+                    is Cambio.DePuntos -> it.fila.usuarioId == "ana"
+                }
+            },
+        )
     }
 
     @Test
@@ -147,7 +149,10 @@ class SincroTest {
         assertEquals(estudios(db).progreso(curso, "matematica"), estudios(otra).progreso(curso, "matematica"))
         assertEquals(estudios(db).observarPuntos(curso).first(), estudios(otra).observarPuntos(curso).first())
         val concepto = contenido.leccion(curso, tema).concepto
-        assertEquals(db.estudio().memoria("ana", curso, concepto)?.copy(subida = false), otra.estudio().memoria("ana", curso, concepto))
+        assertEquals(
+            db.estudio().memoria("ana", curso, concepto)?.copy(subida = false),
+            otra.estudio().memoria("ana", curso, concepto),
+        )
 
         // Volver a unir lo mismo no cambia nada.
         assertEquals(0, destino.unir(descarga).total)
@@ -185,18 +190,28 @@ class SincroTest {
         val nombre = "migracion-prueba.db"
         migraciones.createDatabase(nombre, 1).apply {
             execSQL(
-                "INSERT INTO sesiones (id, usuario_id, curso_id, materia_id, tipo, seccion_id, leccion_id, conceptos, inicio, fin, nota, aprobada, subida) " +
-                    "VALUES ('s1', 'ana', 'admisiones', 'matematica', 'leccion', 'fracciones', '$tema', '', 1, 2, NULL, 1, 0)",
+                "INSERT INTO sesiones (id, usuario_id, curso_id, materia_id, tipo, seccion_id, leccion_id, " +
+                    "conceptos, inicio, fin, nota, aprobada, subida) " +
+                    "VALUES ('s1', 'ana', 'admisiones', 'matematica', 'leccion', 'fracciones', '$tema', '', " +
+                    "1, 2, NULL, 1, 0)",
             )
             execSQL(
-                "INSERT INTO sesiones (id, usuario_id, curso_id, materia_id, tipo, seccion_id, leccion_id, conceptos, inicio, fin, nota, aprobada, subida) " +
-                    "VALUES ('s2', '${BaseDatos.SIN_NUBE}', 'admisiones', 'matematica', 'leccion', 'fracciones', '$tema', '', 1, 2, NULL, 1, 0)",
+                "INSERT INTO sesiones (id, usuario_id, curso_id, materia_id, tipo, seccion_id, leccion_id, " +
+                    "conceptos, inicio, fin, nota, aprobada, subida) " +
+                    "VALUES ('s2', '${BaseDatos.SIN_NUBE}', 'admisiones', 'matematica', 'leccion', 'fracciones', " +
+                    "'$tema', '', 1, 2, NULL, 1, 0)",
             )
             execSQL(
-                "INSERT INTO intentos (id, usuario_id, curso_id, materia_id, sesion_id, orden, plantilla_id, concepto, plantilla_version, semilla, huella, mostrado, repite, respondido, respuesta, estado, correcta, error_comun, pistas_usadas, puntaje, subida) " +
-                    "VALUES ('i1', 'ana', 'admisiones', 'matematica', 's1', 0, 'p', 'c', 'v', 1, 'h', 1, NULL, 2, '3', 'correcta', 1, NULL, 0, NULL, 0)",
+                "INSERT INTO intentos (id, usuario_id, curso_id, materia_id, sesion_id, orden, plantilla_id, " +
+                    "concepto, plantilla_version, semilla, huella, mostrado, repite, respondido, respuesta, " +
+                    "estado, correcta, error_comun, pistas_usadas, puntaje, subida) " +
+                    "VALUES ('i1', 'ana', 'admisiones', 'matematica', 's1', 0, 'p', 'c', 'v', 1, 'h', 1, NULL, 2, " +
+                    "'3', 'correcta', 1, NULL, 0, NULL, 0)",
             )
-            execSQL("INSERT INTO puntos (usuario_id, curso_id, motivo, referencia, cantidad, creado, subida) VALUES ('ana', 'admisiones', 'leccion', '$tema', 10, 2, 0)")
+            execSQL(
+                "INSERT INTO puntos (usuario_id, curso_id, motivo, referencia, cantidad, creado, subida) " +
+                    "VALUES ('ana', 'admisiones', 'leccion', '$tema', 10, 2, 0)",
+            )
             close()
         }
         val migrada = migraciones.runMigrationsAndValidate(nombre, 2, true, BaseDatos.MIGRACION_1_2)

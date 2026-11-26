@@ -23,8 +23,7 @@ object Paquete {
 
     fun leccion(texto: String): Leccion = json.decodeFromString(texto)
 
-    fun plantilla(texto: String): PlantillaConVariantes =
-        json.decodeFromString<ArchivoPlantilla>(texto).aDominio()
+    fun plantilla(texto: String): PlantillaConVariantes = json.decodeFromString<ArchivoPlantilla>(texto).aDominio()
 }
 
 /** <curso>/variantes/<plantilla>.json: los datos de la plantilla y sus variantes, sin repetir la plantilla en cada una. */

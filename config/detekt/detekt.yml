@@ -1,0 +1,32 @@
+# detekt (ADR-0015). Se parte de la configuración por defecto (buildUponDefaultConfig) y aquí solo van los cambios.
+# Lo que ya existía está en el detekt-baseline.xml de cada módulo. Para regenerarlo: ./gradlew detektBaseline
+
+config:
+  validation: true
+
+# El formato es cosa de ktlint (Spotless): detekt no lo revisa dos veces.
+style:
+  MaxLineLength:
+    active: false
+  # Las pantallas Compose usan muchos números de diseño (dp, sp, colores).
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated: ['Composable', 'Preview']
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview']
+
+naming:
+  # Las funciones @Composable van en PascalCase.
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  # Los tests usan nombres con espacios entre comillas invertidas.
+  FunctionMaxLength:
+    active: false
+
+complexity:
+  # Una pantalla Compose recibe muchos parámetros (estado y eventos).
+  LongParameterList:
+    ignoreAnnotated: ['Composable']
+  LongMethod:
+    ignoreAnnotated: ['Composable']

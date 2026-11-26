@@ -8,7 +8,6 @@ import com.preparate.datos.local.PuntosFila
 import com.preparate.datos.local.SesionFila
 import com.preparate.dominio.Calificacion
 import com.preparate.dominio.ContextoTutor
-import com.preparate.dominio.Revision
 import com.preparate.dominio.EstadoRespuesta
 import com.preparate.dominio.EstadoTarjeta
 import com.preparate.dominio.Estudio
@@ -19,8 +18,9 @@ import com.preparate.dominio.ProgresoMateria
 import com.preparate.dominio.ReglaError
 import com.preparate.dominio.Reglas
 import com.preparate.dominio.Resultado
-import com.preparate.dominio.Sesion
+import com.preparate.dominio.Revision
 import com.preparate.dominio.Seleccion
+import com.preparate.dominio.Sesion
 import com.preparate.dominio.SiguienteDelTema
 import com.preparate.dominio.Tarjeta
 import com.preparate.dominio.TipoSesion
@@ -28,11 +28,11 @@ import com.preparate.dominio.Variante
 import com.preparate.dominio.Verificador
 import com.preparate.dominio.calcularProgreso
 import com.preparate.dominio.esPractica
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.time.Instant
 import java.util.UUID
 import kotlin.random.Random
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /** Un ejercicio en pantalla: el intento guardado y la variante que se reconstruye con su semilla. */
 data class Ejercicio(val sesion: Sesion, val intento: Intento, val variante: Variante, val numero: Int)
@@ -125,7 +125,11 @@ class Estudios(
         val leccion = contenido.leccion(cursoId, leccionId)
         db.withTransaction {
             for (s in dao.abiertas(usuarioId, cursoId, leccion.materia, TipoSesion.LECCION.valor)) {
-                if (s.leccionId == leccionId) dao.actualizarSesion(s.copy(fin = reloj().toEpochMilli(), aprobada = false, subida = false))
+                if (s.leccionId ==
+                    leccionId
+                ) {
+                    dao.actualizarSesion(s.copy(fin = reloj().toEpochMilli(), aprobada = false, subida = false))
+                }
             }
         }
         return empezarTema(cursoId, leccionId)
@@ -150,7 +154,14 @@ class Estudios(
     suspend fun empezarPrueba(cursoId: String, materiaId: String, seccionId: String): Sesion {
         abierta(cursoId, materiaId, TipoSesion.PRUEBA_SECCION) { it.seccionId == seccionId }?.let { return it }
         val conceptos = Estudio.comprobarPrueba(progreso(cursoId, materiaId), seccionId)
-        return crearPrueba(TipoSesion.PRUEBA_SECCION, cursoId, materiaId, seccionId, conceptos, Reglas.PREGUNTAS_PRUEBA_SECCION)
+        return crearPrueba(
+            TipoSesion.PRUEBA_SECCION,
+            cursoId,
+            materiaId,
+            seccionId,
+            conceptos,
+            Reglas.PREGUNTAS_PRUEBA_SECCION,
+        )
     }
 
     /** El examen final de 20 minutos; si quedó uno a medias y con tiempo, se retoma ese. */
@@ -189,11 +200,13 @@ class Estudios(
                     SiguienteDelTema.Ninguno -> return null
                 }
             }
+
             TipoSesion.REPASO -> {
                 val materia = contenido.curso(sesion.cursoId).materias.single { it.id == sesion.materiaId }
                 val plantilla = Estudio.siguienteDeRepaso(materia, sesion, intentos.size, azar) ?: return null
                 mostrar(sesion, plantilla.id, intentos)
             }
+
             else -> return null // pruebas y exámenes tienen sus preguntas fijas desde el inicio
         }
         dao.insertarIntentos(listOf(nuevo.aFila(usuarioId, sesion, intentos.size)))
@@ -330,14 +343,23 @@ class Estudios(
      * y, con `aprobar`, también su prueba. La app real nunca lo llama.
      */
     suspend fun depuracionCompletar(cursoId: String, materiaId: String, seccionId: String, aprobar: Boolean) {
-        val seccion = contenido.curso(cursoId).materias.single { it.id == materiaId }.secciones.single { it.id == seccionId }
+        val materia = contenido.curso(cursoId).materias.single { it.id == materiaId }
+        val seccion = materia.secciones.single { it.id == seccionId }
         val ahora = reloj()
         db.withTransaction {
             for (l in seccion.lecciones) {
-                dao.insertarSesion(Sesion(nuevoId(), TipoSesion.LECCION, cursoId, materiaId, seccionId, l.id, inicio = ahora, fin = ahora, aprobada = true).aFila(usuarioId))
+                val tema = Sesion(
+                    nuevoId(), TipoSesion.LECCION, cursoId, materiaId, seccionId, l.id,
+                    inicio = ahora, fin = ahora, aprobada = true,
+                )
+                dao.insertarSesion(tema.aFila(usuarioId))
             }
             if (aprobar) {
-                dao.insertarSesion(Sesion(nuevoId(), TipoSesion.PRUEBA_SECCION, cursoId, materiaId, seccionId, inicio = ahora, fin = ahora, nota = 10.0, aprobada = true).aFila(usuarioId))
+                val prueba = Sesion(
+                    nuevoId(), TipoSesion.PRUEBA_SECCION, cursoId, materiaId, seccionId,
+                    inicio = ahora, fin = ahora, nota = 10.0, aprobada = true,
+                )
+                dao.insertarSesion(prueba.aFila(usuarioId))
             }
         }
     }
@@ -347,21 +369,30 @@ class Estudios(
     private suspend fun sesionesDe(cursoId: String, materiaId: String) =
         dao.sesionesDeMateria(usuarioId, cursoId, materiaId).map { it.aDominio() }
 
-    private suspend fun sesion(id: String): Sesion = dao.sesion(usuarioId, id)?.aDominio() ?: error("no existe esa sesión")
+    private suspend fun sesion(id: String): Sesion =
+        dao.sesion(usuarioId, id)?.aDominio() ?: error("no existe esa sesión")
 
     private suspend fun sesionAbierta(id: String): Sesion =
         sesion(id).also { check(it.fin == null) { "esta sesión ya terminó" } }
 
     private suspend fun intentosDe(sesionId: String) = dao.intentosDeSesion(usuarioId, sesionId).map { it.aDominio() }
 
-    private suspend fun abierta(cursoId: String, materiaId: String, tipo: TipoSesion, cual: (SesionFila) -> Boolean): Sesion? =
-        dao.abiertas(usuarioId, cursoId, materiaId, tipo.valor).firstOrNull(cual)?.aDominio()
+    private suspend fun abierta(
+        cursoId: String,
+        materiaId: String,
+        tipo: TipoSesion,
+        cual: (SesionFila) -> Boolean,
+    ): Sesion? = dao.abiertas(usuarioId, cursoId, materiaId, tipo.valor).firstOrNull(cual)?.aDominio()
 
     private suspend fun vencimientos(cursoId: String, materiaId: String): Map<String, Instant> =
         dao.vencimientos(usuarioId, cursoId, materiaId).associate { it.concepto to Instant.ofEpochMilli(it.vence) }
 
     private suspend fun crear(
-        tipo: TipoSesion, cursoId: String, materiaId: String, seccionId: String?, leccionId: String? = null,
+        tipo: TipoSesion,
+        cursoId: String,
+        materiaId: String,
+        seccionId: String?,
+        leccionId: String? = null,
         conceptos: List<String> = emptyList(),
     ): Sesion {
         val sesion = Sesion(nuevoId(), tipo, cursoId, materiaId, seccionId, leccionId, conceptos, reloj())
@@ -370,13 +401,26 @@ class Estudios(
     }
 
     private suspend fun crearPrueba(
-        tipo: TipoSesion, cursoId: String, materiaId: String, seccionId: String?, conceptos: List<String>, cantidad: Int,
+        tipo: TipoSesion,
+        cursoId: String,
+        materiaId: String,
+        seccionId: String?,
+        conceptos: List<String>,
+        cantidad: Int,
     ): Sesion {
         val materia = contenido.curso(cursoId).materias.single { it.id == materiaId }
         val vistas = mutableMapOf<String, Set<String>>()
-        for (p in materia.secciones.flatMap { it.plantillas }) vistas[p.id] = dao.huellas(usuarioId, cursoId, p.id).toSet()
+        for (p in materia.secciones.flatMap { it.plantillas }) {
+            vistas[p.id] =
+                dao.huellas(usuarioId, cursoId, p.id).toSet()
+        }
         val variantes = Estudio.preguntasDePrueba(
-            materia, conceptos, cantidad, azar, { contenido.variantes(cursoId, it) }, { vistas[it].orEmpty() },
+            materia,
+            conceptos,
+            cantidad,
+            azar,
+            { contenido.variantes(cursoId, it) },
+            { vistas[it].orEmpty() },
         )
         val sesion = Sesion(nuevoId(), tipo, cursoId, materiaId, seccionId, inicio = reloj())
         db.withTransaction {
@@ -414,7 +458,10 @@ class Estudios(
     private fun ejercicio(sesion: Sesion, intento: Intento, numero: Int) =
         Ejercicio(sesion, intento, variante(sesion.cursoId, intento), numero)
 
-    private suspend fun guardarRespuesta(intentoId: String, calificar: (Variante) -> Pair<Resultado, String>): Resultado {
+    private suspend fun guardarRespuesta(
+        intentoId: String,
+        calificar: (Variante) -> Pair<Resultado, String>,
+    ): Resultado {
         val fila = dao.intento(usuarioId, intentoId) ?: error("no existe ese ejercicio")
         val sesion = sesionAbierta(fila.sesionId)
         val ahora = reloj()
@@ -429,29 +476,52 @@ class Estudios(
         val respondido = Estudio.responder(intento, v, texto, resultado, ahora)
         db.withTransaction {
             dao.actualizarIntento(respondido.aFila(usuarioId, sesion, fila.orden))
-            respondido.correcta?.let { actualizarMemoria(sesion, intento.concepto, Reglas.calificacionMemoria(it, intento.pistasUsadas), ahora) }
+            respondido.correcta?.let {
+                actualizarMemoria(sesion, intento.concepto, Reglas.calificacionMemoria(it, intento.pistasUsadas), ahora)
+            }
         }
         return resultado
     }
 
-    private suspend fun actualizarMemoria(sesion: Sesion, concepto: String, calificacion: Calificacion, ahora: Instant) {
+    private suspend fun actualizarMemoria(
+        sesion: Sesion,
+        concepto: String,
+        calificacion: Calificacion,
+        ahora: Instant,
+    ) {
         val antes = dao.memoria(usuarioId, sesion.cursoId, concepto)?.let {
             Tarjeta(
-                EstadoTarjeta.desde(it.estado), it.paso, it.estabilidad, it.dificultad,
-                Instant.ofEpochMilli(it.vence), it.ultimoRepaso?.let(Instant::ofEpochMilli),
+                EstadoTarjeta.desde(it.estado),
+                it.paso,
+                it.estabilidad,
+                it.dificultad,
+                Instant.ofEpochMilli(it.vence),
+                it.ultimoRepaso?.let(Instant::ofEpochMilli),
             )
         }
         val t = Memoria.repasar(antes, calificacion, ahora)
         dao.guardarMemoria(
             MemoriaFila(
-                usuarioId, sesion.cursoId, sesion.materiaId, concepto, t.estado.valor, t.paso, t.estabilidad, t.dificultad,
+                usuarioId, sesion.cursoId, sesion.materiaId, concepto,
+                t.estado.valor, t.paso, t.estabilidad, t.dificultad,
                 t.vence.toEpochMilli(), t.ultimoRepaso?.toEpochMilli(),
             ),
         )
     }
 
-    private suspend fun otorgar(cursoId: String, motivo: String, referencia: String, cantidad: Int, ahora: Instant): Int =
-        if (dao.otorgar(PuntosFila(usuarioId, cursoId, motivo, referencia, cantidad, ahora.toEpochMilli())) == -1L) 0 else cantidad
+    private suspend fun otorgar(
+        cursoId: String,
+        motivo: String,
+        referencia: String,
+        cantidad: Int,
+        ahora: Instant,
+    ): Int = if (dao.otorgar(PuntosFila(usuarioId, cursoId, motivo, referencia, cantidad, ahora.toEpochMilli())) ==
+        -1L
+    ) {
+        0
+    } else {
+        cantidad
+    }
 
     /** Cierra los exámenes cuyo tiempo se acabó aunque nadie los cerrara (p. ej., se cerró la app). */
     private suspend fun cerrarVencidos(cursoId: String, materiaId: String) {

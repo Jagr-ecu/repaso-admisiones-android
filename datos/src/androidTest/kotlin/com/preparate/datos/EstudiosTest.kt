@@ -14,6 +14,9 @@ import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.TipoVerificador
 import com.preparate.dominio.Variante
+import java.time.Duration
+import java.time.Instant
+import kotlin.random.Random
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -26,9 +29,6 @@ import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.Duration
-import java.time.Instant
-import kotlin.random.Random
 
 /** El estudio sobre Room real, en el dispositivo. Puerto de los tests de la web que usan la base. */
 @RunWith(AndroidJUnit4::class)
@@ -58,8 +58,7 @@ class EstudiosTest {
         else -> v.respuesta!!
     }
 
-    private fun mal(v: Variante): Any =
-        if (v.plantilla.verificador == TipoVerificador.SYMPY) "123456" else "zzzz qqqq"
+    private fun mal(v: Variante): Any = if (v.plantilla.verificador == TipoVerificador.SYMPY) "123456" else "zzzz qqqq"
 
     private suspend fun Estudios.contestar(e: Ejercicio, correcta: Boolean) {
         val r = when (val respuesta = if (correcta) bien(e.variante) else mal(e.variante)) {

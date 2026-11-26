@@ -1,11 +1,11 @@
 package com.preparate.dominio
 
+import java.time.Duration
+import java.time.Instant
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Test
-import java.time.Duration
-import java.time.Instant
 
 class UnionTest {
     private val t0 = Instant.parse("2026-11-01T15:00:00Z")
@@ -16,7 +16,11 @@ class UnionTest {
     private val intento = Intento("i1", "s1", "mat.p1", "c1", "v1", 7, "h", t0)
 
     private fun respondido(i: Intento, en: Instant, bien: Boolean?, pistas: Int = 0) = i.copy(
-        respondido = en, respuesta = "x", correcta = bien, pistasAlResponder = pistas, pistasUsadas = pistas,
+        respondido = en,
+        respuesta = "x",
+        correcta = bien,
+        pistasAlResponder = pistas,
+        pistasUsadas = pistas,
         estado = when (bien) {
             true -> EstadoRespuesta.CORRECTA
             false -> EstadoRespuesta.INCORRECTA
@@ -89,7 +93,12 @@ class UnionTest {
         val c = respondido(intento.copy(id = "c"), dias(4), true, pistas = 2)
         var esperada: Tarjeta? = null
         for (i in listOf(a, b, c)) {
-            esperada = Memoria.repasar(esperada, Reglas.calificacionMemoria(i.correcta!!, i.pistasAlResponder!!), i.respondido!!)
+            esperada =
+                Memoria.repasar(
+                    esperada,
+                    Reglas.calificacionMemoria(i.correcta!!, i.pistasAlResponder!!),
+                    i.respondido!!,
+                )
         }
         // Llegan desordenados (de dos dispositivos): el resultado es el mismo.
         assertEquals(mapOf("c1" to esperada), Union.memoria(listOf(c, a, b)))

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:AppViewModel.kt$AppViewModel$private fun texto(e: ErrorCuenta): String</ID>
+    <ID>CyclomaticComplexMethod:Estudio.kt$@Composable fun PantallaResultado(vm: AppViewModel, e: EstudioVm)</ID>
+    <ID>CyclomaticComplexMethod:Estudio.kt$@Composable private fun Kiwi(e: EstudioVm, a: EjercicioUi)</ID>
+    <ID>CyclomaticComplexMethod:EstudioVm.kt$EstudioVm$fun comprobar()</ID>
+    <ID>CyclomaticComplexMethod:MainActivity.kt$@Composable fun App(vm: AppViewModel)</ID>
+    <ID>CyclomaticComplexMethod:Pantallas.kt$@Composable private fun DetalleResumen(r: ResumenPanel)</ID>
+    <ID>ImplicitDefaultLocale:Formula.kt$String.format("#%06X", color and 0xFFFFFF)</ID>
+    <ID>MagicNumber:Formula.kt$0xFFFFFF</ID>
+    <ID>MatchingDeclarationName:Comunes.kt$Disposicion</ID>
+    <ID>MatchingDeclarationName:Formula.kt$ModoFormula</ID>
+    <ID>NestedBlockDepth:Pantallas.kt$@Composable private fun DetalleResumen(r: ResumenPanel)</ID>
+    <ID>SwallowedException:AppViewModel.kt$AppViewModel$e: Exception</ID>
+    <ID>SwallowedException:AppViewModel.kt$AppViewModel$e: SinConexion</ID>
+    <ID>SwallowedException:EstudioVm.kt$EstudioVm$e: Exception</ID>
+    <ID>SwallowedException:EstudioVm.kt$EstudioVm$e: TiempoAgotado</ID>
+    <ID>SwallowedException:EstudioVm.kt$EstudioVm$e: TutorNoDisponible</ID>
+    <ID>TooGenericExceptionCaught:AppViewModel.kt$AppViewModel$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:EstudioVm.kt$EstudioVm$e: Exception</ID>
+    <ID>TooManyFunctions:AppViewModel.kt$AppViewModel : AndroidViewModel</ID>
+    <ID>TooManyFunctions:Estudio.kt$com.preparate.app.ui.Estudio.kt</ID>
+    <ID>TooManyFunctions:EstudioVm.kt$EstudioVm</ID>
+    <ID>TooManyFunctions:Pantallas.kt$com.preparate.app.ui.Pantallas.kt</ID>
+  </CurrentIssues>
+</SmellBaseline>

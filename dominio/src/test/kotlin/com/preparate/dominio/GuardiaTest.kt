@@ -1,8 +1,8 @@
 package com.preparate.dominio
 
+import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.boolean
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -54,7 +54,8 @@ class GuardiaTest {
             val esperado = caso.getValue("revela").jsonPrimitive.boolean
             assertEquals(
                 "${variante.plantilla.id} semilla ${variante.semilla}: «$texto» con $aLaVista",
-                esperado, Guardia.revelaRespuesta(variante, texto, aLaVista),
+                esperado,
+                Guardia.revelaRespuesta(variante, texto, aLaVista),
             )
             total++
         }

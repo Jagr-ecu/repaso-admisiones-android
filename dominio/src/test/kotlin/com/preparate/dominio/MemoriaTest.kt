@@ -1,5 +1,7 @@
 package com.preparate.dominio
 
+import java.time.Instant
+import java.time.OffsetDateTime
 import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.double
 import kotlinx.serialization.json.int
@@ -9,8 +11,6 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.time.Instant
-import java.time.OffsetDateTime
 
 class MemoriaTest {
     private val inicio = Instant.parse("2026-03-01T10:00:00Z")
@@ -35,11 +35,19 @@ class MemoriaTest {
             var tarjeta: Tarjeta? = null
             for (p in secuencia.jsonArray.map { it.jsonObject }) {
                 val fecha = OffsetDateTime.parse(p.texto("fecha")!!).toInstant()
-                val calificacion = Calificacion.entries.first { it.valor == p.getValue("calificacion").jsonPrimitive.int }
+                val calificacion = Calificacion.entries.first {
+                    it.valor == p.getValue("calificacion").jsonPrimitive.int
+                }
                 tarjeta = Memoria.repasar(tarjeta, calificacion, fecha)
                 val mensaje = "$secuencia paso $pasos"
                 assertEquals(mensaje, p.getValue("estado").jsonPrimitive.int, tarjeta.estado.valor)
-                assertEquals(mensaje, p.getValue("paso").let { if (it is JsonNull) null else it.jsonPrimitive.int }, tarjeta.paso)
+                assertEquals(
+                    mensaje,
+                    p.getValue("paso").let {
+                        if (it is JsonNull) null else it.jsonPrimitive.int
+                    },
+                    tarjeta.paso,
+                )
                 assertEquals(mensaje, p.getValue("estabilidad").jsonPrimitive.double, tarjeta.estabilidad!!, 1e-9)
                 assertEquals(mensaje, p.getValue("dificultad").jsonPrimitive.double, tarjeta.dificultad!!, 1e-9)
                 assertEquals(mensaje, OffsetDateTime.parse(p.texto("vence")!!).toInstant(), tarjeta.vence)

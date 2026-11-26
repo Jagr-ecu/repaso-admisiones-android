@@ -73,7 +73,16 @@ fun calcularProgreso(materia: MateriaCurso, historial: Historial): ProgresoMater
         if (s.id in aprobadas) {
             // Sección completada: sus temas quedan abiertos para practicar en cualquier orden.
             val lecciones = s.lecciones.map {
-                ProgresoLeccion(it, if (it.id in historial.leccionesCompletadas) EstadoNodo.COMPLETADO else EstadoNodo.DISPONIBLE)
+                ProgresoLeccion(
+                    it,
+                    if (it.id in
+                        historial.leccionesCompletadas
+                    ) {
+                        EstadoNodo.COMPLETADO
+                    } else {
+                        EstadoNodo.DISPONIBLE
+                    },
+                )
             }
             ProgresoSeccion(s, EstadoNodo.COMPLETADO, lecciones, EstadoPrueba.APROBADA)
         } else {

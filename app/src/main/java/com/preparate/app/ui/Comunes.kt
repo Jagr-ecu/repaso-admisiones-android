@@ -23,10 +23,10 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.preparate.app.R
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.preparate.app.R
 
 /**
  * Tablet (pantalla amplia) o celular. Se diseña primero para la tablet, la MatePad en horizontal;

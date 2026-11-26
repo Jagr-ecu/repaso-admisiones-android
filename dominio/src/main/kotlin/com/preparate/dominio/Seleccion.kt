@@ -65,7 +65,9 @@ object Seleccion {
         return (0 until cantidad).map { i ->
             val concepto = orden[i % orden.size]
             val plantillas = porConcepto.getValue(concepto)
-            plantillas[turno.getValue(concepto) % plantillas.size].also { turno[concepto] = turno.getValue(concepto) + 1 }
+            plantillas[turno.getValue(concepto) % plantillas.size].also {
+                turno[concepto] = turno.getValue(concepto) + 1
+            }
         }
     }
 }
