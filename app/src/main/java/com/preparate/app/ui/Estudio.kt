@@ -37,14 +37,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -64,17 +66,15 @@ import com.preparate.dominio.EstadoNodo
 import com.preparate.dominio.EstadoPrueba
 import com.preparate.dominio.EstadoRespuesta
 import com.preparate.dominio.Estudio
+import com.preparate.dominio.Reglas
+import com.preparate.dominio.Revision
 import com.preparate.dominio.TipoEjercicio
 import com.preparate.dominio.TipoSesion
 import com.preparate.dominio.TipoVerificador
-import com.preparate.dominio.Reglas
-import com.preparate.dominio.Revision
 import com.preparate.dominio.ayudaPermitida
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import kotlinx.coroutines.delay
 import java.time.Duration
 import java.time.Instant
+import kotlinx.coroutines.delay
 
 /** Avisos comunes de las pantallas de estudio: motivo de bloqueo o error inesperado. */
 @Composable
@@ -97,7 +97,12 @@ fun InicioEstudiante(vm: AppViewModel, e: EstudioVm, nombre: String, pie: @Compo
             Card(Modifier.fillMaxWidth().clickable { vm.ir(Pantalla.Curso(curso.id)) }) {
                 Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(curso.nombre, style = MaterialTheme.typography.headlineSmall)
-                    if (curso.descripcion.isNotEmpty()) Text(curso.descripcion, style = MaterialTheme.typography.bodyMedium)
+                    if (curso.descripcion.isNotEmpty()) {
+                        Text(
+                            curso.descripcion,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
                     Text(stringResource(R.string.puntos, puntos), style = MaterialTheme.typography.labelLarge)
                 }
             }
@@ -126,7 +131,10 @@ fun PantallaCurso(vm: AppViewModel, e: EstudioVm, cursoId: String) {
                         progress = { if (temas.isEmpty()) 0f else hechos.toFloat() / temas.size },
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Text(stringResource(R.string.temas_hechos, hechos, temas.size), style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        stringResource(R.string.temas_hechos, hechos, temas.size),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
                 }
             }
         }
@@ -158,22 +166,31 @@ fun PantallaMateria(vm: AppViewModel, e: EstudioVm, cursoId: String, materiaId: 
             }
         }
         EnColumnas(p.secciones) { s ->
-          Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(s.seccion.nombre, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(top = 8.dp))
-            for (pl in s.lecciones) {
-                val abierta = e.abiertas.any { it.tipo == TipoSesion.LECCION && it.leccionId == pl.leccion.id }
-                NodoTema(pl.leccion.titulo, pl.estado, abierta) { e.abrirTema(cursoId, pl.leccion.id) }
-            }
-            if (e.depuracion) {
-                TextButton(onClick = { e.depuracionCompletar(cursoId, materiaId, s.seccion.id, aprobar = false) }) {
-                    Text("Depuración: dar por hechos los temas")
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(
+                    s.seccion.nombre,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+                for (pl in s.lecciones) {
+                    val abierta = e.abiertas.any { it.tipo == TipoSesion.LECCION && it.leccionId == pl.leccion.id }
+                    NodoTema(pl.leccion.titulo, pl.estado, abierta) { e.abrirTema(cursoId, pl.leccion.id) }
                 }
+                if (e.depuracion) {
+                    TextButton(onClick = { e.depuracionCompletar(cursoId, materiaId, s.seccion.id, aprobar = false) }) {
+                        Text("Depuración: dar por hechos los temas")
+                    }
+                }
+                NodoPrueba(
+                    s.prueba,
+                    e.abiertas.any {
+                        it.tipo == TipoSesion.PRUEBA_SECCION && it.seccionId == s.seccion.id
+                    },
+                    alEmpezar = { e.empezarPrueba(cursoId, materiaId, s.seccion.id) },
+                    alRepasar = { e.empezarRepaso(cursoId, materiaId, s.seccion.id) },
+                    ocupado = e.ocupado,
+                )
             }
-            NodoPrueba(s.prueba, e.abiertas.any { it.tipo == TipoSesion.PRUEBA_SECCION && it.seccionId == s.seccion.id },
-                alEmpezar = { e.empezarPrueba(cursoId, materiaId, s.seccion.id) },
-                alRepasar = { e.empezarRepaso(cursoId, materiaId, s.seccion.id) },
-                ocupado = e.ocupado)
-          }
         }
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
         if (e.depuracion) {
@@ -198,7 +215,11 @@ private fun NodoTema(titulo: String, estado: EstadoNodo, abierta: Boolean, alToc
     Card(
         Modifier.fillMaxWidth().clickable(enabled = !bloqueado, onClick = alTocar),
         colors = CardDefaults.cardColors(
-            containerColor = if (bloqueado) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface,
+            containerColor = if (bloqueado) {
+                MaterialTheme.colorScheme.surfaceVariant
+            } else {
+                MaterialTheme.colorScheme.surface
+            },
         ),
         border = BorderStroke(1.dp, color),
     ) {
@@ -219,8 +240,17 @@ private fun NodoTema(titulo: String, estado: EstadoNodo, abierta: Boolean, alToc
 }
 
 @Composable
-private fun NodoPrueba(estado: EstadoPrueba, abierta: Boolean, alEmpezar: () -> Unit, alRepasar: () -> Unit, ocupado: Boolean) {
-    Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)) {
+private fun NodoPrueba(
+    estado: EstadoPrueba,
+    abierta: Boolean,
+    alEmpezar: () -> Unit,
+    alRepasar: () -> Unit,
+    ocupado: Boolean,
+) {
+    Card(
+        Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+    ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.prueba_de_seccion), style = MaterialTheme.typography.titleMedium)
             Text(
@@ -238,9 +268,11 @@ private fun NodoPrueba(estado: EstadoPrueba, abierta: Boolean, alEmpezar: () -> 
                 EstadoPrueba.DISPONIBLE -> Button(onClick = alEmpezar, enabled = !ocupado) {
                     Text(stringResource(if (abierta) R.string.continuar else R.string.empezar))
                 }
+
                 EstadoPrueba.REPASO_REQUERIDO -> Button(onClick = alRepasar, enabled = !ocupado) {
                     Text(stringResource(R.string.hacer_repaso))
                 }
+
                 else -> {}
             }
         }
@@ -249,7 +281,10 @@ private fun NodoPrueba(estado: EstadoPrueba, abierta: Boolean, alEmpezar: () -> 
 
 @Composable
 private fun NodoExamen(estado: EstadoNodo, abierto: Boolean, ocupado: Boolean, alEmpezar: () -> Unit) {
-    Card(Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
+    Card(
+        Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+    ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(stringResource(R.string.examen_final), style = MaterialTheme.typography.titleLarge)
             Text(
@@ -279,7 +314,9 @@ fun PantallaExplicacion(vm: AppViewModel, e: EstudioVm, cursoId: String, leccion
     Marco(leccion.titulo, alVolver = { vm.atras() }, desplazable = false) {
         Formula(leccion.contenido, Modifier.fillMaxWidth().weight(1f), modo = ModoFormula.LECCION)
         Avisos(e)
-        Button(onClick = { e.empezarTema(cursoId, leccionId) }, enabled = !e.ocupado, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = {
+            e.empezarTema(cursoId, leccionId)
+        }, enabled = !e.ocupado, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(if (e.temaAbierto != null) R.string.continuar else R.string.practicar))
         }
     }
@@ -330,11 +367,16 @@ private fun Encabezado(e: EstudioVm, a: EjercicioUi) {
     }
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
-            if (a.practica) stringResource(R.string.pregunta_n, a.ejercicio.numero)
-            else stringResource(R.string.pregunta_n_de, a.ejercicio.numero, estado.total),
+            if (a.practica) {
+                stringResource(R.string.pregunta_n, a.ejercicio.numero)
+            } else {
+                stringResource(R.string.pregunta_n_de, a.ejercicio.numero, estado.total)
+            },
             style = MaterialTheme.typography.labelLarge,
         )
-        estado.errores?.let { Text(stringResource(R.string.errores_tema, it), style = MaterialTheme.typography.labelLarge) }
+        estado.errores?.let {
+            Text(stringResource(R.string.errores_tema, it), style = MaterialTheme.typography.labelLarge)
+        }
         Estudio.limite(sesion)?.let { Reloj(it) { e.tiempoAgotado() } }
     }
 }
@@ -366,8 +408,11 @@ private fun Entrada(e: EstudioVm, a: EjercicioUi) {
     val v = a.variante
     when {
         v.plantilla.tipo == TipoEjercicio.CUADERNO -> Cuaderno(e, a)
+
         v.plantilla.tipo == TipoEjercicio.ORDENAR -> Ordenar(e, a)
+
         v.opciones.isNotEmpty() -> Opciones(e, a)
+
         v.plantilla.tipo == TipoEjercicio.ESCRITURA -> OutlinedTextField(
             value = a.entrada,
             onValueChange = e::escribir,
@@ -376,6 +421,7 @@ private fun Entrada(e: EstudioVm, a: EjercicioUi) {
             minLines = 4,
             modifier = Modifier.fillMaxWidth(),
         )
+
         else -> {
             val numero = v.plantilla.verificador == TipoVerificador.SYMPY
             OutlinedTextField(
@@ -424,7 +470,11 @@ private fun Ordenar(e: EstudioVm, a: EjercicioUi) {
     val fragmentos = a.variante.fragmentos
     Text(stringResource(R.string.ordenar_ayuda), style = MaterialTheme.typography.bodySmall)
     Card(Modifier.fillMaxWidth()) {
-        FlowRow(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(
+            Modifier.padding(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
             if (a.orden.isEmpty()) Text(" ", modifier = Modifier.height(40.dp))
             a.orden.forEachIndexed { posicion, i ->
                 Button(onClick = { e.quitarFragmento(posicion) }, enabled = !a.respondido) { Text(fragmentos[i]) }
@@ -433,7 +483,9 @@ private fun Ordenar(e: EstudioVm, a: EjercicioUi) {
     }
     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         fragmentos.forEachIndexed { i, palabra ->
-            OutlinedButton(onClick = { e.tocarFragmento(i) }, enabled = !a.respondido && i !in a.orden) { Text(palabra) }
+            OutlinedButton(onClick = {
+                e.tocarFragmento(i)
+            }, enabled = !a.respondido && i !in a.orden) { Text(palabra) }
         }
     }
 }
@@ -455,7 +507,9 @@ private fun Cuaderno(e: EstudioVm, a: EjercicioUi) {
     Text(stringResource(R.string.cuaderno_ayuda), style = MaterialTheme.typography.bodySmall)
     Column(Modifier.horizontalScroll(rememberScrollState()).padding(vertical = 8.dp)) {
         for (fila in cuenta.filas) {
-            fila.etiqueta?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline) }
+            fila.etiqueta?.let {
+                Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.outline)
+            }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Row { fila.celdas.forEach { Celda(a, it, grupoMal, focos, alEscribir) } }
                 if (fila.derecha.isNotEmpty()) {
@@ -466,7 +520,11 @@ private fun Cuaderno(e: EstudioVm, a: EjercicioUi) {
                 }
             }
             if (fila.linea) {
-                Box(Modifier.width((fila.celdas.size * 44).dp).height(2.dp).background(MaterialTheme.colorScheme.onSurface))
+                Box(
+                    Modifier.width(
+                        (fila.celdas.size * 44).dp,
+                    ).height(2.dp).background(MaterialTheme.colorScheme.onSurface),
+                )
             }
         }
     }
@@ -474,14 +532,25 @@ private fun Cuaderno(e: EstudioVm, a: EjercicioUi) {
 }
 
 @Composable
-private fun Celda(a: EjercicioUi, celda: Celda, grupoMal: Int?, focos: List<FocusRequester>, alEscribir: (Int, String) -> Unit) {
+private fun Celda(
+    a: EjercicioUi,
+    celda: Celda,
+    grupoMal: Int?,
+    focos: List<FocusRequester>,
+    alEscribir: (Int, String) -> Unit,
+) {
     val caja = Modifier.size(44.dp).padding(2.dp)
     val estilo = TextStyle(fontSize = 22.sp, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurface)
     when {
         celda.valor != null -> Box(caja, contentAlignment = Alignment.Center) {
-            Text(celda.valor!!, style = estilo, fontWeight = if (celda.marca) FontWeight.Bold else FontWeight.Normal,
-                color = if (celda.marca) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface)
+            Text(
+                celda.valor!!,
+                style = estilo,
+                fontWeight = if (celda.marca) FontWeight.Bold else FontWeight.Normal,
+                color = if (celda.marca) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+            )
         }
+
         celda.casilla != null -> {
             val n = celda.casilla!!
             val mal = grupoMal != null && celda.grupo == grupoMal
@@ -493,9 +562,12 @@ private fun Celda(a: EjercicioUi, celda: Celda, grupoMal: Int?, focos: List<Focu
                 singleLine = true,
                 textStyle = estilo,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
-                modifier = caja.focusRequester(focos[n]).border(if (mal) 3.dp else 1.dp, borde, RoundedCornerShape(6.dp)).padding(top = 6.dp),
+                modifier = caja.focusRequester(
+                    focos[n],
+                ).border(if (mal) 3.dp else 1.dp, borde, RoundedCornerShape(6.dp)).padding(top = 6.dp),
             )
         }
+
         celda.nota -> {
             // Casilla libre para lo que se lleva: no se califica ni se guarda.
             var nota by remember { androidx.compose.runtime.mutableStateOf("") }
@@ -507,6 +579,7 @@ private fun Celda(a: EjercicioUi, celda: Celda, grupoMal: Int?, focos: List<Focu
                 modifier = caja.border(1.dp, Color.LightGray, RoundedCornerShape(6.dp)).padding(top = 10.dp),
             )
         }
+
         else -> Box(caja)
     }
 }
@@ -518,7 +591,12 @@ private fun Retroalimentacion(a: EjercicioUi) {
         val revision = a.revision
         when {
             revision != null -> TarjetaRevision(revision)
-            a.kiwiPensando -> Text(stringResource(R.string.writing_revisando), color = MaterialTheme.colorScheme.primary)
+
+            a.kiwiPensando -> Text(
+                stringResource(R.string.writing_revisando),
+                color = MaterialTheme.colorScheme.primary,
+            )
+
             else -> Text(stringResource(R.string.writing_guardado), color = MaterialTheme.colorScheme.primary)
         }
         return
@@ -526,12 +604,19 @@ private fun Retroalimentacion(a: EjercicioUi) {
     val bien = resultado.correcta
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = if (bien) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.errorContainer,
+            containerColor = if (bien) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.errorContainer
+            },
         ),
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(stringResource(if (bien) R.string.muy_bien else R.string.todavia_no), style = MaterialTheme.typography.titleMedium)
+            Text(
+                stringResource(if (bien) R.string.muy_bien else R.string.todavia_no),
+                style = MaterialTheme.typography.titleMedium,
+            )
             if (resultado.estado == EstadoRespuesta.FORMA_INCORRECTA) Text(stringResource(R.string.casi_simplificar))
             resultado.errorComun?.let { Text(it) }
             // Al acertar lo que había fallado, se explica por qué: pudo acertar por descarte.
@@ -552,8 +637,11 @@ private fun Pistas(e: EstudioVm, a: EjercicioUi) {
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(12.dp)) {
                 Text(
-                    if (pista.nivel <= a.variante.pistas.size) stringResource(R.string.pista_n, pista.nivel)
-                    else stringResource(R.string.solucion),
+                    if (pista.nivel <= a.variante.pistas.size) {
+                        stringResource(R.string.pista_n, pista.nivel)
+                    } else {
+                        stringResource(R.string.solucion)
+                    },
                     style = MaterialTheme.typography.labelLarge,
                 )
                 Formula(pista.texto, tamano = 18)
@@ -568,6 +656,7 @@ private fun Pistas(e: EstudioVm, a: EjercicioUi) {
         vistas < maximo -> TextButton(onClick = { e.pedirPista() }, enabled = !e.ocupado) {
             Text(stringResource(if (vistas == 0) R.string.pedir_pista else R.string.otra_pista))
         }
+
         vistas == maximo && solucionPosible -> TextButton(onClick = { e.pedirPista() }, enabled = !e.ocupado) {
             Text(stringResource(R.string.ver_solucion))
         }
@@ -579,8 +668,11 @@ private fun Pistas(e: EstudioVm, a: EjercicioUi) {
 fun TarjetaRevision(r: Revision) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = if (r.puntaje >= Reglas.NOTA_MINIMA_APROBAR) MaterialTheme.colorScheme.primaryContainer
-            else MaterialTheme.colorScheme.secondaryContainer,
+            containerColor = if (r.puntaje >= Reglas.NOTA_MINIMA_APROBAR) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.secondaryContainer
+            },
         ),
         modifier = Modifier.fillMaxWidth(),
     ) {
@@ -611,9 +703,16 @@ private fun Kiwi(e: EstudioVm, a: EjercicioUi) {
     for (m in a.kiwi) {
         Card(
             colors = CardDefaults.cardColors(
-                containerColor = if (m.deKiwi) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+                containerColor = if (m.deKiwi) {
+                    MaterialTheme.colorScheme.tertiaryContainer
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                },
             ),
-            modifier = Modifier.fillMaxWidth().padding(start = if (m.deKiwi) 0.dp else 48.dp, end = if (m.deKiwi) 48.dp else 0.dp),
+            modifier = Modifier.fillMaxWidth().padding(
+                start = if (m.deKiwi) 0.dp else 48.dp,
+                end = if (m.deKiwi) 48.dp else 0.dp,
+            ),
         ) {
             Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
@@ -624,7 +723,13 @@ private fun Kiwi(e: EstudioVm, a: EjercicioUi) {
                     },
                     style = MaterialTheme.typography.labelLarge,
                 )
-                if (m.bloqueado) Text(stringResource(R.string.kiwi_bloqueado)) else Formula(m.texto.orEmpty(), tamano = 18)
+                if (m.bloqueado) {
+                    Text(
+                        stringResource(R.string.kiwi_bloqueado),
+                    )
+                } else {
+                    Formula(m.texto.orEmpty(), tamano = 18)
+                }
             }
         }
     }
@@ -645,10 +750,16 @@ private fun Kiwi(e: EstudioVm, a: EjercicioUi) {
                 onValueChange = { texto = it },
                 label = { Text(stringResource(R.string.kiwi_escribele)) },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
-                keyboardActions = KeyboardActions(onSend = { e.escribirAKiwi(texto); texto = "" }),
+                keyboardActions = KeyboardActions(onSend = {
+                    e.escribirAKiwi(texto)
+                    texto = ""
+                }),
                 modifier = Modifier.weight(1f),
             )
-            Button(onClick = { e.escribirAKiwi(texto); texto = "" }, enabled = texto.isNotBlank() && !a.kiwiPensando) {
+            Button(onClick = {
+                e.escribirAKiwi(texto)
+                texto = ""
+            }, enabled = texto.isNotBlank() && !a.kiwiPensando) {
                 Text(stringResource(R.string.kiwi_enviar))
             }
         }
@@ -666,12 +777,20 @@ fun PantallaFinPractica(vm: AppViewModel, e: EstudioVm) {
             if (c.completada) {
                 Text(stringResource(R.string.tema_terminado), style = MaterialTheme.typography.headlineMedium)
                 Text(
-                    if (c.puntos > 0) stringResource(R.string.ganaste_puntos, c.puntos) else stringResource(R.string.ya_tenias_puntos),
+                    if (c.puntos >
+                        0
+                    ) {
+                        stringResource(R.string.ganaste_puntos, c.puntos)
+                    } else {
+                        stringResource(R.string.ya_tenias_puntos)
+                    },
                     style = MaterialTheme.typography.titleMedium,
                 )
             } else {
                 Text(stringResource(R.string.tema_perdido), style = MaterialTheme.typography.titleMedium)
-                Button(onClick = { e.reiniciarTema(fin.cursoId, fin.leccionId!!) }, enabled = !e.ocupado, modifier = Modifier.fillMaxWidth()) {
+                Button(onClick = {
+                    e.reiniciarTema(fin.cursoId, fin.leccionId!!)
+                }, enabled = !e.ocupado, modifier = Modifier.fillMaxWidth()) {
                     Text(stringResource(R.string.volver_a_empezar))
                 }
             }
@@ -695,14 +814,29 @@ fun PantallaResultado(vm: AppViewModel, e: EstudioVm) {
     val r = e.resultado ?: return
     val sesion = r.cierre.sesion
     Marco(
-        stringResource(if (sesion.tipo == TipoSesion.EXAMEN_FINAL) R.string.examen_final else R.string.prueba_de_seccion),
+        stringResource(
+            if (sesion.tipo ==
+                TipoSesion.EXAMEN_FINAL
+            ) {
+                R.string.examen_final
+            } else {
+                R.string.prueba_de_seccion
+            },
+        ),
         alVolver = { vm.atras() },
     ) {
         when {
-            r.cierre.pendiente -> Text(stringResource(R.string.nota_pendiente), style = MaterialTheme.typography.titleMedium)
+            r.cierre.pendiente -> Text(
+                stringResource(R.string.nota_pendiente),
+                style = MaterialTheme.typography.titleMedium,
+            )
+
             else -> {
                 Text(
-                    stringResource(R.string.tu_nota, "%.2f".format(r.cierre.nota ?: 0.0).trimEnd('0').trimEnd(',', '.')),
+                    stringResource(
+                        R.string.tu_nota,
+                        "%.2f".format(r.cierre.nota ?: 0.0).trimEnd('0').trimEnd(',', '.'),
+                    ),
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 Text(
@@ -714,9 +848,14 @@ fun PantallaResultado(vm: AppViewModel, e: EstudioVm) {
         if (r.repasar.isNotEmpty()) {
             Text(stringResource(R.string.repasa_estos))
             val curso = e.estudios.curso(sesion.cursoId)
-            val titulos = curso.materias.flatMap { m -> m.secciones.flatMap { it.lecciones } }.associate { it.concepto to it.titulo }
+            val titulos = curso.materias.flatMap { m -> m.secciones.flatMap { it.lecciones } }.associate {
+                it.concepto to
+                    it.titulo
+            }
             r.repasar.forEach { Text("• ${titulos[it] ?: it}") }
-            Button(onClick = { e.empezarRepaso(sesion.cursoId, sesion.materiaId, sesion.seccionId) }, enabled = !e.ocupado) {
+            Button(onClick = {
+                e.empezarRepaso(sesion.cursoId, sesion.materiaId, sesion.seccionId)
+            }, enabled = !e.ocupado) {
                 Text(stringResource(R.string.hacer_repaso))
             }
         }
@@ -733,7 +872,10 @@ fun PantallaResultado(vm: AppViewModel, e: EstudioVm) {
                         }
                     }
                     Formula(p.variante.enunciado, tamano = 18)
-                    Text(p.intento.respuesta?.let { stringResource(R.string.respondiste, it) } ?: stringResource(R.string.sin_responder))
+                    Text(
+                        p.intento.respuesta?.let { stringResource(R.string.respondiste, it) }
+                            ?: stringResource(R.string.sin_responder),
+                    )
                     p.intento.revision?.let { TarjetaRevision(Revision.desdeJson(it)) }
                     p.intento.errorComun?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     if (p.intento.correcta != true) {
@@ -743,7 +885,9 @@ fun PantallaResultado(vm: AppViewModel, e: EstudioVm) {
                 }
             }
         }
-        OutlinedButton(onClick = { e.abrirMateria(sesion.cursoId, sesion.materiaId) }, modifier = Modifier.fillMaxWidth()) {
+        OutlinedButton(onClick = {
+            e.abrirMateria(sesion.cursoId, sesion.materiaId)
+        }, modifier = Modifier.fillMaxWidth()) {
             Text(stringResource(R.string.volver_al_camino))
         }
     }

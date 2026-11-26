@@ -34,13 +34,23 @@ class EscrituraTest {
     @Test
     fun redondeaAUnDecimal() {
         val tres = listOf(CriterioRubrica("A", "", 3.0))
-        assertEquals(3.3, Escritura.revision(tres, """{"criterios": [{"criterio": "A", "puntos": 1, "comentario": ""}], "comentario": ""}""").puntaje, 0.0)
+        assertEquals(
+            3.3,
+            Escritura.revision(
+                tres,
+                """{"criterios": [{"criterio": "A", "puntos": 1, "comentario": ""}], "comentario": ""}""",
+            ).puntaje,
+            0.0,
+        )
     }
 
     @Test
     fun sinUnCriterioOConPuntosQueNoSonNumeroNoHayNota() {
         assertThrows(CalificacionInvalida::class.java) {
-            Escritura.revision(rubrica, """{"criterios": [{"criterio": "Ideas", "puntos": 4, "comentario": ""}], "comentario": ""}""")
+            Escritura.revision(
+                rubrica,
+                """{"criterios": [{"criterio": "Ideas", "puntos": 4, "comentario": ""}], "comentario": ""}""",
+            )
         }
         assertThrows(CalificacionInvalida::class.java) {
             Escritura.revision(
@@ -54,7 +64,8 @@ class EscrituraTest {
     @Test
     fun laRubricaEnTextoComoEnLaWeb() {
         assertEquals(
-            "- Ideas (máximo 4 puntos): Responde la consigna.\n- Gramática (máximo 3 puntos): Usa bien el presente simple.\n" +
+            "- Ideas (máximo 4 puntos): Responde la consigna.\n" +
+                "- Gramática (máximo 3 puntos): Usa bien el presente simple.\n" +
                 "- Vocabulario (máximo 3 puntos): Usa palabras del tema.",
             Escritura.rubricaEnTexto(rubrica),
         )

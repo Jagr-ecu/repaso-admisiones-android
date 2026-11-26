@@ -10,8 +10,8 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.flow.first
 import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.flow.first
 
 /**
  * Sube la cola cuando hay red, aunque la app esté cerrada, y reintenta si falla. Solo sube lo del
