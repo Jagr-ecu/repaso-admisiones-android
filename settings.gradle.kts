@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "repaso-admisiones-android"
-include(":app", ":dominio", ":datos", ":tutor", ":sincro")
+include(":app", ":dominio", ":datos", ":tutor", ":sincro", ":arquitectura")
