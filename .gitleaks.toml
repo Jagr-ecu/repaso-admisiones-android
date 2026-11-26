@@ -1,0 +1,60 @@
+# Gitleaks (ADR-0020): las reglas por defecto más los secretos propios de este proyecto (CLAUDE.md, "Secretos").
+# Se usa en el hook pre-commit (.husky/pre-commit) y en .github/workflows/security.yml.
+# Probar a mano:  gitleaks git --redact -v .        (historial)
+#                 gitleaks dir --redact -v <ruta>    (archivos sueltos)
+
+title = "Prepárate: secretos"
+
+[extend]
+useDefault = true
+
+# --- Archivos que nunca van a git, tengan lo que tengan --------------------------------------------
+
+[[rules]]
+id = "preparate-google-services"
+description = "Configuración de Firebase (google-services.json): fuera de git"
+path = '''(^|/)google-services\.json$'''
+
+[[rules]]
+id = "preparate-keystore-properties"
+description = "Claves de la firma del APK (keystore.properties): fuera de git"
+path = '''(^|/)keystore\.properties$'''
+
+[[rules]]
+id = "preparate-clave-de-firma"
+description = "Clave de firma del APK (*.jks, *.keystore): fuera de git"
+path = '''\.(jks|keystore)$'''
+
+[[rules]]
+id = "preparate-credencial-sdk"
+description = "Credencial del SDK de administración en herramientas/: solo en el PC"
+path = '''(^|/)herramientas/credencial[^/]*\.json$'''
+
+[[rules]]
+id = "preparate-cuentas-de-pruebas"
+description = "Claves de las cuentas de pruebas: solo en el PC"
+path = '''(^|/)cuentas-pruebas\.local$'''
+
+# --- Contenido, esté en el archivo que esté ----------------------------------------------------------
+
+[[rules]]
+id = "preparate-cuenta-de-servicio"
+description = "JSON de una cuenta de servicio de Google (SDK de administración)"
+regex = '''"type"\s*:\s*"service_account"'''
+keywords = ["service_account"]
+
+[[rules]]
+id = "preparate-clave-keystore"
+description = "Contraseña de la firma del APK en formato de propiedades (storePassword=valor)"
+# Solo una línea completa de propiedades, sin paréntesis: así el código que la lee
+# (storePassword = firma.getProperty(...)) y el ejemplo con puntos de app/build.gradle.kts no cuentan.
+regex = '''(?im)^\s*(storePassword|keyPassword)\s*[=:]\s*([^\s()."'][^\s()"']{3,})\s*$'''
+secretGroup = 2
+keywords = ["storepassword", "keypassword"]
+
+[[rules]]
+id = "preparate-clave-keystore-en-codigo"
+description = "Contraseña de la firma del APK escrita como texto en el código (storePassword = \"valor\")"
+regex = '''(?i)\b(storePassword|keyPassword)\s*=\s*"([^"$]{4,})"'''
+secretGroup = 2
+keywords = ["storepassword", "keypassword"]
