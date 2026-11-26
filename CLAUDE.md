@@ -30,7 +30,7 @@ app/       pantallas Compose y navegación
 - Tests de Kiwi (puerta de ayuda por tipo de sesión, guardia, Writing): `./gradlew :tutor:test`
 - APK de depuración: `./gradlew :app:assembleDebug`, que deja el archivo en `app/build/outputs/apk/debug/app-debug.apk`
 - Todos los tests: `./gradlew test`
-- Antes de cada PR: `./gradlew check` (formato con Spotless/ktlint, detekt, lint y tests). `./gradlew spotlessApply` corrige el formato; `./gradlew detektBaseline` regenera el baseline, solo si se acepta deuda a propósito
+- Antes de cada PR: `./gradlew check` (formato con Spotless/ktlint, detekt, lint, tests y cobertura mínima de 70 % en `:dominio` y `:tutor` con Kover; informe con `./gradlew koverHtmlReport`). `./gradlew spotlessApply` corrige el formato; `./gradlew detektBaseline` regenera el baseline, solo si se acepta deuda a propósito
 - APK firmado: `./gradlew :app:assembleRelease`. Necesita `keystore.properties` en la raíz (ver `app/build.gradle.kts`); sin él, sale sin firmar
 - Traspasar el progreso de la web a una cuenta: `python herramientas/traspasar.py --usuario <usuario>` (solo muestra) y luego con `--subir`
 - Tests en el dispositivo (Room, sincronización y migraciones), con el emulador abierto: `./gradlew :datos:connectedDebugAndroidTest`
