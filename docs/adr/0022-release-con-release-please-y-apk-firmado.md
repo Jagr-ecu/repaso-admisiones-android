@@ -46,7 +46,8 @@ Eso tiene tres riesgos:
   * Solo se despliega desde `main` y necesita la aprobación del responsable.
   * Sus secretos son `FIRMA_KEYSTORE_BASE64`, `FIRMA_STORE_PASSWORD`, `FIRMA_KEY_ALIAS`, `FIRMA_KEY_PASSWORD` y
     `GOOGLE_SERVICES_JSON_BASE64`. Se suben con `scripts/gestion/secretos-release.sh`, que nunca los muestra.
-  * La variable `FIRMA_SHA256` guarda la huella del certificado: el job rechaza un APK firmado con otra clave.
+  * `FIRMA_SHA256` (variable o secreto del Environment, es pública) guarda la huella del certificado. Es
+    obligatoria: el job falla si falta o si el APK está firmado con otra clave.
   * Gradle va sin caché en ese job, para que nada de otra ejecución entre en el APK.
   * Al terminar, el job adjunta al Release `preparate-vX.Y.Z.apk`, su `.sha256` y el SBOM, y borra la clave del
     runner.

@@ -98,18 +98,21 @@ jobs:
 
       - name: Comprobar la firma
         env:
-          # Huella SHA-256 del certificado de firma (variable del Environment, no es secreta). Si está, la firma
-          # tiene que coincidir: así no se publica nunca un APK firmado con otra clave.
-          FIRMA_SHA256: ${{ vars.FIRMA_SHA256 }}
+          # Huella SHA-256 del certificado de firma (no es secreta: puede estar como variable o como secreto del
+          # Environment). La firma tiene que coincidir: así no se publica nunca un APK firmado con otra clave.
+          FIRMA_SHA256: ${{ vars.FIRMA_SHA256 || secrets.FIRMA_SHA256 }}
         run: |
           apk=app/build/outputs/apk/release/app-release.apk
           test -f "$apk" || { echo "::error::No hay APK firmado (¿falta keystore.properties?)."; exit 1; }
           apksigner=$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner
           "$apksigner" verify --print-certs "$apk" | tee firma.txt
-          if [ -n "$FIRMA_SHA256" ]; then
-            esperada=$(echo "$FIRMA_SHA256" | tr -d ':' | tr 'A-F' 'a-f')
-            grep -q "SHA-256 digest: $esperada" firma.txt || { echo "::error::El certificado no coincide con FIRMA_SHA256."; exit 1; }
+          if [ -z "$FIRMA_SHA256" ]; then
+            echo "::error::Falta FIRMA_SHA256 en el Environment produccion: sin ella no se puede comprobar la firma (ADR-0022)."
+            exit 1
           fi
+          esperada=$(printf '%s' "$FIRMA_SHA256" | tr -d ': \r\n' | tr 'A-F' 'a-f')
+          grep -q "SHA-256 digest: $esperada" firma.txt || { echo "::error::El certificado no coincide con FIRMA_SHA256."; exit 1; }
+          echo "La firma coincide con FIRMA_SHA256."
 
       - name: Adjuntar al Release
         env:
