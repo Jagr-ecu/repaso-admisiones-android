@@ -28,3 +28,4 @@ nuevo y el anterior pasa a "reemplazado por".
 | [0019](0019-registros-sin-datos-personales.md) | Registros sin datos personales, comprobado con Konsist | Aceptado | 2026-11-25 |
 | [0020](0020-escaneo-de-seguridad-en-ci.md) | Escaneo de seguridad en CI: Gitleaks, CodeQL, revisión de dependencias y SBOM | Aceptado | 2026-11-25 |
 | [0021](0021-claves-y-sesion-de-admin.md) | Claves de 8 caracteres y sesión de admin que se cierra al salir de la app | Aceptado | 2026-11-26 |
+| [0022](0022-release-con-release-please-y-apk-firmado.md) | Release con release-please y APK firmado en un Environment con aprobación | Aceptado | 2026-11-26 |
