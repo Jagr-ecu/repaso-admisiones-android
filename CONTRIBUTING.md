@@ -100,7 +100,8 @@ Un cambio está terminado cuando:
 - [ ] Está vinculado a un issue y sus criterios de aceptación se cumplen.
 - [ ] Todo cambio de comportamiento tiene tests. La lógica pura está en `:dominio`, con tests en la JVM.
 - [ ] Lo portado de Python coincide con los casos de referencia.
-- [ ] Si cambia el esquema de Room, hay una migración con su test.
+- [ ] Si cambia el esquema de Room, hay una migración con su test. Con la etiqueta `emulador` en el PR, los tests
+  de `androidTest` corren en CI en API 29 y 36 (`emulador.yml`; en `main` corren siempre).
 - [ ] Si cambia `firestore.rules`, pasan las pruebas de `pruebas-reglas/`.
 - [ ] Los checks del PR están en verde (`build-y-tests` de `ci.yml` corre `./gradlew check` y arma el APK de
   depuración) y no hay vulnerabilidades altas o críticas.
