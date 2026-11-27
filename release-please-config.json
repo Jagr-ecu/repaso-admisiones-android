@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "pull-request-title-pattern": "chore(release): versión ${version}",
+  "pull-request-header": "Release preparado por release-please. Al mezclarlo se crea la etiqueta y el Release, y el APK firmado espera tu aprobación en el Environment `produccion` (ADR-0022).",
+  "include-component-in-tag": false,
+  "include-v-in-tag": true,
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "package-name": "preparate",
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": true,
+      "release-as": "0.9.0",
+      "changelog-sections": [
+        { "type": "feat", "section": "Novedades" },
+        { "type": "fix", "section": "Correcciones" },
+        { "type": "content", "section": "Contenido" },
+        { "type": "perf", "section": "Rendimiento" },
+        { "type": "revert", "section": "Reversiones" },
+        { "type": "docs", "section": "Documentación", "hidden": true },
+        { "type": "refactor", "section": "Refactorización", "hidden": true },
+        { "type": "test", "section": "Tests", "hidden": true },
+        { "type": "build", "section": "Compilación", "hidden": true },
+        { "type": "ci", "section": "CI", "hidden": true },
+        { "type": "chore", "section": "Mantenimiento", "hidden": true }
+      ]
+    }
+  }
+}

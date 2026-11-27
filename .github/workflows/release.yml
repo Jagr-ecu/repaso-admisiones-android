@@ -1,0 +1,127 @@
+# Release (#48, ADR-0022).
+# 1. En cada push a main, release-please abre o actualiza el PR "chore(release): versión X.Y.Z" con el
+#    CHANGELOG.md y version.txt al día.
+# 2. Al mezclar ese PR, crea la etiqueta vX.Y.Z y el Release de GitHub.
+# 3. El job "apk" espera la aprobación en el Environment "produccion" (solo desde main). Con la clave de firma de
+#    ese Environment compila el APK firmado, comprueba la firma y adjunta al Release el APK, su SHA-256 y el SBOM.
+# Los secretos de firma solo existen en "produccion": los PR y los demás workflows no los ven.
+# Las acciones van fijadas por SHA, con su versión en el comentario.
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    name: release-please
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write # etiqueta, Release y rama del PR
+      pull-requests: write
+    outputs:
+      creado: ${{ steps.rp.outputs.release_created }}
+      etiqueta: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - id: rp
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          # Con un token personal el PR de release dispara los checks requeridos del ruleset; un PR abierto con
+          # GITHUB_TOKEN no dispara workflows y se quedaría esperando. Sin el secreto, se usa GITHUB_TOKEN.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  apk:
+    name: APK firmado
+    needs: release-please
+    if: needs.release-please.outputs.creado == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: produccion
+      url: ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ needs.release-please.outputs.etiqueta }}
+    permissions:
+      contents: write # adjuntar archivos al Release
+    env:
+      ETIQUETA: ${{ needs.release-please.outputs.etiqueta }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.release-please.outputs.etiqueta }}
+          persist-credentials: false
+
+      - uses: actions/setup-java@d1374f8ac74474200d16ef8ecee22c7ae7a51880 # v6.3.0
+        with:
+          distribution: temurin
+          java-version: |
+            17
+            21
+
+      - name: Configurar Gradle (sin caché, para que nada de otra ejecución entre en el APK)
+        uses: gradle/actions/setup-gradle@8da46b539cd8fe6ab27ca75128919a18d757604c # v6.4.1
+        with:
+          cache-disabled: true
+
+      - name: Preparar Firebase y la clave de firma
+        env:
+          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
+          FIRMA_KEYSTORE_BASE64: ${{ secrets.FIRMA_KEYSTORE_BASE64 }}
+          FIRMA_STORE_PASSWORD: ${{ secrets.FIRMA_STORE_PASSWORD }}
+          FIRMA_KEY_ALIAS: ${{ secrets.FIRMA_KEY_ALIAS }}
+          FIRMA_KEY_PASSWORD: ${{ secrets.FIRMA_KEY_PASSWORD }}
+        run: |
+          for v in GOOGLE_SERVICES_JSON_BASE64 FIRMA_KEYSTORE_BASE64 FIRMA_STORE_PASSWORD FIRMA_KEY_ALIAS FIRMA_KEY_PASSWORD; do
+            if [ -z "${!v}" ]; then echo "::error::Falta el secreto $v en el Environment produccion (ver ADR-0022)."; exit 1; fi
+          done
+          umask 077
+          printf '%s' "$GOOGLE_SERVICES_JSON_BASE64" | base64 -d > app/google-services.json
+          printf '%s' "$FIRMA_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/preparate.jks"
+          # Formato clave=valor de keystore.properties (ver app/build.gradle.kts); los valores salen de los secretos.
+          printf '%s=%s\n' \
+            storeFile "$RUNNER_TEMP/preparate.jks" \
+            storePassword "$FIRMA_STORE_PASSWORD" \
+            keyAlias "$FIRMA_KEY_ALIAS" \
+            keyPassword "$FIRMA_KEY_PASSWORD" > keystore.properties
+
+      - name: Compilar el APK firmado y el SBOM
+        run: ./gradlew --no-daemon :app:assembleRelease :app:cyclonedxDirectBom
+
+      - name: Comprobar la firma
+        env:
+          # Huella SHA-256 del certificado de firma (variable del Environment, no es secreta). Si está, la firma
+          # tiene que coincidir: así no se publica nunca un APK firmado con otra clave.
+          FIRMA_SHA256: ${{ vars.FIRMA_SHA256 }}
+        run: |
+          apk=app/build/outputs/apk/release/app-release.apk
+          test -f "$apk" || { echo "::error::No hay APK firmado (¿falta keystore.properties?)."; exit 1; }
+          apksigner=$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)apksigner
+          "$apksigner" verify --print-certs "$apk" | tee firma.txt
+          if [ -n "$FIRMA_SHA256" ]; then
+            esperada=$(echo "$FIRMA_SHA256" | tr -d ':' | tr 'A-F' 'a-f')
+            grep -q "SHA-256 digest: $esperada" firma.txt || { echo "::error::El certificado no coincide con FIRMA_SHA256."; exit 1; }
+          fi
+
+      - name: Adjuntar al Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p publicar
+          cp app/build/outputs/apk/release/app-release.apk "publicar/preparate-$ETIQUETA.apk"
+          cp app/build/reports/sbom/sbom.cdx.json "publicar/preparate-$ETIQUETA.sbom.cdx.json"
+          (cd publicar && sha256sum "preparate-$ETIQUETA.apk" > "preparate-$ETIQUETA.apk.sha256")
+          cat "publicar/preparate-$ETIQUETA.apk.sha256"
+          gh release upload "$ETIQUETA" publicar/* --clobber --repo "$GITHUB_REPOSITORY"
+
+      - name: Borrar la clave del runner
+        if: always()
+        run: rm -f "$RUNNER_TEMP/preparate.jks" keystore.properties app/google-services.json

@@ -80,14 +80,18 @@ BREAKING CHANGE: los documentos de la versión 1 ya no se leen.
 
 ## Versionado
 
-[Versionado semántico](https://semver.org/lang/es/) en `versionName` (`app/build.gradle.kts`):
+[Versionado semántico](https://semver.org/lang/es/) en `version.txt`, que lee `app/build.gradle.kts`:
 
-- **MAJOR**: cambio incompatible del progreso guardado o del formato en Firestore que obliga a migrar.
-- **MINOR**: función nueva compatible.
-- **PATCH**: correcciones y contenido revisado.
+- **MAJOR**: cambio incompatible del progreso guardado o del formato en Firestore que obliga a migrar
+  (commit con `!` o pie `BREAKING CHANGE:`).
+- **MINOR**: función nueva compatible (`feat`).
+- **PATCH**: correcciones (`fix`, `perf`). El contenido revisado (`content`) sale en el CHANGELOG y entra en el
+  siguiente release.
 
-`versionCode` sube en **cada** APK que se instala encima de otro. Cada versión publicada lleva una etiqueta
-`vMAJOR.MINOR.PATCH`. La automatización del versionado y del changelog llega con la fase 5 (CI/CD).
+No se edita a mano: release-please mantiene `version.txt`, `CHANGELOG.md` y el PR `chore(release): versión X.Y.Z`.
+`versionCode` sale de la versión (`1.2.3` → `10203`), así que crece en cada APK publicado. Al mezclar el PR de
+release se crea la etiqueta `vX.Y.Z` y, tras tu aprobación en el Environment `produccion`, el Release recibe el
+APK firmado, su SHA-256 y el SBOM ([ADR-0022](docs/adr/0022-release-con-release-please-y-apk-firmado.md)).
 
 ## Definition of Done
 

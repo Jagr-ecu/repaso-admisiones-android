@@ -20,6 +20,16 @@ val firma = rootProject.file("keystore.properties").takeIf { it.isFile }?.let { 
     Properties().apply { archivo.inputStream().use(::load) }
 }
 
+/*
+ * Versión (ADR-0022): release-please la sube en version.txt a partir de los commits. El versionCode sale de ella
+ * (1.2.3 -> 10203), así que siempre crece con cada versión publicada.
+ */
+val versionApp = rootProject.file("version.txt").readText().trim()
+val codigoVersion = versionApp.split(".").map(String::toInt).let { (mayor, menor, parche) ->
+    require(menor < 100 && parche < 100) { "version.txt: menor y parche deben ser menores que 100 ($versionApp)" }
+    mayor * 10_000 + menor * 100 + parche
+}
+
 android {
     namespace = "com.preparate.app"
     compileSdk = 36
@@ -27,9 +37,9 @@ android {
         applicationId = "com.preparate.app"
         minSdk = 29
         targetSdk = 36
-        // Cada APK que se instala encima de otro necesita un versionCode mayor.
-        versionCode = 1
-        versionName = "0.1.0"
+        // Cada APK que se instala encima de otro necesita un versionCode mayor (sale de version.txt).
+        versionCode = codigoVersion
+        versionName = versionApp
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
