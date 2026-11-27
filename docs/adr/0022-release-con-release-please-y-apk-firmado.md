@@ -37,9 +37,9 @@ Eso tiene tres riesgos:
   `chore(release): versión X.Y.Z`. Al mezclarlo crea la etiqueta `vX.Y.Z` y el Release.
   * `app/build.gradle.kts` lee `version.txt`: `versionName` es la versión y `versionCode` sale de ella
     (`1.2.3` → `10203`). Así siempre crece, y menor y parche deben ser menores que 100.
-  * La primera versión es **0.9.0** (`release-as` en `release-please-config.json`). **Después del primer
-    release hay que quitar `release-as`**, o todas las versiones seguirían siendo 0.9.0. La 1.0.0 sale al cerrar
-    el MVP v1.0 (con un commit con el pie `Release-As: 1.0.0`).
+  * La primera versión fue **0.9.0** (2026-11-27), forzada con `release-as` en `release-please-config.json` y
+    quitada justo después; si se deja, todas las versiones siguientes serían 0.9.0. La 1.0.0 sale al cerrar
+    el MVP v1.0, con un commit con el pie `Release-As: 1.0.0`.
   * Antes de la 1.0.0, `feat` sube el número menor y `fix` el parche. Solo `feat`, `fix` y `perf` abren
     un release. `content` sale en el CHANGELOG, pero por sí solo no abre un release.
 * **Firma en CI** con el job `apk` de `release.yml`, que usa el Environment **`produccion`**:
